@@ -35,6 +35,10 @@ Conductivity depends on temperature. It is usually temperature corrected to 20 o
 ## Hardware
 
 - Probe design and many links: [Public lab](https://publiclab.org/wiki/conductivity_sensing?raw=true)
+- [Atlas Scientific EZO](https://atlas-scientific.com/embedded-solutions/ezo-conductivity-circuit/): professional but pricy.
+- [CN0349 fully isolated conductivity measurement data acquisition system](https://www.analog.com/en/design-center/reference-designs/circuits-from-the-lab/cn0349.htm) with code [CN0349_ConductivitySensor](https://github.com/joshagirgis/CN0349-Arduino-Based-Library)
+- [Gravity: Analog Electrical Conductivity Sensor](https://www.dfrobot.com/product-1123.html): analog voltage as output
+- [Sparky's widgets](https://www.sparkyswidgets.com/product/miniec-ec-interface/) open source: [github](https://github.com/SparkysWidgets/MinieCHW)
 - [seeed Grove - TDS-Sensor](https://www.berrybase.de/sensoren-module/feuchtigkeit/seeed-grove-tds-sensor-f-252-r-wasserqualit-228-t-40-gesamt-gel-246-ste-feststoffe-41?sPartner=g_shopping&gclid=Cj0KCQjw0umSBhDrARIsAH7FCofDsb8Z6-ynEMNAZwE0Gre-t0X1yo29wt90GJA0Gb-0whBz4ktg6K8aArFzEALw_wcB#): TDS encode in analog voltage, nice electrode pair.
 - [How To Interface TDS Water Conductivity Sensor Module with Arduino](https://tutorials.probots.co.in/using-analog-tds-water-conductivity-sensor-water-proof-module-for-arduino/): applies AC and conversts resistance into DC voltage.
 
