@@ -8,7 +8,7 @@ Qunatified via electrical conductivity (EC) between two electrodes.
 
 ![cell constants](https://andyjconnelly.files.wordpress.com/2017/07/electrical-conductivity-of-common-solutions3.png?w=1140&h=921)
 
-Use AC current to measure resistance between electrodes with amplitude below 1.1V to avoid electrolysis. Lower frequency for low conductivities.
+Use AC current to measure resistance between electrodes with amplitude below 1.1V to avoid electrolysis. Lower frequency for low conductivities (300Hz up to less than 100kHz?).
 
 
 ## Temperature correction
