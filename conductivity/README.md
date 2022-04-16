@@ -1,6 +1,6 @@
 # Water conductivity
 
-Basically measured by an electronic charge (EC) meter. 
+Qunatified via electrical conductivity (EC) between two electrodes. 
 
 - *R*: Resistance measured between two electrodes in the water.
 - *K=d/a*: cell constant (1/cm) as distance between electrodes (cm) divided by effective area of the electrodes (cm squared). Should be less than 1/cm for low conductivity measurements.
