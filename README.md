@@ -2,6 +2,7 @@
 Hard- ans software of environmental sensors for Teensy
 
 - [water conductivity](conductivity/)
+- [turbitity](turbitity/)
 - [water velocity](velocity/)
 
 
