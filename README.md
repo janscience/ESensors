@@ -1,9 +1,11 @@
 # TeeSense
-Hard- ans software of environmental sensors for Teensy
+
+Hard- and software of environmental sensors (air and water) for Teensy.
 
 - [water conductivity](conductivity/)
 - [turbitity](turbitity/)
 - [water velocity](velocity/)
+- [rain](rain/)
 
 
 ## General resources
