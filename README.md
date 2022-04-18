@@ -5,6 +5,7 @@ Hard- and software of environmental sensors (air and water) for Teensy.
 - [water conductivity](conductivity/)
 - [turbitity](turbitity/)
 - [water velocity](velocity/)
+- [water level](waterlevel/)
 - [rain](rain/)
 
 
