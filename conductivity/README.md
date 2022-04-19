@@ -3,8 +3,8 @@
 Qunatified via electrical conductivity (EC) between two electrodes. 
 
 - *R*: Resistance measured between two electrodes in the water.
-- *K=d/a*: cell constant (1/cm) as distance between electrodes (cm) divided by effective area of the electrodes (cm squared). Should be less than 1/cm for low conductivity measurements.
-- *g=K/R*: conductivity, usually in mS/cm.
+- *C=d/a*: cell constant (1/cm) as distance between electrodes (cm) divided by effective area of the electrodes (cm<sup>2</sup>). Should be less than 1 cm<sup>-1</sup> for low conductivity measurements.
+- *&kappa;=C/R*: conductivity, usually in mS/cm.
 
 ![cell constants](https://andyjconnelly.files.wordpress.com/2017/07/electrical-conductivity-of-common-solutions3.png?w=1140&h=921)
 
@@ -15,8 +15,9 @@ Use AC current to measure resistance between electrodes with amplitude below 1.1
 
 Conductivity depends on temperature. It is usually temperature corrected to 20 or 25 degrees celsisus.
 
-- Linear temperature correction for moderate and high conductivities: *gref = g /(1+c(T-Tref))*,
-  c is about 2 to 5 %/Kelvin for drinking water or pure water, respectively.
+- Linear temperature correction for moderate and high conductivities:
+  ![tempcorrection](https://latex.codecogs.com/svg.image?\large&space;\kappa_{ref}&space;=&space;\frac{\kappa}{1&plus;\alpha(T-T_{ref})})
+  &alpha; is about 2 to 5 %/K for drinking water or pure water, respectively.
 - Non-linear correction by polynomial of 4th order acording to "Natural Water temperature correction  (ISO/DIN  7888)".
 
 
@@ -24,6 +25,7 @@ Conductivity depends on temperature. It is usually temperature corrected to 20 o
 
 - [Cave pearl project](https://thecavepearlproject.org/2017/08/12/measuring-electrical-conductivity-with-an-arduino-part1-overview/): nice overview to many intersting resources on EC measurements
 - [Conductivity-  Theory and Practice](https://pdf4pro.com/fullscreen/conductivity-theory-and-practice-analytical-chemistry-uoc-gr-5b91b7.html): all the equations and a calibration table for KCl solutions at the end.
+- [FAQ conductivity](https://www.snowpure.com/docs/FAQ_Conductivity_Thornton.pdf): the equations and calibration explained.
 - [Conductivity, salinity, and TDS](https://www.fondriest.com/environmental-measurements/parameters/water-quality/conductivity-salinity-tds/)
 - [TDS (Total disolved solids)](https://en.wikipedia.org/wiki/Total_dissolved_solids)
 - Conversion from EC to ppm by different companies: [stackexchange](https://arduino.stackexchange.com/questions/49895/how-to-measure-electrical-conductivity-using-arduino)
@@ -32,9 +34,14 @@ Conductivity depends on temperature. It is usually temperature corrected to 20 o
 - Long list of more background: [Public lab](https://publiclab.org/wiki/conductivity_sensing?raw=true)
 
 
+## Probe design
+
+- [Public lab: conductivity and temperature meter](https://publiclab.org/notes/bhickman/05-09-2016/conductivity-and-temperature-meter): graphit electrodes!
+- Probe design and many links: [Public lab](https://publiclab.org/wiki/conductivity_sensing?raw=true)
+
+
 ## Hardware
 
-- Probe design and many links: [Public lab](https://publiclab.org/wiki/conductivity_sensing?raw=true)
 - [Atlas Scientific EZO](https://atlas-scientific.com/embedded-solutions/ezo-conductivity-circuit/): professional but pricy.
 - [CN0349 fully isolated conductivity measurement data acquisition system](https://www.analog.com/en/design-center/reference-designs/circuits-from-the-lab/cn0349.htm) with code [CN0349_ConductivitySensor](https://github.com/joshagirgis/CN0349-Arduino-Based-Library)
 - [Gravity: Analog Electrical Conductivity Sensor](https://www.dfrobot.com/product-1123.html): analog voltage as output
