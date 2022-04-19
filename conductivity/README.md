@@ -13,11 +13,14 @@ Use AC current to measure resistance between electrodes with amplitude below 1.1
 
 ## Temperature correction
 
-Conductivity depends on temperature. It is usually temperature corrected to 20 or 25 degrees celsisus.
+Conductivity depends on temperature. It is usually temperature corrected to 20&#8451; or 25&#8451;.
 
 - Linear temperature correction for moderate and high conductivities:
+
   ![tempcorrection](https://latex.codecogs.com/svg.image?\large&space;\kappa_{ref}&space;=&space;\frac{\kappa}{1&plus;\alpha(T-T_{ref})})
+  
   &alpha; is about 2 to 5 %/K for drinking water or pure water, respectively.
+
 - Non-linear correction by polynomial of 4th order acording to "Natural Water temperature correction  (ISO/DIN  7888)".
 
 
