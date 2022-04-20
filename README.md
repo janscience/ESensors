@@ -7,6 +7,7 @@ Hard- and software of environmental sensors (air and water) for Teensy.
 - [water velocity](velocity/)
 - [water level](waterlevel/)
 - [rain](rain/)
+- [light](light/)
 
 
 ## General resources
