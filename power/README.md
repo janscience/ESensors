@@ -22,8 +22,11 @@ the Teensy very easy.
   the LiPo gets charged while the Teensy is running. If unplugged the
   Teensy is run from the LiPo.
 
-  Connect it to the Teensy as described in [liveelectronics](http://liveelectronics.musinou.net/BackpackWithTeensy.php)
-  with details on the cutting on the [PJRC Forum](https://forum.pjrc.com/threads/19228-confused-again-Cutting-VIN-from-VUSB-Teensy-3-0?p=44024#post44024).
+  Separate VIN from VUSB on the Teensy and then connect the backpack
+  to the Teensy as described in
+  [liveelectronics](http://liveelectronics.musinou.net/BackpackWithTeensy.php)
+  with details on the cutting on the [PJRC
+  Forum](https://forum.pjrc.com/threads/19228-confused-again-Cutting-VIN-from-VUSB-Teensy-3-0?p=44024#post44024).
 
   - Teensy VUSB to 5V on backpack
   - Teensy Vin to BAT on backpack
