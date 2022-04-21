@@ -33,8 +33,11 @@ Criteria for selecting the right library:
 - is the library alive? (on the other hand, these libraries are usualy
   so simple that they do not really need to be mainted).
 
-For our purpuses we do not need support for thresholds, alarms,
-interrupts, etc. We are only interested in the sensor values.
+For our purpuses:
+- we are only interested in the sensor values.
+- we only require SI units.
+- we do not need support for thresholds, alarms, interrupts, etc.
+- derived measures do not even be calculated by the microcontroller.
 
 
 ## General resources

@@ -8,6 +8,11 @@ Senses
 - humidity
 - air pressure
 
+Resources:
+- [Bosch Sensortec Website](https://www.bosch-sensortec.com/products/environmental-sensors/humidity-sensors-bme280/)
+- [Datasheet](https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bme280-ds002.pdf)
+- [Driver](https://github.com/BoschSensortec/BME280_driver)
+
 
 ### Hardware
 
@@ -28,18 +33,18 @@ Senses
 
 A search via the library manager of the Arduino IDE results in (April 2022):
 
-- [Adafruit BME280 Library](https://github.com/adafruit/Adafruit_BME280_Library)
-- [BlueDot BME280 Library](https://github.com/BlueDot-Arduino/BlueDot_BME280)
-- [BME280 by Tyler Glenn](https://github.com/finitespace/BME280)
-- [Bme280 by Eduard Malokhvill](https://github.com/malokhvii-eduard/arduino-bme280)
-- [BME280 library by Zanduino](https://github.com/Zanduino/BME280)
-- [BMx280MI](https://bitbucket.org/christandlg/bmx280mi/src/master/)
-- [Bolder flight systems BME280](https://github.com/bolderflight/bme280)
-- [Forced-BME280](https://github.com/JVKran/Forced-BME280)
-- [Grove Barometer Sensor BME280](https://github.com/Seeed-Studio/Grove_BME280)
-- [Gyver BME280](https://github.com/GyverLibs/GyverBME280)
-- [JWA BME280_Bosch_Wrapper](https://github.com/janw-cz/JWA_BME280)
-- [Melopero BME280 Arduino Library](https://github.com/melopero/Melopero_BME280_Arduino_Library)
-- [Simple BME280](https://gitlab.com/riva-lab/SimpleBME280)
-- [SparkFun BME280 Arduino Library](https://github.com/sparkfun/SparkFun_BME280_Arduino_Library)
+- [Adafruit BME280 Library](https://github.com/adafruit/Adafruit_BME280_Library): Based on adafruit bus libraries.
+- [BlueDot BME280 Library](https://github.com/BlueDot-Arduino/BlueDot_BME280): Fixed Wire or SPI interface, conversion to altitude.
+- [BME280 by Tyler Glenn](https://github.com/finitespace/BME280): calculates derived measures like dew point, sea level pressure, etc., fixed Wire object.
+- [Bme280 by Eduard Malokhvill](https://github.com/malokhvii-eduard/arduino-bme280): different predefined configuration settings, non flexible bus interface.
+- [BME280 library by Zanduino](https://github.com/Zanduino/BME280): not so flexible bus interface.
+- [BMx280MI](https://bitbucket.org/christandlg/bmx280mi/src/master/): non-blocking read request, takes pointer to Wire object.
+- [Bolder flight systems BME280](https://github.com/bolderflight/bme280): well documented library, based on driver provided by Bosch and Wire.h, takes pointer to Wire object.
+- [Forced-BME280](https://github.com/JVKran/Forced-BME280): Wire.h, some calibration and configuration code via defines.
+- [Grove Barometer Sensor BME280](https://github.com/Seeed-Studio/Grove_BME280): Wire.h, very basic interface, sensor not configurable.
+- [Gyver BME280](https://github.com/GyverLibs/GyverBME280): non-english docs
+- [JWA BME280_Bosch_Wrapper](https://github.com/janw-cz/JWA_BME280): based on driver provided by Bosch and Wire.h.
+- [Melopero BME280 Arduino Library](https://github.com/melopero/Melopero_BME280_Arduino_Library): based on driver provided by Bosch and Wire.h.
+- [Simple BME280](https://gitlab.com/riva-lab/SimpleBME280): non-english docs.
+- [SparkFun BME280 Arduino Library](https://github.com/sparkfun/SparkFun_BME280_Arduino_Library): Takes pointer to wire object. Various derived measures. Supports configuration.
 
