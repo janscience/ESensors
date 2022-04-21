@@ -9,6 +9,21 @@ Senses
 - air pressure
 
 
+### Hardware
+
+- [BlueDot BME280+TSL2591 Advanced Weather Station](https://www.bluedot.space/products/bme280-tsl2591/)
+
+  ![pinout](https://image.jimcdn.com/app/cms/image/transf/dimension=697x10000:format=png/path/s9044904ce8b43c5c/image/ic78b28bd0a4d9113/version/1525169534/i2c-wiring-for-bme280-tsl2591-board.png)
+
+- [BlueDot BME280 Weather Station](https://www.bluedot.space/products/bme280/)
+
+  ![pinout](https://image.jimcdn.com/app/cms/image/transf/dimension=697x10000:format=png/path/s9044904ce8b43c5c/image/id0c55c24650bbce2/version/1525168839/i2c-wiring-for-bluedot-bme280-board.png)
+
+- [Adafruit BME280 Humidity + Barometric Pressure + Temperature Sensor Breakout](https://learn.adafruit.com/adafruit-bme280-humidity-barometric-pressure-temperature-sensor-breakout)
+
+  ![pinout](https://cdn-learn.adafruit.com/assets/assets/000/026/680/medium800/sensors_pinout.jpg?1437768166)
+
+
 ### Libraries
 
 A search via the library manager of the Arduino IDE results in (April 2022):
