@@ -13,6 +13,8 @@ Resources:
 - [Datasheet](https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bme280-ds002.pdf)
 - [Driver](https://github.com/BoschSensortec/BME280_driver)
 
+- I2C address is 0x77 !
+
 
 ### Hardware
 
@@ -33,8 +35,8 @@ Resources:
 
 A search via the library manager of the Arduino IDE results in (April 2022):
 
-- [BMx280MI](https://bitbucket.org/christandlg/bmx280mi/src/master/): Non-blocking read request, takes pointer to Wire object.
-- [Bolder flight systems BME280](https://github.com/bolderflight/bme280): Well documented library, based on driver provided by Bosch and Wire.h, takes pointer to Wire object.
+- [BMx280MI](https://bitbucket.org/christandlg/bmx280mi/src/master/): Non-blocking read request, takes pointer to Wire object. In the BMx280_I2C example, fix I2C address to 0x77 (line 25).
+- [Bolder flight systems BME280](https://github.com/bolderflight/bme280): Well documented library, based on driver provided by Bosch and Wire.h, takes pointer to Wire object. In the i2c example, fix I2C address to 0x77 (line 39).
 - [SparkFun BME280 Arduino Library](https://github.com/sparkfun/SparkFun_BME280_Arduino_Library): Takes pointer to wire object. Various derived measures. Supports configuration.
 
 as well as:
