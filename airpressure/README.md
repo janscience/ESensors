@@ -35,9 +35,8 @@ Resources:
 
 A search via the library manager of the Arduino IDE results in (April 2022):
 
-- [BMx280MI](https://bitbucket.org/christandlg/bmx280mi/src/master/): Non-blocking read request, takes pointer to Wire object. In the BMx280_I2C example, fix I2C address to 0x77 (line 25).
-- [Bolder flight systems BME280](https://github.com/bolderflight/bme280): Well documented library, based on driver provided by Bosch and Wire.h, takes pointer to Wire object. In the i2c example, fix I2C address to 0x77 (line 39).
-- [SparkFun BME280 Arduino Library](https://github.com/sparkfun/SparkFun_BME280_Arduino_Library): Takes pointer to wire object. Various derived measures. Supports configuration.
+- [SparkFun BME280 Arduino Library](https://github.com/sparkfun/SparkFun_BME280_Arduino_Library): Takes pointer to wire object. Various derived measures. Supports configuration. Supports power modes.
+- [BMx280MI](https://bitbucket.org/christandlg/bmx280mi/src/master/): Non-blocking read request, takes pointer to Wire object. Exposes power modes. In the BMx280_I2C example, fix I2C address to 0x77 (line 25).
 
 as well as:
 
@@ -46,6 +45,7 @@ as well as:
 - [BME280 by Tyler Glenn](https://github.com/finitespace/BME280): Calculates derived measures like dew point, sea level pressure, etc., fixed Wire object.
 - [Bme280 by Eduard Malokhvill](https://github.com/malokhvii-eduard/arduino-bme280): Different predefined configuration settings, non flexible bus interface.
 - [BME280 library by Zanduino](https://github.com/Zanduino/BME280): Non flexible bus interface.
+- [Bolder flight systems BME280](https://github.com/bolderflight/bme280): Well documented library, based on driver provided by Bosch and Wire.h, takes pointer to Wire object. In the i2c example, fix I2C address to 0x77 (line 39). Operates in normal mode only (continuous sampling).
 - [Forced-BME280](https://github.com/JVKran/Forced-BME280): Wire.h, some calibration and configuration code via defines.
 - [Grove Barometer Sensor BME280](https://github.com/Seeed-Studio/Grove_BME280): Wire.h, very basic interface, sensor not configurable.
 - [Gyver BME280](https://github.com/GyverLibs/GyverBME280): Non-english docs
