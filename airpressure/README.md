@@ -33,12 +33,12 @@ Resources:
 
 ### Libraries
 
-A search via the library manager of the Arduino IDE results in (April 2022):
+For our purposes (acquisition of weather data at low rates and low power, flexible bus interfaces), the following two libraries seem to be most appropriate:
 
 - [SparkFun BME280 Arduino Library](https://github.com/sparkfun/SparkFun_BME280_Arduino_Library): Takes pointer to wire object. Various derived measures. Supports configuration. Supports power modes.
 - [BMx280MI](https://bitbucket.org/christandlg/bmx280mi/src/master/): Non-blocking read request, takes pointer to Wire object. Exposes power modes. In the BMx280_I2C example, fix I2C address to 0x77 (line 25).
 
-as well as:
+A search via the library manager of the Arduino IDE also results in (April 2022):
 
 - [Adafruit BME280 Library](https://github.com/adafruit/Adafruit_BME280_Library): Based on adafruit bus libraries.
 - [BlueDot BME280 Library](https://github.com/BlueDot-Arduino/BlueDot_BME280): Fixed Wire or SPI interface, conversion to altitude.

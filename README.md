@@ -29,6 +29,7 @@ Criteria for selecting the right library:
 - is it working on the Teensy, i.e. does it rely on the right bus librariers?
   (just install the library and run an example sketch)
 - is there support for multiple I2C bus systems (e.g. `Wire1` in addition to the standard `Wire`)?
+- does the library support low power modes (sleep - request data - wait - get data - sleep)?
 - how well and in which language is the library documented?
 - is the library alive? (on the other hand, these libraries are usualy
   so simple that they do not really need to be mainted).
