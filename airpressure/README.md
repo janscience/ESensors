@@ -30,6 +30,10 @@ Resources:
 
   ![pinout](https://cdn-learn.adafruit.com/assets/assets/000/026/680/medium800/sensors_pinout.jpg?1437768166)
 
+- [Sensatio Bosch BME280](https://www.sensatio.io/sensors/bosch-bme280)
+
+  ![pinout](https://www.sensatio.io/wp-content/uploads/2020/05/BME280.jpg)
+
 
 ### Libraries
 

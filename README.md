@@ -4,6 +4,8 @@ Hard- and software for environmental sensors (air and water) for Teensy.
 
 ## Air
 
+- [temperature](temperature/)
+- [humidity](humidity/)
 - [air pressure](airpressure/)
 - [light](light/)
 - [rain](rain/)
