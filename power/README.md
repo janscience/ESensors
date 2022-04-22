@@ -34,6 +34,11 @@ the Teensy very easy.
 
   ![pinout](https://cdn-learn.adafruit.com/assets/assets/000/019/688/large1024/adafruit_products_top.jpg?1410887557)
 
+  Operation:
+  - red LED: power plugged in, battery is charging.
+  - green LED: power plugged in, battery is fully charged.
+  - no LED: Teensy runs from battery, no power plugged in.
+
 - [Tindie STBC08 High-Current LiPo Battery Charger](https://www.tindie.com/products/onehorse/stbc08-high-current-lipo-battery-charger/): This one is made directly for Teensy and offers up to 800mA charge current.
 
 
