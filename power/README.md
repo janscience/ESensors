@@ -44,3 +44,9 @@ the Teensy very easy.
   [Tutorial](https://learn.adafruit.com/usb-dc-and-solar-lipoly-charger/using-the-charger?view=all)
 
 - [Tindie BQ25504 Solar Cell LiPo Charger](https://www.tindie.com/products/onehorse/bq25504-solar-cell-lipo-charger/)
+
+
+## Soft power switch
+
+- [Pololu](https://www.pololu.com/product/2808)
+- [Hackaday](https://hackaday.io/project/27886-soft-power-button-with-sense-output)
