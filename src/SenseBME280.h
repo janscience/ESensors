@@ -19,13 +19,16 @@
 #include <Arduino.h>
 #include <Wire.h>
 #include <SparkFunBME280.h>
+#include <SensorDevice.h>
 #include <Sensor.h>
 
 
 // Simple wrapper around Spark Fun BME280 library.
-class SenseBME280 : protected BME280 {
+class SenseBME280 : public SensorDevice, protected BME280 {
 
  public:
+
+  static const float NoValue = -INFINITY;
 
   // Do not initialize BME280 device yet.
   SenseBME280();
@@ -46,17 +49,10 @@ class SenseBME280 : protected BME280 {
   virtual const char* identifier() const { return ""; };
 
   // Return true if temperature sensor is available.
-  bool available();
-
-  // Request a temperature conversion.
-  void request();
+  virtual bool available();
 
   // Recommended delay between a request() and read() in milliseconds.
-  unsigned long delay() const;
-
-  // Retrieve a temperature reading from the device.
-  // You need to call request() at least delay() milliseconds before.
-  void read();
+  virtual unsigned long delay() const;
 
   // The temperature in degrees celsius.
   // On error, return -INFINITY.
@@ -75,10 +71,16 @@ class SenseBME280 : protected BME280 {
 
   void init();
 
-  static const float NoValue = -INFINITY;
+  // Request a sensor reading.
+  // Reimplement this function, if the sensor device
+  // needs to be prepared for a sensor reading in advance.
+  virtual void requestData();
+
+  // Implement this function to retrieve a sensor reading from the
+  // device and store it in a variable.
+  virtual void readData();
 
   char Chip[8];
-  bool Measuring;
   float Celsius;
   float Humidity;
   float Pressure;

@@ -2,6 +2,7 @@
 
 
 SenseBME280::SenseBME280() :
+  SensorDevice(),
   BME280() {
   memset(Chip, 0, sizeof(Chip));
   Measuring = false;
@@ -37,37 +38,6 @@ bool SenseBME280::beginSPI(uint8_t cs_pin) {
 }
 
 
-bool SenseBME280::available() {
-  return (Chip[0] != '\0');
-}
-
-
-void SenseBME280::request() {
-  if (Measuring)
-    return;
-  setMode(MODE_FORCED); // wake up sensor and take reading
-  Measuring = true;
-}
-
-
-unsigned long SenseBME280::delay() const
-{
-  return 50;  // this is generous, <10 for no oversampling , <40 for 16x oversampling
-}
-
-
-void SenseBME280::read() {
-  BME280_SensorMeasurements measurements;
-  if (!Measuring)
-    return;
-  readAllMeasurements(&measurements, 0);
-  Celsius = measurements.temperature;
-  Humidity = measurements.humidity;
-  Pressure = measurements.pressure;
-  Measuring = false;
-}
-
-
 void SenseBME280::init() {
   memset(Chip, 0, sizeof(Chip));
   uint8_t chip_id = readRegister(BME280_CHIP_ID_REG);
@@ -81,6 +51,31 @@ void SenseBME280::init() {
   setPressureOverSample(1); // powers of two from 0 to 16 are valid. 0 disables pressure sensing. Table 23 in data sheet.
   setHumidityOverSample(1); // powers of two from 0 to 16 are valid. 0 disables humidity sensing. table 19 in data sheet.
   setMode(MODE_SLEEP); // power down
+}
+
+
+bool SenseBME280::available() {
+  return (Chip[0] != '\0');
+}
+
+
+void SenseBME280::requestData() {
+  setMode(MODE_FORCED); // wake up sensor and take reading
+}
+
+
+unsigned long SenseBME280::delay() const
+{
+  return 50;  // this is generous, <10 for no oversampling , <40 for 16x oversampling
+}
+
+
+void SenseBME280::readData() {
+  BME280_SensorMeasurements measurements;
+  readAllMeasurements(&measurements, 0);
+  Celsius = measurements.temperature;
+  Humidity = measurements.humidity;
+  Pressure = measurements.pressure;
 }
 
 
