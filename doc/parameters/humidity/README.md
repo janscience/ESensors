@@ -1,5 +1,7 @@
 # Humidity
 
+Relative humidity, RH, measured in percent. 
+
 Bosch BME280 is the best!
 
 - [Testing Various Low-Cost Hygrometers](https://www.kandrsmith.org/RJS/Misc/hygrometers.html)
