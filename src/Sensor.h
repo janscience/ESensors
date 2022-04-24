@@ -15,7 +15,7 @@
 class Sensors;
 
 
-class Sensor {
+class Sensor : public SensorDevice {
 
  public:
 

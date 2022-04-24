@@ -1,7 +1,7 @@
 #include <SensorDevice.h>
 
 
-SensorDevice::Sensor() :
+SensorDevice::SensorDevice() :
   Measuring(false),
   TimeStamp(0) {
 }
