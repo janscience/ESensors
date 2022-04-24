@@ -9,6 +9,7 @@
 
 #include <Arduino.h>
 #include <TimeLib.h>
+#include <SensorDevice.h>
 
 
 class Sensors;
@@ -80,12 +81,6 @@ class Sensor {
   // Set format string for environmental sensor reading to format.
   void setFormat(const char *format);
 
-  // Return name of sensor chip model as character array.
-  virtual const char* chip() const;
-
-  // Return unique identifier of sensor chip as character array.
-  virtual const char* identifier() const;
-
   // Return resolution of the sensor readings in the current unit.
   // Any implementation should multiply the resolution with Factor
   // before returning the value.
@@ -95,22 +90,8 @@ class Sensor {
   // Return the number of printed characters.
   int resolutionStr(char *s) const;
   
-  // Return true if sensor is available.
-  virtual bool available() = 0;
-  
   // Report properties of sensor on serial monitor.
   virtual void report();
-
-  // Request a sensor reading.
-  void request();
-
-  // Recommended delay between a request() and read().
-  virtual unsigned long delay() const { return 0; };
-
-  // Retrieve a sensor reading from the device
-  // and store it in a variable.
-  // You need to call request() at least delay() before.
-  void read();
 
   // The sensor reading in the basic unit.
   // On error, return -INFINITY.
@@ -118,9 +99,6 @@ class Sensor {
   // you need to call request(), wait for at least delay() milliseconds,
   // and then call read().
   virtual float reading() const = 0;
-
-  // Time stamp of last sensor reading.
-  time_t timeStamp() const;
 
   // The sensor reading in the current unit.
   // This default implementation multiplies the sensor reading() with Factor
@@ -176,15 +154,6 @@ class Sensor {
   
 protected:
 
-  // Request a sensor reading.
-  // Reimplement this function, if the sensor device
-  // needs to be prepared for a sensor reading in advance.
-  virtual void requestData();
-
-  // Implement this function to retrieve a sensor reading from the
-  // device and store it in a variable.
-  virtual void readData() = 0;
-
   char Name[50];
   char Symbol[20];
   char BasicUnit[20];
@@ -192,8 +161,6 @@ protected:
   char Format[10];
   float Factor;
   float Offset;
-  bool Measuring;
-  time_t TimeStamp;
   
 };
 

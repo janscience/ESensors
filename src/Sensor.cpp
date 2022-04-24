@@ -3,15 +3,14 @@
 
 
 Sensor::Sensor() :
+  SensorDevice(),
   Name(""),
   Symbol(""),
   BasicUnit(""),
   Unit(""),
   Format("%.2f"),
   Factor(1.0),
-  Offset(0.0),
-  Measuring(false),
-  TimeStamp(0) {
+  Offset(0.0) {
 }
 
 
@@ -104,16 +103,6 @@ void Sensor::setFormat(const char *format) {
 }
 
 
-const char* Sensor::chip() const {
-  return "";
-}
-
-
-const char* Sensor::identifier() const {
-  return "";
-}
-
-
 int Sensor::resolutionStr(char *s) const {
   return sprintf(s, Format, resolution());
 }
@@ -130,32 +119,6 @@ void Sensor::report() {
       Serial.printf(" (ID: %s)", identifier());
     Serial.printf(" at %s%s resolution.\n", rs, unit());
   }
-}
-
-
-void Sensor::request() {
-  if (Measuring)
-    return;
-  requestData();
-  Measuring = true;
-}
-
-
-void Sensor::requestData() {
-}
-
-
-void Sensor::read() {
-  if (!Measuring)
-    return;
-  readData();
-  TimeStamp = now();
-  Measuring = false;
-}
-
-
-time_t Sensor::timeStamp() const {
-  return TimeStamp;
 }
 
 
