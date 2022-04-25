@@ -34,9 +34,11 @@ class SenseBME280 : public SensorDevice, protected BME280 {
   SenseBME280();
   
   // Initialize BME280 device with address (0x77 or 0x76) on default I2C bus.
+  // NOTE: you need to initalize I2C by calling `Wire.begin()` *before*!
   bool beginI2C(uint8_t address=0x77);
 
   // Initialize BME280 device with address (0x77 or 0x76) on I2C bus.
+  // NOTE: you need to initalize I2C by calling `Wire.begin()` *before*!
   bool beginI2C(TwoWire &wire, uint8_t address=0x77);
   
   // Initialize BME280 device on SPI bus with chip select pin.

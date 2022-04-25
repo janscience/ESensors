@@ -5,7 +5,6 @@ SenseBME280::SenseBME280() :
   SensorDevice(),
   BME280() {
   memset(Chip, 0, sizeof(Chip));
-  Measuring = false;
   Celsius = NoValue;
   Humidity = NoValue;
   Pressure = NoValue;

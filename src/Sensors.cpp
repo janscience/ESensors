@@ -249,9 +249,9 @@ bool Sensors::openCSV(SdFat &sd, const char *path,
   strcpy(fpath, path);
   strcat(fpath, ".csv");
   if (append && sd.exists(fpath))
-    DF = sd.open(path, O_RDWR | O_APPEND);
+    DF = sd.open(fpath, O_RDWR | O_APPEND);
   else
-    DF = sd.open(path, O_RDWR | O_CREAT);
+    DF = sd.open(fpath, O_RDWR | O_CREAT);
   if (DF) {
     DF.write(Header, strlen(Header));
     DF.flush();
