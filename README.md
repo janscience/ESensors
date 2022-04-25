@@ -105,9 +105,3 @@ Further planed applications are:
   player combination for recording electric fish EODs in their natural
   habitats with lot's of additional features (display, online
   analysis, environmental parameters).
-
-
-## Power supply
-
-The sensors and the Teensy need some power to run. [Read more.](docs/power/)
-

@@ -2,18 +2,18 @@
 
 ## Air
 
-- [temperature](docs/parameters/temperature/)
-- [humidity](docs/parameters/humidity/)
-- [air pressure](docs/parameters/airpressure/)
-- [light](docs/parameters/light/)
-- [rain](docs/parameters/rain/)
+- [temperature](temperature/)
+- [humidity](humidity/)
+- [air pressure](airpressure/)
+- [light](light/)
+- [rain](rain/)
 
 ## Water
 
-- [water conductivity](docs/parameters/conductivity/)
-- [turbitity](docs/parameters/turbitity/)
-- [water velocity](docs/parameters/velocity/)
-- [water level](docs/parameters/waterlevel/)
+- [water conductivity](conductivity/)
+- [turbitity](turbitity/)
+- [water velocity](velocity/)
+- [water level](waterlevel/)
 
 
 ## General resources
