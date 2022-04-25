@@ -50,7 +50,7 @@ class SenseBME280 : public SensorDevice, protected BME280 {
   // Return unique identifier of sensor chip as character array.
   virtual const char* identifier() const { return ""; };
 
-  // Return true if temperature sensor is available.
+  // Return true if sensor is available.
   virtual bool available();
 
   // Recommended delay between a request() and read() in milliseconds.
@@ -74,12 +74,9 @@ class SenseBME280 : public SensorDevice, protected BME280 {
   void init();
 
   // Request a sensor reading.
-  // Reimplement this function, if the sensor device
-  // needs to be prepared for a sensor reading in advance.
   virtual void requestData();
 
-  // Implement this function to retrieve a sensor reading from the
-  // device and store it in a variable.
+  // Retrieve a sensor reading from the device.
   virtual void readData();
 
   char Chip[8];

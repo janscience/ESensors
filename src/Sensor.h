@@ -19,8 +19,6 @@ class Sensor : public SensorDevice {
 
  public:
 
-  float NoValue = -INFINITY;
-
   // Initialize the sensor.
   Sensor();
 

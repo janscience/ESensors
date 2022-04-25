@@ -1,6 +1,7 @@
 # TeeSense
 
-Hard- and software for environmental sensors (air and water) for Teensy.
+[Hard-](docs/) and software for environmental sensors (air and water)
+for Teensy.
 
 
 ## Sensors library

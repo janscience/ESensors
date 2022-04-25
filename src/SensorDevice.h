@@ -18,6 +18,8 @@ class SensorDevice {
 
  public:
 
+  static const float NoValue = -INFINITY;
+
   // Initialize the sensor.
   SensorDevice();
 
