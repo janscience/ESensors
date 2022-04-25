@@ -23,9 +23,11 @@ void setup(void) {
   while (!Serial && millis() < 2000) {};
   setSyncProvider(getTeensyTime);  // enable real time clock
   sensors.setInterval(0.1);
+  Wire.begin();
   bme.beginI2C(Wire, 0x77);
   pres.setHectoPascal();
   slpres.setMilliBar();
+  Serial.println();
   sensors.report();
   Serial.println();
   delay(500);

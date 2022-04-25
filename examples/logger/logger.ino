@@ -36,6 +36,7 @@ void setup() {
   rtclock.check();
   rtclock.report();
   temp.begin(tempPin);
+  Wire.begin();
   bme.beginI2C(Wire, 0x77);
   pres.setHectoPascal();
   sensors.setInterval(sensorsInterval);
