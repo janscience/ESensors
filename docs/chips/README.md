@@ -1,6 +1,13 @@
 # Sensor chips
 
-- [Bosch Sensortec BME280](bme280.md) 
+## Pressure
+
+- [Bosch Sensortec BME280](bme280.md)
+
+
+## Light intensity
+
+- [AMS TSL2591 Lux Sensor](tsl2591.md)
 
 
 ## How to find and select libraries for specific chips

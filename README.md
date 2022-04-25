@@ -33,7 +33,7 @@ The [Documentation](docs/) provides resources on [environmental
 parameters](docs/parameters/), [sensor chips](docs/chips/), and [power
 supply](docs/power/).
 
-- [Parameters](docs/parameters/): Infos on how two measure
+- [Environmental parameters](docs/parameters/): Infos on how two measure
   environmental parameters.
 - [Sensor chips](docs/chips/): Development boards and librariers for
   sensor chips.
