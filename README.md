@@ -98,18 +98,18 @@ Further planed applications are:
 
 ### Air
 
-- [temperature](doc/parameters/temperature/)
-- [humidity](doc/parameters/humidity/)
-- [air pressure](doc/parameters/airpressure/)
-- [light](doc/parameters/light/)
-- [rain](doc/parameters/rain/)
+- [temperature](docs/parameters/temperature/)
+- [humidity](docs/parameters/humidity/)
+- [air pressure](docs/parameters/airpressure/)
+- [light](docs/parameters/light/)
+- [rain](docs/parameters/rain/)
 
 ### Water
 
-- [water conductivity](doc/parameters/conductivity/)
-- [turbitity](doc/parameters/turbitity/)
-- [water velocity](doc/parameters/velocity/)
-- [water level](doc/parameters/waterlevel/)
+- [water conductivity](docs/parameters/conductivity/)
+- [turbitity](docs/parameters/turbitity/)
+- [water velocity](docs/parameters/velocity/)
+- [water level](docs/parameters/waterlevel/)
 
 
 ## General resources
@@ -126,7 +126,7 @@ Further planed applications are:
 
 ## Power supply
 
-The sensors and the Teensy need some power to run. [Read more.](doc/power/)
+The sensors and the Teensy need some power to run. [Read more.](docs/power/)
 
 
 ## How to find and select libraries for specific chips
