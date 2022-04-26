@@ -27,13 +27,17 @@ class LightTSL2591 : public SensorDevice, protected TSL2591TwoWire {
  public:
 
   // Do not initialize TSL2591 device yet.
-  LightTSL2591(TwoWire *wire=&Wire);
-  
-  // Initialize TSL2591 device on default I2C bus.
+  LightTSL2591();
+
+  // Do not initialize TSL2591 device yet.
+  LightTSL2591(TwoWire *wire);
+ 
+  // Initialize TSL2591 device on the I2C bus provided by constructor,
+  // otherwise on default I2C bus.
   // NOTE: you need to initalize I2C by calling `Wire.begin()` *before*!
   bool begin();
 
-  // Initialize BME280 device on an I2C bus.
+  // Initialize TSL2591 device on an I2C bus.
   // NOTE: you need to initalize I2C by calling `Wire1.begin()` *before*!
   bool begin(TwoWire &wire);
     

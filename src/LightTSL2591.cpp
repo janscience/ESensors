@@ -1,6 +1,18 @@
 #include <LightTSL2591.h>
 
 
+LightTSL2591::LightTSL2591() :
+  SensorDevice(),
+  TSL2591TwoWire() {
+  memset(Chip, 0, sizeof(Chip));
+  IrradianceFull = NoValue;
+  IrradianceIR = NoValue;
+  IrradianceVisible = NoValue;
+  Channel0 = 0;
+  Channel1 = 0;
+}
+
+
 LightTSL2591::LightTSL2591(TwoWire *wire) :
   SensorDevice(),
   TSL2591TwoWire(wire) {
@@ -14,7 +26,16 @@ LightTSL2591::LightTSL2591(TwoWire *wire) :
 
   
 bool LightTSL2591::begin() {
-  if (! TSL2591TwoWire::begin())
+  if (! TSL2591TwoWire::begin() &&
+      ! TSL2591TwoWire::begin(&Wire))
+    return false;
+  init();
+  return true;
+}
+
+  
+bool LightTSL2591::begin(TwoWire &wire) {
+  if (! TSL2591TwoWire::begin(&wire))
     return false;
   init();
   return true;
