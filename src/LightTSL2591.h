@@ -44,8 +44,8 @@ class LightTSL2591 : public SensorDevice, protected TSL2591TwoWire {
   // Return name of chip as string.
   const char* chip() const { return Chip; };
 
-  // Return unique identifier of sensor chip as character array.
-  virtual const char* identifier() const { return ""; };
+  // Return identifier of sensor chip as character array (always 50).
+  virtual const char* identifier() const { return ID; };
 
   // Return true if light sensor is available.
   virtual bool available();
@@ -77,6 +77,7 @@ class LightTSL2591 : public SensorDevice, protected TSL2591TwoWire {
   virtual void readData();
 
   char Chip[8];
+  char ID[4];
   float IrradianceFull;
   float IrradianceIR;
   float IrradianceVisible;
