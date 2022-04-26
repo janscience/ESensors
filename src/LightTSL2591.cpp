@@ -6,6 +6,7 @@ LightTSL2591::LightTSL2591() :
   TSL2591TwoWire() {
   memset(Chip, 0, sizeof(Chip));
   memset(ID, 0, sizeof(ID));
+  Delay = 130;
   IrradianceFull = NoValue;
   IrradianceIR = NoValue;
   IrradianceVisible = NoValue;
@@ -19,6 +20,7 @@ LightTSL2591::LightTSL2591(TwoWire *wire) :
   TSL2591TwoWire(wire) {
   memset(Chip, 0, sizeof(Chip));
   memset(ID, 0, sizeof(ID));
+  Delay = 130;
   IrradianceFull = NoValue;
   IrradianceIR = NoValue;
   IrradianceVisible = NoValue;
@@ -92,12 +94,15 @@ void LightTSL2591::requestData() {
 
 unsigned long LightTSL2591::delay() const
 {
-  return 410; // XXX set it to maximum integration time 
+  return Delay;
 }
 
 
 bool LightTSL2591::setIntegrationTime(uint8_t time) {
-  return TSL2591MI::setIntegrationTime(time);
+  bool success = TSL2591MI::setIntegrationTime(time);
+  time = TSL2591MI::getIntegrationTime();
+  Delay = (time+1)*100 + 30;
+  return success;
 }
 
 

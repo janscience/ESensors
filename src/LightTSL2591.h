@@ -54,7 +54,7 @@ class LightTSL2591 : public SensorDevice, protected TSL2591TwoWire {
 
   // Set the integration time of the sensor.
   // One of 0: 100ms, 1: 200ms, 2: 300ms, 3: 400ms, 4: 500ms, 5: 600ms.
-  // Set this once right after begin().
+  // Set this once before start().
   // Returns true on success.
   bool setIntegrationTime(uint8_t time);
 
@@ -100,6 +100,7 @@ class LightTSL2591 : public SensorDevice, protected TSL2591TwoWire {
 
   char Chip[8];
   char ID[4];
+  int Delay;
   float IrradianceFull;
   float IrradianceIR;
   float IrradianceVisible;
