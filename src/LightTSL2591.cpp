@@ -48,8 +48,32 @@ void LightTSL2591::init() {
   strcpy(Chip, "TSL2591");
   sprintf(ID, "%02X", getID());
   resetToDefaults();
-  setGain(TSL2591MI::TSL2591_GAIN_MED);
-  setIntegrationTime(TSL2591MI::TSL2591_INTEGRATION_TIME_100ms);
+  setGain(TSL2591MI::TSL2591_GAIN_HIGH);
+  // Example measurement with LED white light and 100ms integration time:
+  // gain | channel0 | channel1 | scale
+  // LOW  |    59    |    11    |   1/1
+  // MED  |  1403    |   253    |  24/23
+  // HIGH | 24200    |  4280    | 410/390
+  //
+  // Example measurement with LED white light and 400ms integration time:
+  // gain | channel0 | channel1 | scale
+  // LOW  |   146    |    27    |   1/1
+  // MED  |  3478    |   628    |  24/23
+  // HIGH | 60100    | 10610    | 412/393
+  
+  setIntegrationTime(TSL2591MI::TSL2591_INTEGRATION_TIME_400ms);
+  // Example measurement with LED white light and medium gain:
+  // inttime | channel0 | channel1 | scale
+  // 100ms   |      711 |      129 |    1/1
+  // 200ms   |     1407 |      254 | 1.98/1.97
+  // 300ms   |     2100 |      380 | 2.95/2.95
+  //
+  // Example measurement with LED white light and low gain:
+  // inttime | channel0 | channel1 | scale
+  // 100ms   |       29 |        6 |    1/1 
+  // 200ms   |       59 |       11 | 2.03/1.83
+  // 300ms   |       88 |       16 | 3.03/2.67
+  
   setALSEnabled(false);
   setPowerOn(false);
 }
@@ -69,6 +93,21 @@ void LightTSL2591::requestData() {
 unsigned long LightTSL2591::delay() const
 {
   return 410; // XXX set it to maximum integration time 
+}
+
+
+bool LightTSL2591::setIntegrationTime(uint8_t time) {
+  return TSL2591MI::setIntegrationTime(time);
+}
+
+
+bool LightTSL2591::setGain(uint8_t gain) {
+  return TSL2591MI::setGain(gain);
+}
+
+
+void LightTSL2591::setTemperature(double temperature) {
+  setSensorTemperature(temperature);
 }
 
 
@@ -108,6 +147,26 @@ void SensorTSL2591::requestData() {
 
 void SensorTSL2591::readData() {
   TSL->read();
+}
+
+
+Channel0TSL2591::Channel0TSL2591(LightTSL2591 *tsl, Sensors *sensors)
+  : SensorTSL2591(tsl, sensors, "channel0", "C0", "counts", "%.0f") {
+}
+
+
+float Channel0TSL2591::reading() const {
+  return TSL->channel0();
+}
+
+
+Channel1TSL2591::Channel1TSL2591(LightTSL2591 *tsl, Sensors *sensors)
+  : SensorTSL2591(tsl, sensors, "channel1", "C1", "counts", "%.0f") {
+}
+
+
+float Channel1TSL2591::reading() const {
+  return TSL->channel1();
 }
 
 

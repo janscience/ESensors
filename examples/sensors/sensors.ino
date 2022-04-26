@@ -9,14 +9,16 @@ Sensors sensors;
 TemperatureDS18x20 temp(&sensors, 10);  // DATA on pin 10
 SenseBME280 bme;
 TemperatureBME280 tempbme(&bme, &sensors);
-HumidityBME280 hum(&bme, &sensors);
+//HumidityBME280 hum(&bme, &sensors);
 //AbsoluteHumidityBME280 abshum(&bme, &sensors);
 //DewPointBME280 dp(&bme, &sensors);
-PressureBME280 pres(&bme, &sensors);
+//PressureBME280 pres(&bme, &sensors);
 //SeaLevelPressureBME280 slpres(&bme, &sensors, 460.0);
 LightTSL2591 tsl(&Wire);
-IrradianceFullTSL2591 irrfull(&tsl, &sensors);
-IrradianceIRTSL2591 irrIR(&tsl, &sensors);
+Channel0TSL2591 chn0(&tsl, &sensors);
+Channel1TSL2591 chn1(&tsl, &sensors);
+//IrradianceFullTSL2591 irrfull(&tsl, &sensors);
+//IrradianceIRTSL2591 irrIR(&tsl, &sensors);
 
 time_t getTeensyTime() {
   return rtc_get();
@@ -26,12 +28,14 @@ void setup(void) {
   Serial.begin(9600);
   while (!Serial && millis() < 2000) {};
   setSyncProvider(getTeensyTime);  // enable real time clock
-  sensors.setInterval(0.5);
+  sensors.setInterval(1.0);
   Wire.begin();
   bme.beginI2C(Wire, 0x77);
-  pres.setHectoPascal();
+  //pres.setHectoPascal();
   //slpres.setMilliBar();
   tsl.begin();
+  tsl.setIntegrationTime(1);
+  tsl.setGain(1);
   Serial.println();
   sensors.report();
   Serial.println();
@@ -43,4 +47,5 @@ void setup(void) {
 void loop(void) {
   if (sensors.update())
     sensors.printValues();
+    //tsl.setTemperature(bme.temperature());
 }

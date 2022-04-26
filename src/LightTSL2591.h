@@ -4,10 +4,9 @@
 
   Wrapper for [TSL2591MI](https://bitbucket.org/christandlg/tsl2591mi/).
 
-  [TSL25911 product page](https://ams.com/en/tsl25911)
+  [Infos, Datasheet, libraries](https://github.com/janscience/TeeSense/blob/main/docs/chips/tsl2591.md)
 
-  The [TSL25911
-  Datasheet](https://ams.com/documents/20143/36005/TSL2591_DS000338_6-00.pdf).
+  [Background light measurements](https://github.com/janscience/TeeSense/tree/main/docs/parameters/light)
 */
 
 #ifndef LightTSL2591_h
@@ -53,6 +52,29 @@ class LightTSL2591 : public SensorDevice, protected TSL2591TwoWire {
   // Recommended delay between a request() and read() in milliseconds.
   virtual unsigned long delay() const;
 
+  // Set the integration time of the sensor.
+  // One of 0: 100ms, 1: 200ms, 2: 300ms, 3: 400ms, 4: 500ms, 5: 600ms.
+  // Set this once right after begin().
+  // Returns true on success.
+  bool setIntegrationTime(uint8_t time);
+
+  // Set the gain of the sensor.
+  // One of 0: low (x1), 1: medium (x24.5), 2: high (x400), 3: max (x9200).
+  // Set this once right after begin().
+  // Returns true on success.
+  bool setGain(uint8_t gain);
+
+  // Provide temperature in degrees celsius for temperature correction.
+  // Temperature correction is applied immediately when retrieving data
+  // from the chip in the readData() function.
+  void setTemperature(double temperature);
+
+  // Temperature corrected channel count of the full spectrum sensor.
+  uint16_t channel0() const { return Channel0; };
+
+  // Temperature corrected channel count of the IR spectrum sensor.
+  uint16_t channel1() const { return Channel1; };
+  
   // The irradiance of the full spectrum in W/m^2.
   // On error, return -INFINITY.
   float irradianceFull() const { return IrradianceFull; };
@@ -81,6 +103,11 @@ class LightTSL2591 : public SensorDevice, protected TSL2591TwoWire {
   float IrradianceFull;
   float IrradianceIR;
   float IrradianceVisible;
+
+  // data values returned from the chip.
+  // counts are temperature adjusted (see
+  // [dataheet Figure 14](https://ams.com/documents/20143/36005/TSL2591_DS000338_6-00.pdf),
+  // if temperature is provided.
   uint16_t Channel0;
   uint16_t Channel1;
   
@@ -122,6 +149,28 @@ class SensorTSL2591 : public Sensor {
 
   LightTSL2591 *TSL;
 
+};
+
+
+class Channel0TSL2591 : public SensorTSL2591 {
+
+ public:
+
+  Channel0TSL2591(LightTSL2591 *tsl, Sensors *sensors=0);
+
+  // Temperature corrected channel count of the full spectrum sensor.
+  virtual float reading() const;
+};
+
+
+class Channel1TSL2591 : public SensorTSL2591 {
+
+ public:
+
+  Channel1TSL2591(LightTSL2591 *tsl, Sensors *sensors=0);
+
+  // Temperature corrected channel count of the IR spectrum sensor.
+  virtual float reading() const;
 };
 
 
