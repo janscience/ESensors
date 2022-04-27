@@ -86,18 +86,6 @@ bool LightTSL2591::available() {
 }
 
 
-void LightTSL2591::requestData() {
-  // power up and enable:
-  measure();
-}
-
-
-unsigned long LightTSL2591::delay() const
-{
-  return Delay;
-}
-
-
 bool LightTSL2591::setIntegrationTime(uint8_t time) {
   bool success = TSL2591MI::setIntegrationTime(time);
   time = TSL2591MI::getIntegrationTime();
@@ -113,6 +101,18 @@ bool LightTSL2591::setGain(uint8_t gain) {
 
 void LightTSL2591::setTemperature(double temperature) {
   setSensorTemperature(temperature);
+}
+
+
+void LightTSL2591::requestData() {
+  // power up and enable:
+  measure();
+}
+
+
+unsigned long LightTSL2591::delay() const
+{
+  return Delay;
 }
 
 
