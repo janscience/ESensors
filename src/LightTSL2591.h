@@ -70,10 +70,10 @@ class LightTSL2591 : public SensorDevice, protected TSL2591TwoWire {
   void setTemperature(double temperature);
 
   // Temperature corrected channel count of the full spectrum sensor.
-  uint16_t channel0() const { return Channel0; };
+  uint16_t channel0() const { return C0DATA; };
 
   // Temperature corrected channel count of the IR spectrum sensor.
-  uint16_t channel1() const { return Channel1; };
+  uint16_t channel1() const { return C1DATA; };
   
   // The irradiance of the full spectrum in W/m^2.
   // On error, return -INFINITY.
@@ -85,7 +85,7 @@ class LightTSL2591 : public SensorDevice, protected TSL2591TwoWire {
 
   // The irradiance of the visible spectrum in W/m^2.
   // On error, return -INFINITY.
-  float irradianceVisible() const { return IrradianceVisible; };
+  float irradianceVisible() const { return IrradianceFull - IrradianceIR; };
 
   
  private:
@@ -109,8 +109,8 @@ class LightTSL2591 : public SensorDevice, protected TSL2591TwoWire {
   // counts are temperature adjusted (see
   // [dataheet Figure 14](https://ams.com/documents/20143/36005/TSL2591_DS000338_6-00.pdf),
   // if temperature is provided.
-  uint16_t Channel0;
-  uint16_t Channel1;
+  uint16_t C0DATA;
+  uint16_t C1DATA;
   
 };
 

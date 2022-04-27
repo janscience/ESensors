@@ -17,8 +17,8 @@ TemperatureBME280 tempbme(&bme, &sensors);
 LightTSL2591 tsl(&Wire);
 Channel0TSL2591 chn0(&tsl, &sensors);
 Channel1TSL2591 chn1(&tsl, &sensors);
-//IrradianceFullTSL2591 irrfull(&tsl, &sensors);
-//IrradianceIRTSL2591 irrIR(&tsl, &sensors);
+IrradianceFullTSL2591 irrfull(&tsl, &sensors);
+IrradianceIRTSL2591 irrIR(&tsl, &sensors);
 
 time_t getTeensyTime() {
   return rtc_get();
@@ -34,8 +34,8 @@ void setup(void) {
   //pres.setHectoPascal();
   //slpres.setMilliBar();
   tsl.begin();
-  tsl.setIntegrationTime(1);
-  tsl.setGain(0);
+  tsl.setIntegrationTime(3);
+  tsl.setGain(2);
   Serial.println();
   sensors.report();
   Serial.println();

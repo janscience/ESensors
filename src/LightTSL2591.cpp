@@ -9,9 +9,8 @@ LightTSL2591::LightTSL2591() :
   Delay = 130;
   IrradianceFull = NoValue;
   IrradianceIR = NoValue;
-  IrradianceVisible = NoValue;
-  Channel0 = 0;
-  Channel1 = 0;
+  C0DATA = 0;
+  C1DATA = 0;
 }
 
 
@@ -23,9 +22,8 @@ LightTSL2591::LightTSL2591(TwoWire *wire) :
   Delay = 130;
   IrradianceFull = NoValue;
   IrradianceIR = NoValue;
-  IrradianceVisible = NoValue;
-  Channel0 = 0;
-  Channel1 = 0;
+  C0DATA = 0;
+  C1DATA = 0;
 }
 
   
@@ -51,31 +49,7 @@ void LightTSL2591::init() {
   sprintf(ID, "%02X", getID());
   resetToDefaults();
   setGain(TSL2591MI::TSL2591_GAIN_LOW);
-  // Example measurement with LED white light and 100ms integration time:
-  // gain | channel0 | channel1 | scale
-  // LOW  |    59    |    11    |   1/1
-  // MED  |  1403    |   253    |  24/23
-  // HIGH | 24200    |  4280    | 410/390
-  //
-  // Example measurement with LED white light and 400ms integration time:
-  // gain | channel0 | channel1 | scale
-  // LOW  |   146    |    27    |   1/1
-  // MED  |  3478    |   628    |  24/23
-  // HIGH | 60100    | 10610    | 412/393
-  
-  setIntegrationTime(TSL2591MI::TSL2591_INTEGRATION_TIME_100ms);
-  // Example measurement with LED white light and medium gain:
-  // inttime | channel0 | channel1 | scale
-  // 100ms   |      711 |      129 |    1/1
-  // 200ms   |     1407 |      254 | 1.98/1.97
-  // 300ms   |     2100 |      380 | 2.95/2.95
-  //
-  // Example measurement with LED white light and low gain:
-  // inttime | channel0 | channel1 | scale
-  // 100ms   |       29 |        6 |    1/1 
-  // 200ms   |       59 |       11 | 2.03/1.83
-  // 300ms   |       88 |       16 | 3.03/2.67
-  
+  setIntegrationTime(TSL2591MI::TSL2591_INTEGRATION_TIME_200ms);
   setALSEnabled(false);
   setPowerOn(false);
 }
@@ -119,12 +93,11 @@ unsigned long LightTSL2591::delay() const
 void LightTSL2591::getData() {
   if (hasValue()) {
     setChannel(TSL2591MI::TSL2591_CHANNEL_0);
-    Channel0 = getValue();
+    C0DATA = getValue();
     IrradianceFull = getIrradiance();
     setChannel(TSL2591MI::TSL2591_CHANNEL_1);
-    Channel1 = getValue();
+    C1DATA = getValue();
     IrradianceIR = getIrradiance();
-    IrradianceVisible = IrradianceFull - IrradianceIR;
   }
   // back to sleep:
   setALSEnabled(false);

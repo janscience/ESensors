@@ -13,7 +13,7 @@ double mean_chn0 = 0.0;
 double mean_chn1 = 0.0;
 
 
-void measure(int n=20) {
+void measure(int n=100) {
   mean_chn0 = 0.0;
   mean_chn1 = 0.0;
   for (int k=0; k<n; k++) {
