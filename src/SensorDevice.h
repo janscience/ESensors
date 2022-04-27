@@ -46,6 +46,11 @@ class SensorDevice {
   // You need to call request() at least delay() before.
   void get();
 
+  // Initiate measurement (request()), wait for delay(), and retrieve
+  // the data (get()).
+  // This function may block considerably!
+  void read();
+
   // Time stamp of last sensor reading.
   time_t timeStamp() const;
 

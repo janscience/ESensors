@@ -132,6 +132,12 @@ int Sensor::valueStr(char *s) const {
 }
 
 
+float Sensor::read() {
+  SensorDevice::read();
+  return value();
+}
+
+
 void Sensor::setKelvin() {
   setUnit("K", 1.0, 273.15, "%.2f");
 }

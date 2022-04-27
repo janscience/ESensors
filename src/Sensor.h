@@ -107,6 +107,11 @@ class Sensor : public SensorDevice {
   // Return the number of printed characters.
   int valueStr(char *s) const;
 
+  // Initiate measurement (request()), wait for delay(), retrieve the
+  // data (get()) and return the result (value()).
+  // This function may block considerably!
+  float read();
+
   
   // Special unit conversions for temperatures measured in degrees celsius:
 

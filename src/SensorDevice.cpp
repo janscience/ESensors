@@ -47,6 +47,13 @@ void SensorDevice::get() {
 }
 
 
+void SensorDevice::read() {
+  request();
+  ::delay(delay());
+  get();
+}
+
+
 time_t SensorDevice::timeStamp() const {
   return TimeStamp;
 }
