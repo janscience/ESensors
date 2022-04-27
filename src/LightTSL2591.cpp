@@ -50,7 +50,7 @@ void LightTSL2591::init() {
   strcpy(Chip, "TSL2591");
   sprintf(ID, "%02X", getID());
   resetToDefaults();
-  setGain(TSL2591MI::TSL2591_GAIN_HIGH);
+  setGain(TSL2591MI::TSL2591_GAIN_LOW);
   // Example measurement with LED white light and 100ms integration time:
   // gain | channel0 | channel1 | scale
   // LOW  |    59    |    11    |   1/1
@@ -63,7 +63,7 @@ void LightTSL2591::init() {
   // MED  |  3478    |   628    |  24/23
   // HIGH | 60100    | 10610    | 412/393
   
-  setIntegrationTime(TSL2591MI::TSL2591_INTEGRATION_TIME_400ms);
+  setIntegrationTime(TSL2591MI::TSL2591_INTEGRATION_TIME_100ms);
   // Example measurement with LED white light and medium gain:
   // inttime | channel0 | channel1 | scale
   // 100ms   |      711 |      129 |    1/1

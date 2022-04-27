@@ -35,7 +35,7 @@ void setup(void) {
   //slpres.setMilliBar();
   tsl.begin();
   tsl.setIntegrationTime(1);
-  tsl.setGain(1);
+  tsl.setGain(0);
   Serial.println();
   sensors.report();
   Serial.println();

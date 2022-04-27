@@ -53,9 +53,9 @@ void measure_times() {
       tsl.setGain(j);
       Serial.printf("%-5s\t%-4s\t", times[i], gains[j]);
       measure();
-      r0[j] = mean_chn0;
-      r1[j] = mean_chn1;
-      Serial.printf("\t%7.2f\t%7.2f\n", r0[j]/r0[0], r1[j]/r1[0]);
+      r0[i] = mean_chn0;
+      r1[i] = mean_chn1;
+      Serial.printf("\t%7.2f\t%7.2f\n", r0[i]/r0[0], r1[i]/r1[0]);
     }
   }
 }
@@ -71,8 +71,8 @@ void setup(void) {
   Serial.printf("%-5s\t%-4s\t%-7s\t%-7s\t%-7s\t%-7s\n", "time", "gain", "chn0", "chn1", "scale0", "scale1");
   measure_gains();
   measure_times();
-  Serial.println("DONE!");
   Serial.println();
+  Serial.println("DONE!");
 }
 
 void loop(void) {
