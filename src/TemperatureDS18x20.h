@@ -65,7 +65,7 @@ class TemperatureDS18x20 : public Sensor {
   // On error, return -INFINITY.
   // Before you can retrieve a temperature reading,
   // you need to call request(), wait for at least delay() milliseconds,
-  // and then call read().
+  // and then call get().
   virtual float reading() const;
   
   
@@ -75,7 +75,7 @@ class TemperatureDS18x20 : public Sensor {
   virtual void requestData();
 
   // Retrieve a temperature reading from the device.
-  virtual void readData();
+  virtual void getData();
 
   OneWire  OW;
   int Type_s;

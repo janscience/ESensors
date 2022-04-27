@@ -38,13 +38,13 @@ class SensorDevice {
   // Request a sensor reading.
   void request();
 
-  // Recommended delay between a request() and read().
+  // Recommended delay between a request() and get().
   virtual unsigned long delay() const { return 0; };
 
   // Retrieve a sensor reading from the device
   // and store it in a variable.
   // You need to call request() at least delay() before.
-  void read();
+  void get();
 
   // Time stamp of last sensor reading.
   time_t timeStamp() const;
@@ -59,7 +59,8 @@ protected:
 
   // Implement this function to retrieve a sensor reading from the
   // device and store it in a variable.
-  virtual void readData() = 0;
+  // Called by get().
+  virtual void getData() = 0;
 
   bool Measuring;
   time_t TimeStamp;

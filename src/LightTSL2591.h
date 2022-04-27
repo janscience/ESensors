@@ -49,7 +49,7 @@ class LightTSL2591 : public SensorDevice, protected TSL2591TwoWire {
   // Return true if light sensor is available.
   virtual bool available();
 
-  // Recommended delay between a request() and read() in milliseconds.
+  // Recommended delay between a request() and get() in milliseconds.
   virtual unsigned long delay() const;
 
   // Set the integration time of the sensor.
@@ -66,7 +66,7 @@ class LightTSL2591 : public SensorDevice, protected TSL2591TwoWire {
 
   // Provide temperature in degrees celsius for temperature correction.
   // Temperature correction is applied immediately when retrieving data
-  // from the chip in the readData() function.
+  // from the chip in the getData() function.
   void setTemperature(double temperature);
 
   // Temperature corrected channel count of the full spectrum sensor.
@@ -96,7 +96,7 @@ class LightTSL2591 : public SensorDevice, protected TSL2591TwoWire {
   virtual void requestData();
 
   // Retrieve a sensor reading from the device.
-  virtual void readData();
+  virtual void getData();
 
   char Chip[8];
   char ID[4];
@@ -136,7 +136,7 @@ class SensorTSL2591 : public Sensor {
   // Return resolution of the irradiance readings.
   virtual float resolution() const;
 
-  // Recommended delay between a request() and read() in milliseconds.
+  // Recommended delay between a request() and get() in milliseconds.
   virtual unsigned long delay() const { return TSL->delay(); };
 
   
@@ -146,7 +146,7 @@ class SensorTSL2591 : public Sensor {
   virtual void requestData();
 
   // Retrieve a sensor reading from the device.
-  virtual void readData();
+  virtual void getData();
 
   LightTSL2591 *TSL;
 

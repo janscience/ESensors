@@ -69,7 +69,7 @@ unsigned long SenseBME280::delay() const
 }
 
 
-void SenseBME280::readData() {
+void SenseBME280::getData() {
   BME280_SensorMeasurements measurements;
   readAllMeasurements(&measurements, 0);
   Celsius = measurements.temperature;
@@ -91,8 +91,8 @@ void SensorBME280::requestData() {
 }
 
 
-void SensorBME280::readData() {
-  BME->read();
+void SensorBME280::getData() {
+  BME->get();
 }
 
 

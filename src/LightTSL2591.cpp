@@ -116,7 +116,7 @@ void LightTSL2591::setTemperature(double temperature) {
 }
 
 
-void LightTSL2591::readData() {
+void LightTSL2591::getData() {
   if (hasValue()) {
     setChannel(TSL2591MI::TSL2591_CHANNEL_0);
     Channel0 = getValue();
@@ -150,8 +150,8 @@ void SensorTSL2591::requestData() {
 }
 
 
-void SensorTSL2591::readData() {
-  TSL->read();
+void SensorTSL2591::getData() {
+  TSL->get();
 }
 
 

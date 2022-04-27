@@ -53,7 +53,7 @@ class SenseBME280 : public SensorDevice, protected BME280 {
   // Return true if sensor is available.
   virtual bool available();
 
-  // Recommended delay between a request() and read() in milliseconds.
+  // Recommended delay between a request() and get() in milliseconds.
   virtual unsigned long delay() const;
 
   // The temperature in degrees celsius.
@@ -77,7 +77,7 @@ class SenseBME280 : public SensorDevice, protected BME280 {
   virtual void requestData();
 
   // Retrieve a sensor reading from the device.
-  virtual void readData();
+  virtual void getData();
 
   char Chip[8];
   float Celsius;
@@ -105,7 +105,7 @@ class SensorBME280 : public Sensor {
   // Return unique identifier of sensor chip as character array.
   virtual const char* identifier() const { return BME->identifier(); };
 
-  // Recommended delay between a request() and read() in milliseconds.
+  // Recommended delay between a request() and get() in milliseconds.
   virtual unsigned long delay() const { return BME->delay(); };
 
   
@@ -115,7 +115,7 @@ class SensorBME280 : public Sensor {
   virtual void requestData();
 
   // Retrieve a sensor reading from the device.
-  virtual void readData();
+  virtual void getData();
 
   SenseBME280 *BME;
 

@@ -95,7 +95,7 @@ void TemperatureDS18x20::requestData() {
 }
 
 
-void TemperatureDS18x20::readData() {
+void TemperatureDS18x20::getData() {
   Celsius = NoValue;
   if (Type_s < 0)
     return;
@@ -105,7 +105,7 @@ void TemperatureDS18x20::readData() {
     return;
   }
   OW.select(Addr);    
-  OW.write(0xBE);         // read Scratchpad
+  OW.write(0xBE);              // read Scratchpad
 
   byte data[12];
   for (byte i=0; i<9; i++)     // we need 9 bytes

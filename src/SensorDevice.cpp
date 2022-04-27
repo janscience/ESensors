@@ -38,10 +38,10 @@ void SensorDevice::requestData() {
 }
 
 
-void SensorDevice::read() {
+void SensorDevice::get() {
   if (!Measuring)
     return;
-  readData();
+  getData();
   TimeStamp = now();
   Measuring = false;
 }

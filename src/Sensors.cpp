@@ -92,7 +92,7 @@ bool Sensors::update() {
   case 1: if (Time > UseInterval) {
       TimeStamp = now();
       for (uint8_t k=0; k<NSensors; k++)
-	Snsrs[k]->read();
+	Snsrs[k]->get();
       makeCSVData();
       State = 0;
       Time -= UseInterval;
