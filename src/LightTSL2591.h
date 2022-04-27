@@ -75,6 +75,10 @@ class LightTSL2591 : public SensorDevice, protected TSL2591TwoWire {
   // Temperature corrected channel count of the IR spectrum sensor.
   uint16_t channel1() const { return C1DATA; };
   
+  // The IR factor 1 - 2 C1DATA/C0DATA.
+  // On error, return -INFINITY.
+  float IRFactor() const { return C0DATA > 0 ? 1.0 - 2.0*C1DATA/C0DATA : -INFINITY; };
+  
   // The irradiance of the full spectrum in W/m^2.
   // On error, return -INFINITY.
   float irradianceFull() const { return IrradianceFull; };
@@ -171,6 +175,17 @@ class Channel1TSL2591 : public SensorTSL2591 {
   Channel1TSL2591(LightTSL2591 *tsl, Sensors *sensors=0);
 
   // Temperature corrected channel count of the IR spectrum sensor.
+  virtual float reading() const;
+};
+
+
+class IRFactorTSL2591 : public SensorTSL2591 {
+
+ public:
+
+  IRFactorTSL2591(LightTSL2591 *tsl, Sensors *sensors=0);
+
+  // IR factor as 1 - 2 C1DATA / C0DATA.
   virtual float reading() const;
 };
 

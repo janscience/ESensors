@@ -148,6 +148,16 @@ float Channel1TSL2591::reading() const {
 }
 
 
+IRFactorTSL2591::IRFactorTSL2591(LightTSL2591 *tsl, Sensors *sensors)
+  : SensorTSL2591(tsl, sensors, "IRratio", "IRF", "", "%.2f") {
+}
+
+
+float IRFactorTSL2591::reading() const {
+  return TSL->IRFactor();
+}
+
+
 IrradianceFullTSL2591::IrradianceFullTSL2591(LightTSL2591 *tsl, Sensors *sensors)
   : SensorTSL2591(tsl, sensors, "irradiance full", "E_e full", "W/cm^2", "%.3f") {
 }
