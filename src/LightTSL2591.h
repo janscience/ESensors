@@ -24,6 +24,8 @@ class LightTSL2591 : public Sensor, protected TSL2591TwoWire {
 
  public:
 
+  static const uint8_t AUTO_GAIN = 0xFF;
+
   // Do not initialize TSL2591 device yet.
   LightTSL2591(Sensors *sensors=0);
 
@@ -53,12 +55,23 @@ class LightTSL2591 : public Sensor, protected TSL2591TwoWire {
 
   // Set the integration time of the sensor.
   // One of 0: 100ms, 1: 200ms, 2: 300ms, 3: 400ms, 4: 500ms, 5: 600ms.
-  // Set this once before start().
+  // Set this once right after begin().
   // Returns true on success.
   bool setIntegrationTime(uint8_t time);
 
+  // The gain that was active when getting the data:
+  // 0: low (x1), 1: medium (x24.5), 2: high (x400), 3: max (x9200).
+  uint8_t gain() const { return Gain; };
+
   // Set the gain of the sensor.
-  // One of 0: low (x1), 1: medium (x24.5), 2: high (x400), 3: max (x9200).
+  // One of 0: low (x1), 1: medium (x24.5), 2: high (x400), 3: max (x9200),
+  // or 0xFF (auto gain).
+  // You may use TSL2591MI::TSL2591_GAIN_LOW, TSL2591MI::TSL2591_GAIN_MED,
+  // TSL2591MI::TSL2591_GAIN_HIGH,  TSL2591MI::TSL2591_GAIN_MAX,
+  // LightTSL2591::AUTO_GAIN.
+  // Setting auto gain does not set any gain immediately, but whenever new
+  // data are retrieved from the sensor, they are checked and if appropriate
+  // the gain is changed. Setting a specific gain switches auto gain off.
   // Set this once right after begin().
   // Returns true on success.
   bool setGain(uint8_t gain);
@@ -124,6 +137,10 @@ class LightTSL2591 : public Sensor, protected TSL2591TwoWire {
   // if temperature was provided via setTemperature().
   uint16_t C0DATA;
   uint16_t C1DATA;
+
+  uint16_t MaxData;
+  uint8_t Gain;
+  bool AutoGain;
   
 };
 
@@ -184,6 +201,18 @@ class Channel1TSL2591 : public SensorTSL2591 {
   Channel1TSL2591(LightTSL2591 *tsl, Sensors *sensors=0);
 
   // Temperature corrected channel count of the IR spectrum sensor.
+  virtual float reading() const;
+};
+
+
+class GainTSL2591 : public SensorTSL2591 {
+
+ public:
+
+  GainTSL2591(LightTSL2591 *tsl, Sensors *sensors=0);
+
+  // The gain code that was active when getting the sensor readings.
+  // 0: low (x1), 1: medium (x24.5), 2: high (x400), 3: max (x9200).
   virtual float reading() const;
 };
 
