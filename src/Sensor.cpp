@@ -138,6 +138,11 @@ float Sensor::read() {
 }
 
 
+void Sensor::setPercent() {
+  setUnit("%", 100.0, 0.0, "%5.1f");
+}
+
+
 void Sensor::setKelvin() {
   setUnit("K", 1.0, 273.15, "%.2f");
 }

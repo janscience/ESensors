@@ -113,6 +113,11 @@ class Sensor : public SensorDevice {
   float read();
 
   
+  // Special unit conversions for unit-less ratios or fractions:
+
+  // Set unit to percent:
+  void setPercent();
+  
   // Special unit conversions for temperatures measured in degrees celsius:
 
   // Set unit to Kelvin.

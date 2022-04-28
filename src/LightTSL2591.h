@@ -16,20 +16,19 @@
 #include <Arduino.h>
 #include <Wire.h>
 #include <TSL2591TwoWire.h>
-#include <SensorDevice.h>
 #include <Sensor.h>
 
 
 // Simple wrapper around TSL2591MI library.
-class LightTSL2591 : public SensorDevice, protected TSL2591TwoWire {
+class LightTSL2591 : public Sensor, protected TSL2591TwoWire {
 
  public:
 
   // Do not initialize TSL2591 device yet.
-  LightTSL2591();
+  LightTSL2591(Sensors *sensors=0);
 
   // Do not initialize TSL2591 device yet.
-  LightTSL2591(TwoWire *wire);
+  LightTSL2591(TwoWire *wire, Sensors *sensors=0);
  
   // Initialize TSL2591 device on the I2C bus provided by constructor,
   // otherwise on default I2C bus.
@@ -41,7 +40,7 @@ class LightTSL2591 : public SensorDevice, protected TSL2591TwoWire {
   bool begin(TwoWire &wire);
     
   // Return name of chip as string.
-  const char* chip() const { return Chip; };
+  virtual const char* chip() const { return Chip; };
 
   // Return identifier of sensor chip as character array (always 50).
   virtual const char* identifier() const { return ID; };
@@ -69,6 +68,12 @@ class LightTSL2591 : public SensorDevice, protected TSL2591TwoWire {
   // from the chip in the getData() function.
   void setTemperature(double temperature);
 
+  // Return resolution of the illuminance readings.
+  virtual float resolution() const;
+
+  // Illuminance in Lux.
+  virtual float reading() const { return illuminance(); };
+  
   // Temperature corrected channel count of the full spectrum sensor.
   uint16_t channel0() const { return C0DATA; };
 
@@ -77,7 +82,7 @@ class LightTSL2591 : public SensorDevice, protected TSL2591TwoWire {
   
   // The IR ratio C1DATA/C0DATA.
   // On error, return -INFINITY.
-  float IRRatio() const { return C0DATA > 0 ? C1DATA/C0DATA : -INFINITY; };
+  float IRRatio() const;
   
   // The irradiance of the full spectrum in W/m^2.
   // On error, return -INFINITY.
@@ -90,6 +95,10 @@ class LightTSL2591 : public SensorDevice, protected TSL2591TwoWire {
   // The irradiance of the visible spectrum in W/m^2.
   // On error, return -INFINITY.
   float irradianceVisible() const { return IrradianceFull - IrradianceIR; };
+
+  // The illuminance in Lux.
+  // On error, return -INFINITY.
+  float illuminance() const { return Illuminance; };
 
   
  private:
@@ -107,12 +116,12 @@ class LightTSL2591 : public SensorDevice, protected TSL2591TwoWire {
   int Delay;
   float IrradianceFull;
   float IrradianceIR;
-  float IrradianceVisible;
+  float Illuminance;
 
   // data values returned from the chip.
   // counts are temperature adjusted (see
   // [dataheet Figure 14](https://ams.com/documents/20143/36005/TSL2591_DS000338_6-00.pdf),
-  // if temperature is provided.
+  // if temperature was provided via setTemperature().
   uint16_t C0DATA;
   uint16_t C1DATA;
   
