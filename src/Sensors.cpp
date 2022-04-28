@@ -9,6 +9,7 @@ Sensors::Sensors() :
   Time(0),
   TimeStamp(0),
   State(0),
+  PrintTime(ISO_TIME),
   DF(),
   MData(0) {
   UseInterval = Interval;
@@ -111,7 +112,18 @@ bool Sensors::pending() {
 }
 
 
+void Sensors::setPrintTime(print_time_t pt) {
+  PrintTime = pt;
+}
+
+
 void Sensors::print(bool symbols) {
+  if (PrintTime == ISO_TIME)
+    Serial.printf("Timestamp = %04d-%02d-%02dT%02d:%02d:%02d\n",
+		  year(TimeStamp), month(TimeStamp), day(TimeStamp),
+		  hour(TimeStamp), minute(TimeStamp), second(TimeStamp));
+  else if (PrintTime == SEC_TIME)
+    Serial.printf("Timestamp = %lds\n", TimeStamp);
   char s[20];
   for (uint8_t k=0; k<NSensors; k++) {
     if (Snsrs[k]->available()) {
@@ -132,10 +144,19 @@ void Sensors::print(bool symbols) {
 
 
 void Sensors::printHeader(bool symbols) {
-  Serial.print("time/s");
+  int n = 0;
+  if (PrintTime != NO_TIME) {
+    if (symbols)
+      Serial.print("t/s");
+    else
+      Serial.print("time/s");
+    n++;
+  }
   for (uint8_t k=0; k<NSensors; k++) {
     if (Snsrs[k]->available()) {
-      Serial.print('\t');
+      if (n > 0)
+	Serial.print('\t');
+      n++;
       if (symbols)
 	Serial.print(Snsrs[k]->symbol());
       else
@@ -149,14 +170,22 @@ void Sensors::printHeader(bool symbols) {
 
 
 void Sensors::printValues() {
+  int n = 1;
   // print time:
-  Serial.printf("%04d-%02d-%02dT%02d:%02d:%02d",
-		year(TimeStamp), month(TimeStamp), day(TimeStamp),
-		hour(TimeStamp), minute(TimeStamp), second(TimeStamp));
+  if (PrintTime == ISO_TIME)
+    Serial.printf("%04d-%02d-%02dT%02d:%02d:%02d",
+		  year(TimeStamp), month(TimeStamp), day(TimeStamp),
+		  hour(TimeStamp), minute(TimeStamp), second(TimeStamp));
+  else if (PrintTime == SEC_TIME)
+    Serial.printf("%ld", TimeStamp);
+  else
+    n = 0;
   char s[20];
   for (uint8_t k=0; k<NSensors; k++) {
     if (Snsrs[k]->available()) {
-      Serial.print('\t');
+      if (n > 0)
+	Serial.print('\t');
+      n++;
       Snsrs[k]->valueStr(s);
       Serial.print(s);
     }
@@ -172,6 +201,8 @@ bool Sensors::makeCSVHeader(bool symbols) {
   // size of header and data line:
   size_t m = 0;
   size_t n = symbols ? 3 : 8;
+  if (PrintTime == NO_TIME)
+    n = 0;
   for (uint8_t k=0; k<NSensors; k++) {
     if (Snsrs[k]->available()) {
       if (symbols)
@@ -186,16 +217,24 @@ bool Sensors::makeCSVHeader(bool symbols) {
     return false;
   if (n > NHeader) // header too long
     return false;
-  MData = 20 + m*10;
+  MData = m*10;
+  if (PrintTime != NO_TIME)
+    MData += 20;
   // compose header line:
+  n = 0;
   char *hp = Header;
-  if (symbols)
-    hp += sprintf(hp, "t/s");
-  else
-    hp += sprintf(hp, "time/s");
+  if (PrintTime != NO_TIME) {
+    if (symbols)
+      hp += sprintf(hp, "t/s");
+    else
+      hp += sprintf(hp, "time/s");
+    n++;
+  }
   for (uint8_t k=0; k<NSensors; k++) {
     if (Snsrs[k]->available()) {
-      *(hp++) = ',';
+      if (n > 0)
+	*(hp++) = ',';
+      n++;
       if (symbols)
 	hp += sprintf(hp, Snsrs[k]->symbol());
       else
@@ -216,22 +255,28 @@ bool Sensors::makeCSVData() {
     Serial.println("WARNING: overflow of sensors data!");
     return false;
   }
-  // get time:
-  char ts[20];
-  sprintf(ts, "%04d-%02d-%02dT%02d:%02d:%02d",
-	  year(TimeStamp), month(TimeStamp), day(TimeStamp),
-	  hour(TimeStamp), minute(TimeStamp), second(TimeStamp));
   // compose data line:
   char *sp = Data + strlen(Data);
-  sp += sprintf(sp, "%s,", ts);
+  int n = 1;
+  // print time:
+  if (PrintTime == ISO_TIME)
+    sp += sprintf(sp, "%04d-%02d-%02dT%02d:%02d:%02d",
+		  year(TimeStamp), month(TimeStamp), day(TimeStamp),
+		  hour(TimeStamp), minute(TimeStamp), second(TimeStamp));
+  else if (PrintTime == SEC_TIME)
+    sp += sprintf(sp, "%ld", TimeStamp);
+  else
+    n = 0;
   for (uint8_t k=0; k<NSensors; k++) {
     if (Snsrs[k]->available()) {
+      if (n > 0)
+	*(sp++) = ',';
+      n++;
       sp += Snsrs[k]->valueStr(sp);
-      *(sp++) = ',';
     }
   }
-  *(--sp) = '\n';
-  *(++sp) = '\0';
+  *(sp++) = '\n';
+  *(sp++) = '\0';
   return true;
 }
 

@@ -10,7 +10,7 @@
 // Default settings: -----------------------------------------------------------------------
 
 uint8_t tempPin = 10;         // pin for DATA line of thermometer
-float sensorsInterval = 2.0; // interval between sensors readings in seconds
+float sensorsInterval = 1.0; // interval between sensors readings in seconds
 
 // ------------------------------------------------------------------------------------------
 
@@ -41,6 +41,7 @@ void setup() {
   pres.setHectoPascal();
   sensors.setInterval(sensorsInterval);
   sdcard.begin(BUILTIN_SDCARD);
+  sensors.setPrintTime(Sensors::ISO_TIME);
   sensors.report();
   bool success = sensors.openCSV(sdcard, "sensors", symbols);
   blink.switchOff();

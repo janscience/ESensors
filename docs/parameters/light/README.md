@@ -22,6 +22,6 @@ Ambient light sensor (ALS)
 ![photopic luminosity function](https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/CIE_1931_Luminosity.png/450px-CIE_1931_Luminosity.png)
 
 
-## TSL2591 High Dynamic Range Digital Light Sensor
+## Chips
 
-[Tutorial](https://learn.adafruit.com/adafruit-tsl2591) and [library](https://github.com/adafruit/Adafruit_TSL2591_Library) by Adafruit.
+- [AMS TSL2591 light-to-digital converter](../../chips/tsl2591.ms)

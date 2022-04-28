@@ -29,6 +29,7 @@ void setup(void) {
   Serial.begin(9600);
   while (!Serial && millis() < 2000) {};
   setSyncProvider(getTeensyTime);  // enable real time clock
+  sensors.setPrintTime(Sensors::ISO_TIME);
   sensors.setInterval(0.2);
   Wire.begin();
   bme.beginI2C(Wire, 0x77);

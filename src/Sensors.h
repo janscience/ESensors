@@ -15,6 +15,8 @@
 class Sensors {
 
  public:
+  
+  enum print_time_t { NO_TIME, SEC_TIME, ISO_TIME };
 
   Sensors();
 
@@ -51,6 +53,9 @@ class Sensors {
   // Return true if sensor readings prepared for csv files are pending
   // and the csv file is not busy.
   bool pending();
+
+  // Whether and how print() and write() should output timestamps.
+  void setPrintTime(print_time_t pt);
 
   // Report sensor readings with name (or symbol) and unit on serial monitor.
   void print(bool symbols=false);
@@ -105,6 +110,7 @@ class Sensors {
   elapsedMillis Time;
   time_t TimeStamp;
   int State;
+  print_time_t PrintTime;
   FsFile DF;
   static const size_t NHeader = 256; // size of Header string
   char Header[NHeader];              // header string for CSV file
