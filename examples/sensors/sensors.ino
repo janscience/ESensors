@@ -17,7 +17,7 @@ TemperatureBME280 tempbme(&bme, &sensors);
 LightTSL2591 tsl(&Wire);
 Channel0TSL2591 chn0(&tsl, &sensors);
 Channel1TSL2591 chn1(&tsl, &sensors);
-IRFactorTSL2591 irfac(&tsl, &sensors);
+IRRatioTSL2591 irratio(&tsl, &sensors);
 IrradianceFullTSL2591 irrfull(&tsl, &sensors);
 IrradianceIRTSL2591 irrIR(&tsl, &sensors);
 
