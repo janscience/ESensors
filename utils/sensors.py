@@ -17,7 +17,10 @@ def sensors(path):
     for k, hn in enumerate(header):
         axs[k,0].plot(np.array(data[tc]), np.array(data[hn]),
                       '-', color=colors[k%len(colors)])
-        name, unit = hn.split('/')
+        name = hn
+        unit = ''
+        if '/' in hn:
+            name, unit = hn.split('/')
         if len(unit) > 0:
             if len(unit) > 2 and unit[-2] == '.':
                 unit = unit[:-2]
