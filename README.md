@@ -1,7 +1,7 @@
 # TeeSense
 
 [Hard-](docs/) and software for environmental sensors (air and water)
-for Teensy.
+for Teensy and Arduino.
 
 
 ## Sensors library
@@ -47,6 +47,7 @@ TeeSense is based on the following libraries:
 
 - [SdFat version2](https://github.com/greiman/SdFat)
 - [SparkFun BME280](https://github.com/sparkfun/SparkFun_BME280_Arduino_Library)
+- [TSL2591MI](https://bitbucket.org/christandlg/tsl2591mi/)
 
 The [SdFat version2](https://github.com/greiman/SdFat) library is
 already included in
@@ -55,7 +56,7 @@ installing Teensyduino make sure you selected it.
 
 _Note_: you need Arduino 1.8.19 and Teensyduoino 1.56 or higher! When
 installing Teensyduoino simply select all libraries for installation.
-Remove `SdFat` from your `Arduino/libraries` folder, they are now
+Remove `SdFat` from your `Arduino/libraries` folder, it is now
 supplied by Teensyduoino.
 
 For installing the libraries for the environmental sensors, open in
