@@ -40,12 +40,6 @@ class LightTSL2591 : public Sensor, protected TSL2591TwoWire {
   // Initialize TSL2591 device on an I2C bus.
   // NOTE: you need to initalize I2C by calling `Wire1.begin()` *before*!
   bool begin(TwoWire &wire);
-    
-  // Return name of chip as string.
-  virtual const char* chip() const { return Chip; };
-
-  // Return identifier of sensor chip as character array (always 50).
-  virtual const char* identifier() const { return ID; };
 
   // Return true if light sensor is available.
   virtual bool available();
@@ -121,8 +115,6 @@ class LightTSL2591 : public Sensor, protected TSL2591TwoWire {
   // Retrieve a sensor reading from the device.
   virtual void getData();
 
-  char Chip[8];
-  char ID[4];
   unsigned long DelayTime;
   float IrradianceFull;
   float IrradianceIR;

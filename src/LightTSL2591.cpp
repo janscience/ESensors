@@ -4,8 +4,6 @@
 LightTSL2591::LightTSL2591(Sensors *sensors) :
   Sensor(sensors, "illuminance", "E", "lx", "%8.2f", 1.0),
   TSL2591TwoWire() {
-  memset(Chip, 0, sizeof(Chip));
-  memset(ID, 0, sizeof(ID));
   DelayTime = 130;
   IrradianceFull = NoValue;
   IrradianceIR = NoValue;
@@ -21,8 +19,6 @@ LightTSL2591::LightTSL2591(Sensors *sensors) :
 LightTSL2591::LightTSL2591(TwoWire *wire, Sensors *sensors) :
   Sensor(sensors, "illuminance", "E", "lx", "%8.2f"),
   TSL2591TwoWire(wire) {
-  memset(Chip, 0, sizeof(Chip));
-  memset(ID, 0, sizeof(ID));
   DelayTime = 130;
   IrradianceFull = NoValue;
   IrradianceIR = NoValue;
@@ -53,8 +49,8 @@ bool LightTSL2591::begin(TwoWire &wire) {
 
 
 void LightTSL2591::init() {
-  strcpy(Chip, "TSL2591");
-  sprintf(ID, "%02X", getID());
+  setChip("TSL2591");
+  sprintf(Identifier, "%02X", getID());
   resetToDefaults();
   setGain(TSL2591MI::TSL2591_GAIN_LOW);
   setIntegrationTime(TSL2591MI::TSL2591_INTEGRATION_TIME_100ms);
@@ -64,7 +60,7 @@ void LightTSL2591::init() {
 
 
 bool LightTSL2591::available() {
-  return (Chip[0] != '\0');
+  return (strlen(chip()) > 0);
 }
 
 

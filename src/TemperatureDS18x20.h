@@ -46,12 +46,6 @@ class TemperatureDS18x20 : public Sensor {
   // Initialize temperature device with DATA on pin.
   void begin(uint8_t pin);
 
-  // Return name of chip as string.
-  virtual const char* chip() const { return Chip; };
-
-  // Return ROM of temperature sensor (unique ID) as string.
-  virtual const char* identifier() const { return AddrS; };
-
   // Return true if temperature sensor is available.
   virtual bool available();
 
@@ -77,8 +71,6 @@ class TemperatureDS18x20 : public Sensor {
   OneWire  OW;
   int Type_s;
   byte Addr[8];
-  char AddrS[25];
-  char Chip[8];
   float Celsius;
 };
 

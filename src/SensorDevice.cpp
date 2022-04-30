@@ -2,18 +2,30 @@
 
 
 SensorDevice::SensorDevice() :
+  Chip(""),
+  Identifier(""),
   Measuring(false),
   TimeStamp(0) {
 }
 
 
 const char* SensorDevice::chip() const {
-  return "";
+  return Chip;
+}
+
+
+void SensorDevice::setChip(const char *chip) {
+  strncpy(Chip, chip, MaxStr);
 }
 
 
 const char* SensorDevice::identifier() const {
-  return "";
+  return Identifier;
+}
+
+
+void SensorDevice::setIdentifier(const char *identifier) {
+  strncpy(Identifier, identifier, MaxStr);
 }
 
 

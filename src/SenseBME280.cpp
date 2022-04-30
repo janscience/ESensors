@@ -4,7 +4,6 @@
 SenseBME280::SenseBME280() :
   SensorDevice(),
   BME280() {
-  memset(Chip, 0, sizeof(Chip));
   Celsius = NoValue;
   Humidity = NoValue;
   Pressure = NoValue;
@@ -38,12 +37,12 @@ bool SenseBME280::beginSPI(uint8_t cs_pin) {
 
 
 void SenseBME280::init() {
-  memset(Chip, 0, sizeof(Chip));
   uint8_t chip_id = readRegister(BME280_CHIP_ID_REG);
   switch (chip_id) {
-  case 0x58: strcpy(Chip, "BMP280"); break;
-  case 0x60: strcpy(Chip, "BME280"); break;
+  case 0x58: setChip("BMP280"); break;
+  case 0x60: setChip("BME280"); break;
   }
+  setIdentifier("");
   setFilter(0); // 0 (off) to 4. Filter coefficient. Table 28 in data sheet.
   setStandbyTime(1); // 0 to 7 valid. Time between readings. Table 27 in data sheet.
   setTempOverSample(1); // powers of two from 0 to 16 are valid. 0 disables temp sensing. Table 24 in data sheet.
@@ -54,7 +53,7 @@ void SenseBME280::init() {
 
 
 bool SenseBME280::available() {
-  return (Chip[0] != '\0');
+  return (strlen(chip()) > 0);
 }
 
 

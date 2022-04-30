@@ -5,8 +5,6 @@ TemperatureDS18x20::TemperatureDS18x20(Sensors *sensors)
   : Sensor(sensors, "temperature", "T", "ºC", "%.2f", 0.0625) {
   Type_s = -1;
   memset(Addr, 0, sizeof(Addr));
-  memset(AddrS, 0, sizeof(AddrS));
-  memset(Chip, 0, sizeof(Chip));
   Celsius = NoValue;
 }
 
@@ -26,8 +24,6 @@ TemperatureDS18x20::TemperatureDS18x20(Sensors *sensors, uint8_t pin)
 void TemperatureDS18x20::begin(uint8_t pin) {
   Type_s = -1;
   memset(Addr, 0, sizeof(Addr));
-  memset(AddrS, 0, sizeof(AddrS));
-  memset(Chip, 0, sizeof(Chip));
   Celsius = NoValue;
 
   OW.begin(pin);
@@ -45,7 +41,7 @@ void TemperatureDS18x20::begin(uint8_t pin) {
   }
 
   // ROM as string:
-  char *sp = AddrS;
+  char *sp = Identifier;
   for( byte i=0; i<8; i++)
     sp += sprintf(sp, "%02X ", Addr[i]);
   sp--;
@@ -54,19 +50,19 @@ void TemperatureDS18x20::begin(uint8_t pin) {
   // the first ROM byte indicates which chip:
   switch (Addr[0]) {
     case 0x10:
-      strcpy(Chip, "DS18S20");  // or old DS1820
+      setChip("DS18S20");  // or old DS1820
       Type_s = 1;
       break;
     case 0x28:
-      strcpy(Chip, "DS18B20");
+      setChip("DS18B20");
       Type_s = 0;
       break;
     case 0x22:
-      strcpy(Chip, "DS1822");
+      setChip("DS1822");
       Type_s = 0;
       break;
     default:
-      strcpy(Chip, "unknown"); // not a DS18x20 family device
+      setChip("unknown"); // not a DS18x20 family device
       return;
   } 
 }

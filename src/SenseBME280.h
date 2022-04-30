@@ -43,12 +43,6 @@ class SenseBME280 : public SensorDevice, protected BME280 {
   
   // Initialize BME280 device on SPI bus with chip select pin.
   bool beginSPI(uint8_t cs_pin);
-    
-  // Return name of chip as string.
-  const char* chip() const { return Chip; };
-
-  // Return unique identifier of sensor chip as character array.
-  virtual const char* identifier() const { return ""; };
 
   // Return true if sensor is available.
   virtual bool available();
@@ -79,7 +73,6 @@ class SenseBME280 : public SensorDevice, protected BME280 {
   // Retrieve a sensor reading from the device.
   virtual void getData();
 
-  char Chip[8];
   float Celsius;
   float Humidity;
   float Pressure;

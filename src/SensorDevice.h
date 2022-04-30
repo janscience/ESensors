@@ -24,10 +24,16 @@ class SensorDevice {
   SensorDevice();
 
   // Return name of sensor chip model as character array.
-  virtual const char* chip() const;
+  const char* chip() const;
+
+  // Set the name of the chip.
+  void setChip(const char *chip);
 
   // Return unique identifier of sensor chip as character array.
-  virtual const char* identifier() const;
+  const char* identifier() const;
+
+  // Set the unique identifier of the chip.
+  void setIdentifier(const char *identifier);
   
   // Return true if sensor is available.
   virtual bool available() = 0;
@@ -67,6 +73,9 @@ protected:
   // Called by get().
   virtual void getData() = 0;
 
+  static const int MaxStr = 50;
+  char Chip[MaxStr];
+  char Identifier[MaxStr];
   bool Measuring;
   time_t TimeStamp;
   
