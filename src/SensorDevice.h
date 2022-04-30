@@ -39,14 +39,14 @@ class SensorDevice {
   void request();
 
   // Recommended delay between a request() and get().
-  virtual unsigned long delay() const { return 0; };
+  virtual unsigned long delayTime() const { return 0; };
 
   // Retrieve a sensor reading from the device
   // and store it in a variable.
-  // You need to call request() at least delay() before.
+  // You need to call request() at least delayTime() before.
   void get();
 
-  // Initiate measurement (request()), wait for delay(), and retrieve
+  // Initiate measurement (request()), wait for delayTime(), and retrieve
   // the data (get()).
   // This function may block considerably!
   void read();

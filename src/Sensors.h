@@ -41,20 +41,37 @@ class Sensors {
   // Report properties of all sensor devices on serial monitor.
   void report();
 
-  // Start acquisition of sensor values.
+  // Start acquisition of sensor values and clear data buffers.
   void start();
 
-  // Update sensor readings.
+  // Request sensor readings from all sensors.
+  void request();
+
+  // The delay needed between request() and get().
+  // Only available after calling start().
+  unsigned long delayTime() const { return MaxDelay; };
+
+  // Get sensor readings from all sensors.
+  void get();
+
+  // Update sensor readings by calling request() and get() according to
+  // interval() and the sensors' delayTime().
   // Call as often as possible in loop().
-  // You need to start the acquisition before by calling start()
+  // This function does not block.
+  // You need to start the acquisition before by calling start().
   // Returns true if the sensor readings have been updated.
   bool update();
+
+  // Initiate measurement (request()) of all sensors, wait for
+  // delayTime(), and retrieve the data (get()).
+  // This function may block considerably!
+  void read();
 
   // Return true if sensor readings prepared for csv files are pending
   // and the csv file is not busy.
   bool pending();
 
-  // Whether and how print() and write() should output timestamps.
+  // Whether and how print*() and write*() functions should output timestamps.
   void setPrintTime(print_time_t pt);
 
   // Report sensor readings with name (or symbol) and unit on serial monitor.

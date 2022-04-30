@@ -94,7 +94,7 @@ class Sensor : public SensorDevice {
   // The sensor reading in the basic unit.
   // On error, return -INFINITY.
   // Before you can retrieve a sensor reading,
-  // you need to call request(), wait for at least delay() milliseconds,
+  // you need to call request(), wait for at least delayTime() milliseconds,
   // and then call read().
   virtual float reading() const = 0;
 
@@ -107,7 +107,7 @@ class Sensor : public SensorDevice {
   // Return the number of printed characters.
   int valueStr(char *s) const;
 
-  // Initiate measurement (request()), wait for delay(), retrieve the
+  // Initiate measurement (request()), wait for delayTime(), retrieve the
   // data (get()) and return the result (value()).
   // This function may block considerably!
   float read();

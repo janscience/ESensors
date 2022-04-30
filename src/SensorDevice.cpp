@@ -49,7 +49,7 @@ void SensorDevice::get() {
 
 void SensorDevice::read() {
   request();
-  ::delay(delay());
+  delay(delayTime());
   get();
 }
 

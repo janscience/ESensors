@@ -54,7 +54,7 @@ class SenseBME280 : public SensorDevice, protected BME280 {
   virtual bool available();
 
   // Recommended delay between a request() and get() in milliseconds.
-  virtual unsigned long delay() const;
+  virtual unsigned long delayTime() const;
 
   // The temperature in degrees celsius.
   // On error, return -INFINITY.

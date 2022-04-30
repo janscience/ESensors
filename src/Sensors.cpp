@@ -82,26 +82,42 @@ void Sensors::start() {
 }
 
 
+void Sensors::request() {
+  for (uint8_t k=0; k<NSensors; k++)
+    Snsrs[k]->request();
+  State = 1;
+}
+
+
+void Sensors::get() {
+  TimeStamp = now();
+  for (uint8_t k=0; k<NSensors; k++)
+    Snsrs[k]->get();
+  makeCSVData();
+  State = 0;
+  Time -= UseInterval;
+}
+
+
 bool Sensors::update() {
   switch (State) {
-  case 0: if (Time > UseInterval - MaxDelay) {
-      for (uint8_t k=0; k<NSensors; k++)
-	Snsrs[k]->request();
-      State = 1;
-    }
+  case 0: if (Time > UseInterval - MaxDelay)
+      request();
     break;
   case 1: if (Time > UseInterval) {
-      TimeStamp = now();
-      for (uint8_t k=0; k<NSensors; k++)
-	Snsrs[k]->get();
-      makeCSVData();
-      State = 0;
-      Time -= UseInterval;
+      get();
       return true;
     }
     break;
   }
   return false;
+}
+
+
+void Sensors::read() {
+  request();
+  delay(delayTime());
+  get();
 }
 
 

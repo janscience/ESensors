@@ -51,7 +51,7 @@ class LightTSL2591 : public Sensor, protected TSL2591TwoWire {
   virtual bool available();
 
   // Recommended delay between a request() and get() in milliseconds.
-  virtual unsigned long delay() const;
+  virtual unsigned long delayTime() const;
 
   // Set the integration time of the sensor.
   // One of 0: 100ms, 1: 200ms, 2: 300ms, 3: 400ms, 4: 500ms, 5: 600ms.
@@ -126,7 +126,7 @@ class LightTSL2591 : public Sensor, protected TSL2591TwoWire {
 
   char Chip[8];
   char ID[4];
-  int Delay;
+  unsigned long DelayTime;
   float IrradianceFull;
   float IrradianceIR;
   float Illuminance;

@@ -10,7 +10,7 @@
 
 // Default settings: -----------------------------------------------------------------------
 
-uint8_t tempPin = 10;         // pin for DATA line of thermometer
+uint8_t tempPin = 10;        // pin for DATA line of thermometer
 float sensorsInterval = 2.0; // interval between sensors readings in seconds
 
 // ------------------------------------------------------------------------------------------

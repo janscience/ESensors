@@ -63,7 +63,7 @@ void SenseBME280::requestData() {
 }
 
 
-unsigned long SenseBME280::delay() const
+unsigned long SenseBME280::delayTime() const
 {
   return 50;  // this is generous, <10 for no oversampling , <40 for 16x oversampling
 }

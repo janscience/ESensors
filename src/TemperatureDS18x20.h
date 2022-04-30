@@ -59,7 +59,7 @@ class TemperatureDS18x20 : public Sensor {
   virtual bool available();
 
   // Recommended delay between a request() and read() in milliseconds.
-  virtual unsigned long delay() const { return 1000; };
+  virtual unsigned long delayTime() const { return 1000; };
 
   // The temperature in degrees celsius.
   // On error, return -INFINITY.
