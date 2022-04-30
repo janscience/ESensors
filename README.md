@@ -7,9 +7,13 @@ for Teensy and Arduino.
 ## Sensors library
 
 - [Sensors](src/Sensors.h): Manage environmental sensors.
-- [Sensor](src/Sensor.h): Virtual base class for environmental sensors.
+- [SensorDevice](src/SensorDevice.h): Virtual base class for a sensor device.
+- [Sensor](src/Sensor.h): Virtual base class for reading a value from a sensor.
+- [SensorValue](src/SensorValue.h): Template base class for a sensor reading of a SensorDevice.
+
 - [TemperatureDS18x20](src/TemperatureDS18x20.h): A Sensor that reads temperature from a DS18x20 1-wire device.
 - [SenseBME280](src/SenseBME280.h): The Bosch BME280 temperature, humidity, and pressure sensor with many derived measures.
+- [LightTSL2591](src/LightTSL2591.h): Read light intensity from AMS TSL2591.
 
 
 ## Examples
@@ -19,6 +23,7 @@ the Sensors libraries.
 
 - [sensors](examples/sensors): read sensors and write readings to serial.
 - [logger](examples/logger): periodically write sensor readings with time stamp into a CSV file.
+- [snoozelogger](examples/snoozelogger): same as [logger example](examples/logger), but with hibernate between sensor readings.
 
 
 ## Utilities

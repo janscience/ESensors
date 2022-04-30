@@ -1,5 +1,5 @@
 /*
-  Sensor - Virtual base class for environmental sensors.
+  Sensor - Virtual base class for reading a value from a sensor.
   Created by Jan Benda, November 27th, 2021.
 */
 
