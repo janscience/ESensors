@@ -23,7 +23,7 @@ IRRatioTSL2591 irratio(&tsl, &sensors);
 //IrradianceIRTSL2591 irrIR(&tsl, &sensors);
 
 time_t getTeensyTime() {
-  return rtc_get();
+  return Teensy3Clock.get();
 }
 
 void setup(void) {

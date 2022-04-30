@@ -1,12 +1,11 @@
-// requires Snooze and TeeRec library
+// requires Snooze library
+#include <TimeLib.h>
 #include <Snooze.h>
 #include <SdFat.h>
 #include <Sensors.h>
 #include <TemperatureDS18x20.h>
 #include <SenseBME280.h>
 #include <LightTSL2591.h>
-#include <RTClock.h>
-#include <Blink.h>
 
 
 // Default settings: -----------------------------------------------------------------------
@@ -16,10 +15,10 @@ float sensorsInterval = 5.0; // interval between sensors readings in seconds
 
 // ------------------------------------------------------------------------------------------
 
+
 SnoozeAlarm alarm;
 SnoozeSPI snoozesdcard;
 SnoozeBlock snooze(alarm, snoozesdcard);
-RTClock rtclock;
 Sensors sensors;
 TemperatureDS18x20 temp(&sensors);
 SenseBME280 bme;
@@ -35,18 +34,19 @@ IRRatioTSL2591 irratio(&tsl, &sensors);
 //IrradianceFullTSL2591 irrfull(&tsl, &sensors);
 //IrradianceIRTSL2591 irrIR(&tsl, &sensors);
 SdFat sdcard;
-Blink blink(LED_BUILTIN);
+int led_pin = LED_BUILTIN;
 bool symbols = false;
 
-
-// ------------------------------------------------------------------------------------------
+time_t getTeensyTime() {
+  return Teensy3Clock.get();
+}
 
 void setup() {
-  blink.switchOn();
+  pinMode(led_pin, OUTPUT);
+  digitalWrite(led_pin, HIGH);
   Serial.begin(9600);
   while (!Serial && millis() < 2000) {};
-  rtclock.check();
-  rtclock.report();
+  setSyncProvider(getTeensyTime);
   temp.begin(tempPin);
   Wire.begin();
   bme.beginI2C(Wire, 0x77);
@@ -60,8 +60,13 @@ void setup() {
   sensors.setPrintTime(Sensors::ISO_TIME);
   sensors.report();
   bool success = sensors.openCSV(sdcard, "sensors", symbols);
-  blink.switchOff();
+  digitalWrite(led_pin, LOW);
   if (success) {
+    // init sensors:
+    sensors.start();
+    sensors.read();
+    tsl.setTemperature(bme.temperature());
+    sensors.read();
     sensors.start();
     Serial.println();
     Serial.println("Start logging ...");
@@ -76,11 +81,15 @@ void setup() {
 
 
 void loop() {
-  blink.switchOn();
-  rtclock.setSync();
+  digitalWrite(led_pin, HIGH);
+  setSyncProvider(getTeensyTime);
   sensors.read();
   if (sensors.pending())
     sensors.writeCSV();
-  blink.switchOff();
-  Snooze.deepSleep(snooze);
+  tsl.setTemperature(bme.temperature());
+  digitalWrite(led_pin, LOW);
+  // choose low power level:
+  //Snooze.sleep(snooze);
+  //Snooze.deepSleep(snooze);
+  Snooze.hibernate(snooze);   // same as deepSleep() but also put USB regulator in low power mode (limited current supply!)
 }
