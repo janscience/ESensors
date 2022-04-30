@@ -20,7 +20,7 @@
 #include <Wire.h>
 #include <SparkFunBME280.h>
 #include <SensorDevice.h>
-#include <Sensor.h>
+#include <SensorValue.h>
 
 
 // Simple wrapper around Spark Fun BME280 library.
@@ -80,43 +80,7 @@ class SenseBME280 : public SensorDevice, protected BME280 {
 };
 
 
-// Base class for sensors that read out SenseBME280.
-class SensorBME280 : public Sensor {
-
- public:
-
-  SensorBME280(SenseBME280 *bme, Sensors *sensors,
-	       const char *name, const char *symbol,
-	       const char *unit, const char *format,
-	       float resolution);
-
-  // Return true if BME280 sensor is available.
-  virtual bool available() { return BME->available(); };
-
-  // Return name of sensor chip model as character array.
-  virtual const char* chip() const { return BME->chip(); };
-
-  // Return unique identifier of sensor chip as character array.
-  virtual const char* identifier() const { return BME->identifier(); };
-
-  // Recommended delay between a request() and get() in milliseconds.
-  virtual unsigned long delayTime() const { return BME->delayTime(); };
-
-  
- protected:
-
-  // Request a sensor conversion.
-  virtual void requestData();
-
-  // Retrieve a sensor reading from the device.
-  virtual void getData();
-
-  SenseBME280 *BME;
-
-};
-
-
-class TemperatureBME280 : public SensorBME280 {
+class TemperatureBME280 : public SensorValue<SenseBME280> {
 
  public:
 
@@ -128,7 +92,7 @@ class TemperatureBME280 : public SensorBME280 {
 };
 
 
-class HumidityBME280 : public SensorBME280 {
+class HumidityBME280 : public SensorValue<SenseBME280> {
 
  public:
 
@@ -140,7 +104,7 @@ class HumidityBME280 : public SensorBME280 {
 };
 
 
-class AbsoluteHumidityBME280 : public SensorBME280 {
+class AbsoluteHumidityBME280 : public SensorValue<SenseBME280> {
 
  public:
 
@@ -152,7 +116,7 @@ class AbsoluteHumidityBME280 : public SensorBME280 {
 };
 
 
-class DewPointBME280 : public SensorBME280 {
+class DewPointBME280 : public SensorValue<SenseBME280> {
 
  public:
 
@@ -164,7 +128,7 @@ class DewPointBME280 : public SensorBME280 {
 };
 
 
-class PressureBME280 : public SensorBME280 {
+class PressureBME280 : public SensorValue<SenseBME280> {
 
  public:
 

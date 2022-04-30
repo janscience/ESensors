@@ -17,6 +17,7 @@
 #include <Wire.h>
 #include <TSL2591TwoWire.h>
 #include <Sensor.h>
+#include <SensorValue.h>
 
 
 // Simple wrapper around TSL2591MI library.
@@ -134,43 +135,7 @@ class LightTSL2591 : public Sensor, protected TSL2591TwoWire {
 };
 
 
-// Base class for sensors that read out LightTSL2591.
-class SensorTSL2591 : public Sensor {
-
- public:
-
-  SensorTSL2591(LightTSL2591 *tsl, Sensors *sensors,
-		const char *name, const char *symbol,
-		const char *unit, const char *format,
-		float resolution=1.0);
-
-  // Return true if TSL2591 sensor chip is available.
-  virtual bool available() { return TSL->available(); };
-
-  // Return name of sensor chip model as character array.
-  virtual const char* chip() const { return TSL->chip(); };
-
-  // Return unique identifier of sensor chip as character array.
-  virtual const char* identifier() const { return TSL->identifier(); };
-
-  // Recommended delay between a request() and get() in milliseconds.
-  virtual unsigned long delayTime() const { return TSL->delayTime(); };
-
-  
- protected:
-
-  // Request a sensor conversion.
-  virtual void requestData();
-
-  // Retrieve a sensor reading from the device.
-  virtual void getData();
-
-  LightTSL2591 *TSL;
-
-};
-
-
-class Channel0TSL2591 : public SensorTSL2591 {
+class Channel0TSL2591 : public SensorValue<LightTSL2591> {
 
  public:
 
@@ -181,7 +146,7 @@ class Channel0TSL2591 : public SensorTSL2591 {
 };
 
 
-class Channel1TSL2591 : public SensorTSL2591 {
+class Channel1TSL2591 : public SensorValue<LightTSL2591> {
 
  public:
 
@@ -192,7 +157,7 @@ class Channel1TSL2591 : public SensorTSL2591 {
 };
 
 
-class GainTSL2591 : public SensorTSL2591 {
+class GainTSL2591 : public SensorValue<LightTSL2591> {
 
  public:
 
@@ -204,7 +169,7 @@ class GainTSL2591 : public SensorTSL2591 {
 };
 
 
-class IRRatioTSL2591 : public SensorTSL2591 {
+class IRRatioTSL2591 : public SensorValue<LightTSL2591> {
 
  public:
 
@@ -215,7 +180,7 @@ class IRRatioTSL2591 : public SensorTSL2591 {
 };
 
 
-class IrradianceFullTSL2591 : public SensorTSL2591 {
+class IrradianceFullTSL2591 : public SensorValue<LightTSL2591> {
 
  public:
 
@@ -227,7 +192,7 @@ class IrradianceFullTSL2591 : public SensorTSL2591 {
 };
 
 
-class IrradianceIRTSL2591 : public SensorTSL2591 {
+class IrradianceIRTSL2591 : public SensorValue<LightTSL2591> {
 
  public:
 
@@ -239,7 +204,7 @@ class IrradianceIRTSL2591 : public SensorTSL2591 {
 };
 
 
-class IrradianceVisibleTSL2591 : public SensorTSL2591 {
+class IrradianceVisibleTSL2591 : public SensorValue<LightTSL2591> {
 
  public:
 

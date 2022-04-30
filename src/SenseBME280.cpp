@@ -77,55 +77,39 @@ void SenseBME280::getData() {
 }
 
 
-SensorBME280::SensorBME280(SenseBME280 *bme, Sensors *sensors,
-			   const char *name, const char *symbol,
-			   const char *unit, const char *format,
-			   float resolution)
-  : Sensor(sensors, name, symbol, unit, format, resolution),
-    BME(bme) {
-}
-
-
-void SensorBME280::requestData() {
-  BME->request();
-}
-
-
-void SensorBME280::getData() {
-  BME->get();
-}
-
-
 TemperatureBME280::TemperatureBME280(SenseBME280 *bme, Sensors *sensors)
-  : SensorBME280(bme, sensors, "temperature", "T", "ºC", "%.2f", 0.01) {
+  : SensorValue<SenseBME280>(bme, sensors,
+			     "temperature", "T", "ºC", "%.2f", 0.01) {
 }
 
 
 float TemperatureBME280::reading() const {
-  return BME->temperature();
+  return SDC->temperature();
 }
 
 
 HumidityBME280::HumidityBME280(SenseBME280 *bme, Sensors *sensors)
-  : SensorBME280(bme, sensors, "humidity", "RH", "%", "%.1f", 0.07) {
+  : SensorValue<SenseBME280>(bme, sensors,
+			     "humidity", "RH", "%", "%.1f", 0.07) {
 }
 
 
 float HumidityBME280::reading() const {
-  return BME->humidity();
+  return SDC->humidity();
 }
 
 
 AbsoluteHumidityBME280::AbsoluteHumidityBME280(SenseBME280 *bme,
 					       Sensors *sensors)
-  : SensorBME280(bme, sensors, "absolute humidity", "H", "g/m^3", "%.1f", 0.1) {
+  : SensorValue<SenseBME280>(bme, sensors,
+			     "absolute humidity", "H", "g/m^3", "%.1f", 0.1) {
 }
 
 
 float AbsoluteHumidityBME280::reading() const {
   // from https://github.com/finitespace/BME280/blob/master/src/EnvironmentCalculations.cpp
-  float temp = BME->temperature();
-  float humidity = BME->humidity();
+  float temp = SDC->temperature();
+  float humidity = SDC->humidity();
   const float mw = 18.01534; 	// molar mass of water g/mol
   const float R = 8.31447215; 	// universal gas constant J/mol/K
   temp = pow(2.718281828, (17.67 * temp) / (temp + 243.5));
@@ -134,14 +118,15 @@ float AbsoluteHumidityBME280::reading() const {
 
 
 DewPointBME280::DewPointBME280(SenseBME280 *bme, Sensors *sensors)
-  : SensorBME280(bme, sensors, "dew point", "Tdp", "ºC", "%.1f", 0.35) {
+  : SensorValue<SenseBME280>(bme, sensors,
+			     "dew point", "Tdp", "ºC", "%.1f", 0.35) {
 }
 
 
 float DewPointBME280::reading() const {
   // https://en.wikipedia.org/wiki/Dew_point
-  float temp = BME->temperature();
-  float humidity = BME->humidity();
+  float temp = SDC->temperature();
+  float humidity = SDC->humidity();
   const float b = 17.62;
   const float c = 243.12;
   float gamma = log(0.01*humidity) + (b * temp)/(c + temp);
@@ -150,12 +135,13 @@ float DewPointBME280::reading() const {
 
 
 PressureBME280::PressureBME280(SenseBME280 *bme, Sensors *sensors)
-  : SensorBME280(bme, sensors, "pressure", "P", "Pa", "%.0f", 3.3) {
+  : SensorValue<SenseBME280>(bme, sensors,
+			     "pressure", "P", "Pa", "%.0f", 3.3) {
 }
 
 
 float PressureBME280::reading() const {
-  return BME->pressure();
+  return SDC->pressure();
 }
 
 
@@ -179,7 +165,7 @@ SeaLevelPressureBME280::SeaLevelPressureBME280(SenseBME280 *bme,
 float SeaLevelPressureBME280::reading() const {
   // see https://keisan.casio.com/exec/system/1224575267
   // derivation: https://keisan.casio.com/keisan/image/Convertpressure.pdf
-  float pressure = BME->pressure();
-  float temp = BME->temperature();
+  float pressure = SDC->pressure();
+  float temp = SDC->temperature();
   return pressure / pow(1.0 - ((0.0065 * Altitude) / (temp + (0.0065 * Altitude) + 273.15)), 5.257);
 }
