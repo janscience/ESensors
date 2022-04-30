@@ -69,8 +69,8 @@ void Sensors::report() {
 void Sensors::start() {
   MaxDelay = 0;
   for (uint8_t k=0; k<NSensors; k++) {
-    if (Snsrs[k]->available() && Snsrs[k]->delay() > MaxDelay)
-      MaxDelay = Snsrs[k]->delay();
+    if (Snsrs[k]->available() && Snsrs[k]->delayTime() > MaxDelay)
+      MaxDelay = Snsrs[k]->delayTime();
   }
   UseInterval = Interval;
   if (UseInterval < 2*MaxDelay)

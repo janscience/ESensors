@@ -94,7 +94,8 @@ class SensorBME280 : public Sensor {
 
   SensorBME280(SenseBME280 *bme, Sensors *sensors,
 	       const char *name, const char *symbol,
-	       const char *unit, const char *format);
+	       const char *unit, const char *format,
+	       float resolution);
 
   // Return true if BME280 sensor is available.
   virtual bool available() { return BME->available(); };
@@ -106,7 +107,7 @@ class SensorBME280 : public Sensor {
   virtual const char* identifier() const { return BME->identifier(); };
 
   // Recommended delay between a request() and get() in milliseconds.
-  virtual unsigned long delay() const { return BME->delay(); };
+  virtual unsigned long delayTime() const { return BME->delayTime(); };
 
   
  protected:
@@ -128,9 +129,6 @@ class TemperatureBME280 : public SensorBME280 {
 
   TemperatureBME280(SenseBME280 *bme, Sensors *sensors=0);
 
-  // Return resolution of the temperature readings.
-  virtual float resolution() const;
-
   // The temperature in degrees celsius.
   // On error, return -INFINITY.
   virtual float reading() const;
@@ -142,9 +140,6 @@ class HumidityBME280 : public SensorBME280 {
  public:
 
   HumidityBME280(SenseBME280 *bme, Sensors *sensors=0);
-
-  // Return resolution of the humidity readings.
-  virtual float resolution() const;
 
   // The relative humidity in percent.
   // On error, return -INFINITY.
@@ -158,9 +153,6 @@ class AbsoluteHumidityBME280 : public SensorBME280 {
 
   AbsoluteHumidityBME280(SenseBME280 *bme, Sensors *sensors=0);
 
-  // Return resolution of the absolute humidity readings.
-  virtual float resolution() const;
-
   // The absolute humidity in g/m^3.
   // On error, return -INFINITY.
   virtual float reading() const;
@@ -173,9 +165,6 @@ class DewPointBME280 : public SensorBME280 {
 
   DewPointBME280(SenseBME280 *bme, Sensors *sensors=0);
 
-  // Return resolution of the dew point readings.
-  virtual float resolution() const;
-
   // The dew point in degrees celsius.
   // On error, return -INFINITY.
   virtual float reading() const;
@@ -187,9 +176,6 @@ class PressureBME280 : public SensorBME280 {
  public:
 
   PressureBME280(SenseBME280 *bme, Sensors *sensors=0);
-
-  // Return resolution of the pressure readings.
-  virtual float resolution() const;
 
   // The pressure in Pascal.
   // On error, return -INFINITY.

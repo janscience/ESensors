@@ -52,9 +52,6 @@ class TemperatureDS18x20 : public Sensor {
   // Return ROM of temperature sensor (unique ID) as string.
   virtual const char* identifier() const { return AddrS; };
 
-  // Return resolution of the temperature readings.
-  virtual float resolution() const;
-
   // Return true if temperature sensor is available.
   virtual bool available();
 

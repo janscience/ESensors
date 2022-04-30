@@ -22,19 +22,20 @@ class Sensor : public SensorDevice {
   // Initialize the sensor.
   Sensor();
 
-  // Initialize the sensor and set name, mathematical symbol, basic unit, and
-  // format of sensor readings.
+  // Initialize the sensor and set name, mathematical symbol, basic unit,
+  // format, and resolution of sensor readings.
   // The derived unit is also set to unit, the conversion factor
   // is set to one, the offset to zero.
   Sensor(const char *name, const char *symbol, const char *unit,
-	 const char *format);
+	 const char *format, float resolution=1.0);
 
   // Initialize the sensor, add it to sensors, and set name,
-  // mathematical symbol, basic unit, and format of sensor readings.
+  // mathematical symbol, basic unit, format and resolution of sensor
+  // readings.
   // The derived unit is also set to unit, the conversion factor
   // is set to one, the offset to zero.
   Sensor(Sensors *sensors, const char *name, const char *symbol,
-	 const char *unit, const char *format);
+	 const char *unit, const char *format, float resolution=1.0);
 
   // Return name of environmental sensor reading as character array.
   const char* name() const;
@@ -80,9 +81,9 @@ class Sensor : public SensorDevice {
   void setFormat(const char *format);
 
   // Return resolution of the sensor readings in the current unit.
-  // Any implementation should multiply the resolution with Factor
-  // before returning the value.
-  virtual float resolution() const = 0;
+  // In case this function is reimplemented, it should multiply the
+  // resolution with Factor before returning the value.
+  virtual float resolution() const;
   
   // Print the resolution using format string into string s.
   // Return the number of printed characters.
@@ -162,6 +163,9 @@ class Sensor : public SensorDevice {
   
 protected:
 
+  // Set resolution of the sensor in its basic unit.
+  void setResolution(float resolution);
+
   char Name[50];
   char Symbol[20];
   char BasicUnit[20];
@@ -169,6 +173,7 @@ protected:
   char Format[10];
   float Factor;
   float Offset;
+  float Resolution;
   
 };
 

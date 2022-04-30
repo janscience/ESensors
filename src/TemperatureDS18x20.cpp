@@ -2,7 +2,7 @@
 
 
 TemperatureDS18x20::TemperatureDS18x20(Sensors *sensors)
-  : Sensor(sensors, "temperature", "T", "ºC", "%.2f") {
+  : Sensor(sensors, "temperature", "T", "ºC", "%.2f", 0.0625) {
   Type_s = -1;
   memset(Addr, 0, sizeof(Addr));
   memset(AddrS, 0, sizeof(AddrS));
@@ -74,11 +74,6 @@ void TemperatureDS18x20::begin(uint8_t pin) {
 
 bool TemperatureDS18x20::available() {
   return (Type_s >= 0);
-}
-
-
-float TemperatureDS18x20::resolution() const {
-  return Factor*0.0625;  // 12 bit default resolution
 }
 
 

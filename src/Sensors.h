@@ -41,7 +41,8 @@ class Sensors {
   // Report properties of all sensor devices on serial monitor.
   void report();
 
-  // Start acquisition of sensor values and clear data buffers.
+  // Start acquisition of sensor values, set delayTime(), and clear
+  // data buffers.
   void start();
 
   // Request sensor readings from all sensors.
@@ -65,6 +66,7 @@ class Sensors {
   // Initiate measurement (request()) of all sensors, wait for
   // delayTime(), and retrieve the data (get()).
   // This function may block considerably!
+  // Before using read() for the first time you need to call start().
   void read();
 
   // Return true if sensor readings prepared for csv files are pending

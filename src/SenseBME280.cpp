@@ -80,8 +80,9 @@ void SenseBME280::getData() {
 
 SensorBME280::SensorBME280(SenseBME280 *bme, Sensors *sensors,
 			   const char *name, const char *symbol,
-			   const char *unit, const char *format)
-  : Sensor(sensors, name, symbol, unit, format),
+			   const char *unit, const char *format,
+			   float resolution)
+  : Sensor(sensors, name, symbol, unit, format, resolution),
     BME(bme) {
 }
 
@@ -97,12 +98,7 @@ void SensorBME280::getData() {
 
 
 TemperatureBME280::TemperatureBME280(SenseBME280 *bme, Sensors *sensors)
-  : SensorBME280(bme, sensors, "temperature", "T", "ºC", "%.2f") {
-}
-
-
-float TemperatureBME280::resolution() const {
-  return Factor*0.01;
+  : SensorBME280(bme, sensors, "temperature", "T", "ºC", "%.2f", 0.01) {
 }
 
 
@@ -112,12 +108,7 @@ float TemperatureBME280::reading() const {
 
 
 HumidityBME280::HumidityBME280(SenseBME280 *bme, Sensors *sensors)
-  : SensorBME280(bme, sensors, "humidity", "RH", "%", "%.1f") {
-}
-
-
-float HumidityBME280::resolution() const {
-  return Factor*0.07;
+  : SensorBME280(bme, sensors, "humidity", "RH", "%", "%.1f", 0.07) {
 }
 
 
@@ -128,12 +119,7 @@ float HumidityBME280::reading() const {
 
 AbsoluteHumidityBME280::AbsoluteHumidityBME280(SenseBME280 *bme,
 					       Sensors *sensors)
-  : SensorBME280(bme, sensors, "absolute humidity", "H", "g/m^3", "%.1f") {
-}
-
-
-float AbsoluteHumidityBME280::resolution() const {
-  return Factor*0.1;
+  : SensorBME280(bme, sensors, "absolute humidity", "H", "g/m^3", "%.1f", 0.1) {
 }
 
 
@@ -149,12 +135,7 @@ float AbsoluteHumidityBME280::reading() const {
 
 
 DewPointBME280::DewPointBME280(SenseBME280 *bme, Sensors *sensors)
-  : SensorBME280(bme, sensors, "dew point", "Tdp", "ºC", "%.1f") {
-}
-
-
-float DewPointBME280::resolution() const {
-  return Factor*0.35;
+  : SensorBME280(bme, sensors, "dew point", "Tdp", "ºC", "%.1f", 0.35) {
 }
 
 
@@ -170,11 +151,7 @@ float DewPointBME280::reading() const {
 
 
 PressureBME280::PressureBME280(SenseBME280 *bme, Sensors *sensors)
-  : SensorBME280(bme, sensors, "pressure", "P", "Pa", "%.0f") {
-}
-
-float PressureBME280::resolution() const {
-  return Factor*3.3;
+  : SensorBME280(bme, sensors, "pressure", "P", "Pa", "%.0f", 3.3) {
 }
 
 

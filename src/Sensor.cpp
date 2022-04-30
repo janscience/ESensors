@@ -10,24 +10,26 @@ Sensor::Sensor() :
   Unit(""),
   Format("%.2f"),
   Factor(1.0),
-  Offset(0.0) {
+  Offset(0.0),
+  Resolution(1.0) {
 }
 
 
 Sensor::Sensor(const char *name, const char *symbol, const char *unit,
-	       const char *format) :
+	       const char *format, float resolution) :
   Sensor() {
   strcpy(BasicUnit, unit);
   setName(name);
   setSymbol(symbol);
   setUnit(unit, 1.0, 0.0);
   setFormat(format);
+  setResolution(resolution);
 }
 
 
 Sensor::Sensor(Sensors *sensors, const char *name, const char *symbol,
-	       const char *unit, const char *format) :
-  Sensor(name, symbol, unit, format) {
+	       const char *unit, const char *format, float resolution) :
+  Sensor(name, symbol, unit, format, resolution) {
   if (sensors != 0)
     sensors->addSensor(*this);
 }
@@ -100,6 +102,16 @@ const char* Sensor::format() const {
 
 void Sensor::setFormat(const char *format) {
   strcpy(Format, format);
+}
+
+
+void Sensor::setResolution(float resolution) {
+  Resolution = resolution;
+}
+
+
+float Sensor::resolution() const {
+  return Factor*Resolution;
 }
 
 

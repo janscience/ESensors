@@ -81,9 +81,6 @@ class LightTSL2591 : public Sensor, protected TSL2591TwoWire {
   // from the chip in the getData() function.
   void setTemperature(double temperature);
 
-  // Return resolution of the illuminance readings.
-  virtual float resolution() const;
-
   // Illuminance in Lux.
   virtual float reading() const { return illuminance(); };
   
@@ -152,7 +149,8 @@ class SensorTSL2591 : public Sensor {
 
   SensorTSL2591(LightTSL2591 *tsl, Sensors *sensors,
 		const char *name, const char *symbol,
-		const char *unit, const char *format);
+		const char *unit, const char *format,
+		float resolution=1.0);
 
   // Return true if TSL2591 sensor chip is available.
   virtual bool available() { return TSL->available(); };
@@ -163,11 +161,8 @@ class SensorTSL2591 : public Sensor {
   // Return unique identifier of sensor chip as character array.
   virtual const char* identifier() const { return TSL->identifier(); };
 
-  // Return resolution of the irradiance readings.
-  virtual float resolution() const;
-
   // Recommended delay between a request() and get() in milliseconds.
-  virtual unsigned long delay() const { return TSL->delay(); };
+  virtual unsigned long delayTime() const { return TSL->delayTime(); };
 
   
  protected:
