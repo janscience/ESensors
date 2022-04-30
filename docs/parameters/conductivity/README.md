@@ -45,6 +45,8 @@ Conductivity depends on temperature. It is usually temperature corrected to 20&#
 
 ## Hardware
 
+- [Aqualab inductive conductivity digital sensor](https://en.aqualabo.fr/ctzn-digital-sensor-bare-wires-7-m-cable-plastic-connection-immersio-b3996.html)
+- [Aqualab conductivity digital sensor](https://en.aqualabo.fr/-b49802.html)
 - [Atlas Scientific EZO](https://atlas-scientific.com/embedded-solutions/ezo-conductivity-circuit/): professional but pricy.
 - [CN0349 fully isolated conductivity measurement data acquisition system](https://www.analog.com/en/design-center/reference-designs/circuits-from-the-lab/cn0349.htm) with code [CN0349_ConductivitySensor](https://github.com/joshagirgis/CN0349-Arduino-Based-Library)
 - [Gravity: Analog Electrical Conductivity Sensor](https://www.dfrobot.com/product-1123.html): analog voltage as output

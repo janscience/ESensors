@@ -14,6 +14,7 @@
 - [turbitity](turbitity/)
 - [water velocity](velocity/)
 - [water level](waterlevel/)
+- [oxygen](oxygen/)
 
 
 ## General resources
