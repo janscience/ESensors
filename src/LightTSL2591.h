@@ -4,9 +4,9 @@
 
   Wrapper for [TSL2591MI](https://bitbucket.org/christandlg/tsl2591mi/).
 
-  [Infos, Datasheet, libraries](https://github.com/janscience/TeeSense/blob/main/docs/chips/tsl2591.md)
+  [Infos, Datasheet, libraries](https://github.com/janscience/Sensors/blob/main/docs/chips/tsl2591.md)
 
-  [Background light measurements](https://github.com/janscience/TeeSense/tree/main/docs/parameters/light)
+  [Background light measurements](https://github.com/janscience/Sensors/tree/main/docs/parameters/light)
 */
 
 #ifndef LightTSL2591_h

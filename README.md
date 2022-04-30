@@ -1,4 +1,4 @@
-# TeeSense
+# Sensors
 
 [Hard-](docs/) and software for environmental sensors (air and water)
 for Teensy and Arduino.
@@ -15,7 +15,7 @@ for Teensy and Arduino.
 ## Examples
 
 In [examples/](examples) you find sketches demonstrating the use of
-the TeeSense libraries.
+the Sensors libraries.
 
 - [sensors](examples/sensors): read sensors and write readings to serial.
 - [logger](examples/logger): periodically write sensor readings with time stamp into a CSV file.
@@ -43,7 +43,7 @@ supply](docs/power/).
 
 ## Dependencies
 
-TeeSense is based on the following libraries:
+Sensors is based on the following libraries:
 
 - [SdFat version2](https://github.com/greiman/SdFat)
 - [SparkFun BME280](https://github.com/sparkfun/SparkFun_BME280_Arduino_Library)
@@ -66,32 +66,32 @@ and install them.
 
 ## Installation
 
-Clone the [TeeSense](https://github.com/janscience/TeeSense) repository
+Clone the [Sensors](https://github.com/janscience/Sensors) repository
 directly into 'Arduino/libraries':
 ```sh
 cd Arduino/libraries
-git clone https://github.com/janscience/TeeSense.git
+git clone https://github.com/janscience/Sensors.git
 ```
 
 Alternatively, download the whole repository as a zip archive (open
-https://github.com/janscience/TeeSense in your browser and click on the
+https://github.com/janscience/Sensors in your browser and click on the
 green "Code" button). Unpack the zip file:
 ```sh
 cd Arduino/libraries
-unzip ~/Downloads/TeeSense-main.zip
+unzip ~/Downloads/Sensors-main.zip
 ```
 
-If you want to edit the TeeSense files, mark the library as developmental:
+If you want to edit the Sensors files, mark the library as developmental:
 ```sh
-cd Arduino/libraries/TeeSense
+cd Arduino/libraries/Sensors
 touch .development
 ```
 
 Close the Arduino IDE and open it again. Then the Arduino IDE knows
-about the TeeSense library and its examples.
+about the Sensors library and its examples.
 
 
-## Applications of the TeeSense libraries
+## Applications of the Sensors libraries
 
 TeeRec is used in:
 

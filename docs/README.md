@@ -1,4 +1,4 @@
-# TeeSense documentation
+# Sensors documentation
 
 - [Parameters](parameters/): Infos on how two measure
   environmental parameters.
