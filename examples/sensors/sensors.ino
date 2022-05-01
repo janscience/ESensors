@@ -32,7 +32,8 @@ void setup(void) {
   Serial.begin(9600);
   while (!Serial && millis() < 2000) {};
   setSyncProvider(getTeensyTime);  // enable real time clock
-  sensors.setPrintTime(Sensors::NO_TIME);
+  // sensors.setPrintTime(Sensors::ISO_TIME);
+  sensors.setPrintTime(Sensors::NO_TIME);  // no time column for the serial plotter
   sensors.setInterval(0.2);
   Wire.begin();
   bme.beginI2C(Wire, 0x77);
@@ -42,8 +43,8 @@ void setup(void) {
   tsl.setGain(LightTSL2591::AUTO_GAIN);
   //irratio.setPercent();
   Serial.println();
-  sensors.report();
-  Serial.println();
+  //sensors.report();  // nice, but confuses the serial plotter
+  //Serial.println();
   delay(500);
   // discard first read:
   sensors.start();
