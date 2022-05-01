@@ -113,6 +113,28 @@ class Sensor : public SensorDevice {
   // This function may block considerably!
   float read();
 
+  // Special unit conversions for SI prefixes:
+
+  // Set unit to micro (factor to 1e6 and prepend unit with an 'µ').
+  void setMicro();
+
+  // Set unit to milli (factor to 1e3 and prepend unit with an 'm').
+  void setMilli();
+
+  // Set unit to centi (factor to 1e2 and prepend unit with an 'c').
+  void setCenti();
+
+  // Set unit to hecto (factor to 1e-2 and prepend unit with an 'h').
+  void setHecto();
+
+  // Set unit to kilo (factor to 1e-3 and prepend unit with an 'k').
+  void setKilo();
+
+  // Set unit to Mega (factor to 1e-6 and prepend unit with an 'M').
+  void setMega();
+
+  // Set unit to Giga (factor to 1e-9 and prepend unit with an 'G').
+  void setGiga();
   
   // Special unit conversions for unit-less ratios or fractions:
 
@@ -129,15 +151,6 @@ class Sensor : public SensorDevice {
   
   // Special unit conversions for pressures measured in Pascal:
   // https://www.beamex.com/resources/pressure-unit-converter/
-
-  // Set unit to hectopascal.
-  void setHectoPascal();
-
-  // Set unit to kilopascal.
-  void setKiloPascal();
-
-  // Set unit to megapascal.
-  void setMegaPascal();
 
   // Set unit to bar.
   void setBar();

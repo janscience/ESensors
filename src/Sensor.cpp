@@ -153,6 +153,132 @@ float Sensor::read() {
 }
 
 
+void Sensor::setMicro() {
+  char us[20];
+  sprintf(us, "µ%s", unit());
+  char fs[10];
+  strcpy(fs, format());
+  char *pp = strrchr(fs, '.');
+  if (pp != 0 ) {
+    pp++;
+    int d = atoi(pp);
+    d -= 3;
+    if (d < 0)
+      d = 0;
+    *pp = '0' + d;
+  }
+  setUnit(us, 1e6, fs);
+}
+
+
+void Sensor::setMilli() {
+  char us[20];
+  sprintf(us, "m%s", unit());
+  char fs[10];
+  strcpy(fs, format());
+  char *pp = strrchr(fs, '.');
+  if (pp != 0 ) {
+    pp++;
+    int d = atoi(pp);
+    d -= 3;
+    if (d < 0)
+      d = 0;
+    *pp = '0' + d;
+  }
+  setUnit(us, 1e3, fs);
+}
+
+
+void Sensor::setCenti() {
+  char us[20];
+  sprintf(us, "c%s", unit());
+  char fs[10];
+  strcpy(fs, format());
+  char *pp = strrchr(fs, '.');
+  if (pp != 0 ) {
+    pp++;
+    int d = atoi(pp);
+    d -= 2;
+    if (d < 0)
+      d = 0;
+    *pp = '0' + d;
+  }
+  setUnit(us, 1e2, fs);
+}
+
+
+void Sensor::setHecto() {
+  char us[20];
+  sprintf(us, "h%s", unit());
+  char fs[10];
+  strcpy(fs, format());
+  char *pp = strrchr(fs, '.');
+  if (pp != 0 ) {
+    pp++;
+    int d = atoi(pp);
+    d += 2;
+    if (d > 9)
+      d = 9;
+    *pp = '0' + d;
+  }
+  setUnit(us, 1e-2, fs);
+}
+
+
+void Sensor::setKilo() {
+  char us[20];
+  sprintf(us, "k%s", unit());
+  char fs[10];
+  strcpy(fs, format());
+  char *pp = strrchr(fs, '.');
+  if (pp != 0 ) {
+    pp++;
+    int d = atoi(pp);
+    d += 3;
+    if (d > 9)
+      d = 9;
+    *pp = '0' + d;
+  }
+  setUnit(us, 1e-3, fs);
+}
+
+
+void Sensor::setMega() {
+  char us[20];
+  sprintf(us, "M%s", unit());
+  char fs[10];
+  strcpy(fs, format());
+  char *pp = strrchr(fs, '.');
+  if (pp != 0 ) {
+    pp++;
+    int d = atoi(pp);
+    d += 6;
+    if (d > 9)
+      d = 9;
+    *pp = '0' + d;
+  }
+  setUnit(us, 1e-6, fs);
+}
+
+
+void Sensor::setGiga() {
+  char us[20];
+  sprintf(us, "G%s", unit());
+  char fs[10];
+  strcpy(fs, format());
+  char *pp = strrchr(fs, '.');
+  if (pp != 0 ) {
+    pp++;
+    int d = atoi(pp);
+    d += 9;
+    if (d > 9)
+      d = 9;
+    *pp = '0' + d;
+  }
+  setUnit(us, 1e-9, fs);
+}
+
+
 void Sensor::setPercent() {
   setUnit("%", 100.0, 0.0, "%5.1f");
 }
@@ -165,21 +291,6 @@ void Sensor::setKelvin() {
 
 void Sensor::setFahrenheit() {
   setUnit("F", 9.0/5.0, 32.0, "%.2f");
-}
-
-
-void Sensor::setHectoPascal() {
-  setUnit("hPa", 0.01, "%.2f");
-}
-
-
-void Sensor::setKiloPascal() {
-  setUnit("kPa", 0.001, "%.3f");
-}
-
-
-void Sensor::setMegaPascal() {
-  setUnit("MPa", 1e-6, "%.6f");
 }
 
 

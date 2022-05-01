@@ -47,7 +47,7 @@ void setup() {
   temp.begin(tempPin);
   Wire.begin();
   bme.beginI2C(Wire, 0x77);
-  pres.setHectoPascal();
+  pres.setHecto();
   tsl.begin();
   tsl.setGain(LightTSL2591::AUTO_GAIN);
   irratio.setPercent();
