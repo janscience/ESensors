@@ -8,6 +8,10 @@ to 5V, and the Teensy transforms it back to 3.3V. This double
 conversion is a waste of energy. You can run a Teensy about 30% longer
 when driving it directly with the 3.7V output from a LiPo battery.
 
+Furthermore, there can be a problem when you run the Teensy in low
+power modes. The current it draws from the power is then so low, that
+it might shut off.
+
 There is a number of nice chargers that make using LiPo batteries on
 the Teensy very easy.
 

@@ -1,3 +1,6 @@
+// You can not run this from a power bank,
+// because it will shut off!
+
 // requires Snooze library
 #include <TimeLib.h>
 #include <Snooze.h>
