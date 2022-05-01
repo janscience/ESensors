@@ -1,8 +1,8 @@
 #include <LightTSL2591.h>
 
 
-LightTSL2591::LightTSL2591(Sensors *sensors) :
-  Sensor(sensors, "illuminance", "E", "lx", "%8.2f", 1.0),
+LightTSL2591::LightTSL2591() :
+  SensorDevice(),
   TSL2591TwoWire() {
   DelayTime = 130;
   IrradianceFull = NoValue;
@@ -16,8 +16,8 @@ LightTSL2591::LightTSL2591(Sensors *sensors) :
 }
 
 
-LightTSL2591::LightTSL2591(TwoWire *wire, Sensors *sensors) :
-  Sensor(sensors, "illuminance", "E", "lx", "%8.2f"),
+LightTSL2591::LightTSL2591(TwoWire *wire) :
+  SensorDevice(),
   TSL2591TwoWire(wire) {
   DelayTime = 130;
   IrradianceFull = NoValue;
@@ -208,5 +208,16 @@ IrradianceVisibleTSL2591::IrradianceVisibleTSL2591(LightTSL2591 *tsl, Sensors *s
 
 float IrradianceVisibleTSL2591::reading() const {
   return SDC->irradianceVisible();
+}
+
+
+IlluminanceTSL2591::IlluminanceTSL2591(LightTSL2591 *tsl, Sensors *sensors)
+  : SensorValue<LightTSL2591>(tsl, sensors,
+			      "illuminance", "E", "lx", "%8.2f", 1.0) {
+}
+
+
+float IlluminanceTSL2591::reading() const {
+  return SDC->illuminance();
 }
 

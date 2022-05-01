@@ -14,19 +14,22 @@ float sensorsInterval = 2.0; // interval between sensors readings in seconds
 // ------------------------------------------------------------------------------------------
 
 Sensors sensors;
+
 TemperatureDS18x20 temp(&sensors);
 SenseBME280 bme;
 TemperatureBME280 tempbme(&bme, &sensors);
 HumidityBME280 hum(&bme, &sensors);
 DewPointBME280 dp(&bme, &sensors);
 PressureBME280 pres(&bme, &sensors);
-LightTSL2591 tsl(&Wire, &sensors);
+LightTSL2591 tsl(&Wire);
 Channel0TSL2591 chn0(&tsl, &sensors);
 Channel1TSL2591 chn1(&tsl, &sensors);
 GainTSL2591 gain(&tsl, &sensors);
 IRRatioTSL2591 irratio(&tsl, &sensors);
 IrradianceFullTSL2591 irrfull(&tsl, &sensors);
 IrradianceIRTSL2591 irrIR(&tsl, &sensors);
+IlluminanceTSL2591 illum(&tsl, &sensors);
+
 SdFat sdcard;
 int led_pin = LED_BUILTIN;
 bool symbols = false;

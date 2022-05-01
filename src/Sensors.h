@@ -120,7 +120,7 @@ class Sensors {
   // Return false on overflow of data buffer.
   bool makeCSVData();
 
-  static const uint8_t MaxSensors = 10; 
+  static const uint8_t MaxSensors = 20; 
   uint8_t NSensors; 
   Sensor *Snsrs[MaxSensors];
   unsigned long MaxDelay;

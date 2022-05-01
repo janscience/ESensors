@@ -16,22 +16,23 @@
 #include <Arduino.h>
 #include <Wire.h>
 #include <TSL2591TwoWire.h>
+#include <SensorDevice.h>
 #include <Sensor.h>
 #include <SensorValue.h>
 
 
 // Simple wrapper around TSL2591MI library.
-class LightTSL2591 : public Sensor, protected TSL2591TwoWire {
+class LightTSL2591 : public SensorDevice, protected TSL2591TwoWire {
 
  public:
 
   static const uint8_t AUTO_GAIN = 0xFF;
 
   // Do not initialize TSL2591 device yet.
-  LightTSL2591(Sensors *sensors=0);
+  LightTSL2591();
 
   // Do not initialize TSL2591 device yet.
-  LightTSL2591(TwoWire *wire, Sensors *sensors=0);
+  LightTSL2591(TwoWire *wire);
  
   // Initialize TSL2591 device on the I2C bus provided by constructor,
   // otherwise on default I2C bus.
@@ -75,9 +76,6 @@ class LightTSL2591 : public Sensor, protected TSL2591TwoWire {
   // Temperature correction is applied immediately when retrieving data
   // from the chip in the getData() function.
   void setTemperature(double temperature);
-
-  // Illuminance in Lux.
-  virtual float reading() const { return illuminance(); };
   
   // Temperature corrected channel count of the full spectrum sensor.
   uint16_t channel0() const { return C0DATA; };
@@ -211,6 +209,18 @@ class IrradianceVisibleTSL2591 : public SensorValue<LightTSL2591> {
   IrradianceVisibleTSL2591(LightTSL2591 *tsl, Sensors *sensors=0);
 
   // The irradiance of the visible spectrum in W/m^2.
+  // On error, return -INFINITY.
+  virtual float reading() const;
+};
+
+
+class IlluminanceTSL2591 : public SensorValue<LightTSL2591> {
+
+ public:
+
+  IlluminanceTSL2591(LightTSL2591 *tsl, Sensors *sensors=0);
+
+  // The illuminance in Lux.
   // On error, return -INFINITY.
   virtual float reading() const;
 };
