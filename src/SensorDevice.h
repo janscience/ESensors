@@ -24,13 +24,13 @@ class SensorDevice {
   SensorDevice();
 
   // Return name of sensor chip model as character array.
-  const char* chip() const;
+  virtual const char* chip() const;
 
   // Set the name of the chip.
   void setChip(const char *chip);
 
   // Return unique identifier of sensor chip as character array.
-  const char* identifier() const;
+  virtual const char* identifier() const;
 
   // Set the unique identifier of the chip.
   void setIdentifier(const char *identifier);

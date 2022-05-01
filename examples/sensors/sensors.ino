@@ -41,9 +41,9 @@ void setup(void) {
   tsl.begin();
   tsl.setGain(LightTSL2591::AUTO_GAIN);
   //irratio.setPercent();
-  Serial.println();
-  //sensors.report();
   //Serial.println();
+  //sensors.report();
+  Serial.println();
   delay(500);
   // discard first read:
   sensors.start();

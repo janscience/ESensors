@@ -124,12 +124,15 @@ void Sensor::report() {
   if (available()) {
     char rs[10];
     resolutionStr(rs);
-    Serial.printf("%s %s (%s):", name(), symbol(), unit());
+    Serial.printf("%s %s", name(), symbol());
+    if (strlen(unit()) > 0)
+      Serial.printf(" (%s)", unit());
+    Serial.print(":");
     if (strlen(chip()) > 0)
       Serial.printf("\t on %s device", chip());
     if (strlen(identifier()) > 0)
       Serial.printf(" (ID: %s)", identifier());
-    Serial.printf(" at %s%s resolution.\n", rs, unit());
+    Serial.printf(" at a resolution of %s%s.\n", rs, unit());
   }
 }
 
