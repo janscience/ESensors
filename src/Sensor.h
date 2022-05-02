@@ -115,26 +115,27 @@ class Sensor : public SensorDevice {
 
   // Special unit conversions for SI prefixes:
 
+  // Set SI prefix for unit that scales the unit by `factor` and
+  // shifts the number of decimals in the format by `decimals`.
+  void setSIPrefix(const char *prefix, float factor, int decimals);
+
   // Set unit to micro (factor to 1e6 and prepend unit with an 'µ').
-  void setMicro();
+  void setMicro() { setSIPrefix("µ", 1e6, -6); };
 
   // Set unit to milli (factor to 1e3 and prepend unit with an 'm').
-  void setMilli();
+  void setMilli() { setSIPrefix("m", 1e3, -3); };
 
   // Set unit to centi (factor to 1e2 and prepend unit with an 'c').
-  void setCenti();
+  void setCenti() { setSIPrefix("c", 1e2, -2); };
 
   // Set unit to hecto (factor to 1e-2 and prepend unit with an 'h').
-  void setHecto();
+  void setHecto() { setSIPrefix("h", 1e-2, 2); };
 
   // Set unit to kilo (factor to 1e-3 and prepend unit with an 'k').
-  void setKilo();
+  void setKilo() { setSIPrefix("K", 1e-3, 3); };
 
   // Set unit to Mega (factor to 1e-6 and prepend unit with an 'M').
-  void setMega();
-
-  // Set unit to Giga (factor to 1e-9 and prepend unit with an 'G').
-  void setGiga();
+  void setMega() { setSIPrefix("M", 1e-6, 6); };
   
   // Special unit conversions for unit-less ratios or fractions:
 

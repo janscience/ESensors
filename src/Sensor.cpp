@@ -153,129 +153,21 @@ float Sensor::read() {
 }
 
 
-void Sensor::setMicro() {
+void Sensor::setSIPrefix(const char *prefix, float factor, int decimals) {
   char us[20];
-  sprintf(us, "µ%s", unit());
+  sprintf(us, "%s%s", prefix, unit());
   char fs[10];
   strcpy(fs, format());
   char *pp = strrchr(fs, '.');
   if (pp != 0 ) {
     pp++;
     int d = atoi(pp);
-    d -= 3;
+    d += decimals;
     if (d < 0)
       d = 0;
     *pp = '0' + d;
   }
-  setUnit(us, 1e6, fs);
-}
-
-
-void Sensor::setMilli() {
-  char us[20];
-  sprintf(us, "m%s", unit());
-  char fs[10];
-  strcpy(fs, format());
-  char *pp = strrchr(fs, '.');
-  if (pp != 0 ) {
-    pp++;
-    int d = atoi(pp);
-    d -= 3;
-    if (d < 0)
-      d = 0;
-    *pp = '0' + d;
-  }
-  setUnit(us, 1e3, fs);
-}
-
-
-void Sensor::setCenti() {
-  char us[20];
-  sprintf(us, "c%s", unit());
-  char fs[10];
-  strcpy(fs, format());
-  char *pp = strrchr(fs, '.');
-  if (pp != 0 ) {
-    pp++;
-    int d = atoi(pp);
-    d -= 2;
-    if (d < 0)
-      d = 0;
-    *pp = '0' + d;
-  }
-  setUnit(us, 1e2, fs);
-}
-
-
-void Sensor::setHecto() {
-  char us[20];
-  sprintf(us, "h%s", unit());
-  char fs[10];
-  strcpy(fs, format());
-  char *pp = strrchr(fs, '.');
-  if (pp != 0 ) {
-    pp++;
-    int d = atoi(pp);
-    d += 2;
-    if (d > 9)
-      d = 9;
-    *pp = '0' + d;
-  }
-  setUnit(us, 1e-2, fs);
-}
-
-
-void Sensor::setKilo() {
-  char us[20];
-  sprintf(us, "k%s", unit());
-  char fs[10];
-  strcpy(fs, format());
-  char *pp = strrchr(fs, '.');
-  if (pp != 0 ) {
-    pp++;
-    int d = atoi(pp);
-    d += 3;
-    if (d > 9)
-      d = 9;
-    *pp = '0' + d;
-  }
-  setUnit(us, 1e-3, fs);
-}
-
-
-void Sensor::setMega() {
-  char us[20];
-  sprintf(us, "M%s", unit());
-  char fs[10];
-  strcpy(fs, format());
-  char *pp = strrchr(fs, '.');
-  if (pp != 0 ) {
-    pp++;
-    int d = atoi(pp);
-    d += 6;
-    if (d > 9)
-      d = 9;
-    *pp = '0' + d;
-  }
-  setUnit(us, 1e-6, fs);
-}
-
-
-void Sensor::setGiga() {
-  char us[20];
-  sprintf(us, "G%s", unit());
-  char fs[10];
-  strcpy(fs, format());
-  char *pp = strrchr(fs, '.');
-  if (pp != 0 ) {
-    pp++;
-    int d = atoi(pp);
-    d += 9;
-    if (d > 9)
-      d = 9;
-    *pp = '0' + d;
-  }
-  setUnit(us, 1e-9, fs);
+  setUnit(us, factor, fs);
 }
 
 
