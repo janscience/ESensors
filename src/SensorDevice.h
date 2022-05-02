@@ -26,14 +26,8 @@ class SensorDevice {
   // Return name of sensor chip model as character array.
   virtual const char* chip() const;
 
-  // Set the name of the chip.
-  void setChip(const char *chip);
-
   // Return unique identifier of sensor chip as character array.
   virtual const char* identifier() const;
-
-  // Set the unique identifier of the chip.
-  void setIdentifier(const char *identifier);
   
   // Return true if sensor is available.
   virtual bool available() = 0;
@@ -62,6 +56,12 @@ class SensorDevice {
 
   
 protected:
+
+  // Set the name of the chip.
+  void setChip(const char *chip);
+
+  // Set the unique identifier of the chip.
+  void setIdentifier(const char *identifier);
 
   // Request a sensor reading.
   // Reimplement this function, if the sensor device
