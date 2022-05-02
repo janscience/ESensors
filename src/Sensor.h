@@ -180,6 +180,13 @@ protected:
   // Set resolution of the sensor in its basic unit.
   void setResolution(float resolution);
 
+  // Parse the format string.
+  void parseFormat(char *prefix, int *width,
+		   int *decimals, char *ftype) const;
+  
+  // Adapt format string to accomodate more or less decimals.
+  void adaptFormat(int decimals);
+
   char Name[50];
   char Symbol[20];
   char BasicUnit[20];

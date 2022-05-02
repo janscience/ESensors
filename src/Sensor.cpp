@@ -153,70 +153,144 @@ float Sensor::read() {
 }
 
 
+void Sensor::parseFormat(char *prefix, int *width,
+			 int *decimals, char *ftype) const {
+  *prefix = '\0';
+  *width = -1;
+  *decimals = -1;
+  *ftype = '\0';
+  const char *sp = Format;
+  // percent:
+  if (*sp != '%')
+    return;
+  ++sp;
+  // prefix:
+  while (*sp == '0' || *sp == '+' || *sp == '-')
+    *(prefix++) = *(sp++);
+  *prefix = '\0';
+  // width:
+  char ws[10];
+  char *wp = ws;
+  while (isdigit(*sp))
+    *(wp++) = *(sp++);
+  *wp = '\0';
+  if (strlen(ws) > 0)
+    *width = atoi(ws);
+  // decimals:
+  if (*sp == '.') {
+    ++sp;
+    char *wp = ws;
+    while (isdigit(*sp))
+      *(wp++) = *(sp++);
+    *wp = '\0';
+    if (strlen(ws) > 0)
+      *decimals = atoi(ws);
+  }
+  // format type:
+  while (*sp != '\0')
+    *(ftype++) = *(sp++);
+  *ftype = '\0';
+}
+
+
+void Sensor::adaptFormat(int decimals) {
+  // parse format string:
+  char fpref[10];
+  int width;
+  int decis;
+  char ftype[10];
+  parseFormat(fpref, &width, &decis, ftype);
+  // adapt format:
+  if (strcmp(ftype, "f") == 0) {
+    int org_decis = decis;
+    if (decis >= 0) {
+      decis += decimals;
+      if (decis < 0)
+	decis = 0;
+    }
+    if (width >= 0) {
+      if (org_decis > 0 && decis == 0)
+	width--;
+      else if (org_decis == 0 && decis > 0)
+	width++;
+    }
+  }
+  // assemble format string:
+  if (width >= 0 && decis >= 0)
+    sprintf(Format, "%%%s%d.%d%s", fpref, width, decis, ftype);
+  else if (width >= 0)
+    sprintf(Format, "%%%s%d%s", fpref, width, ftype);
+  else if (decis >= 0)
+    sprintf(Format, "%%%s.%d%s", fpref, decis, ftype);
+  else
+    sprintf(Format, "%%%s%s", fpref, ftype);
+}
+
+
 void Sensor::setSIPrefix(const char *prefix, float factor, int decimals) {
+  // new unit string:
   char us[20];
   sprintf(us, "%s%s", prefix, unit());
-  char fs[10];
-  strcpy(fs, format());
-  char *pp = strrchr(fs, '.');
-  if (pp != 0 ) {
-    pp++;
-    int d = atoi(pp);
-    d += decimals;
-    if (d < 0)
-      d = 0;
-    *pp = '0' + d;
-  }
-  setUnit(us, factor, fs);
+  // set unit:
+  setUnit(us, factor);
+  adaptFormat(decimals);
 }
 
 
 void Sensor::setPercent() {
-  setUnit("%", 100.0, 0.0, "%5.1f");
+  setUnit("%", 100.0);
+  adaptFormat(-2);
 }
 
 
 void Sensor::setKelvin() {
-  setUnit("K", 1.0, 273.15, "%.2f");
+  setUnit("K", 1.0, 273.15);
 }
 
 
 void Sensor::setFahrenheit() {
-  setUnit("F", 9.0/5.0, 32.0, "%.2f");
+  setUnit("F", 9.0/5.0, 32.0);
 }
 
 
 void Sensor::setBar() {
-  setUnit("bar", 1e-5, "%.5f");
+  setUnit("bar", 1e-5);
+  adaptFormat(5);
 }
 
 
 void Sensor::setMilliBar() {
-  setUnit("mbar", 0.01, "%.2f");
+  setUnit("mbar", 0.01);
+  adaptFormat(2);
 }
 
 
 void Sensor::setAt() {
-  setUnit("at", 0.0000101971621298, "%.5f");
+  setUnit("at", 0.0000101971621298);
+  adaptFormat(5);
 }
 
 
 void Sensor::setAtm() {
-  setUnit("atm", 0.00000986923266716, "%.5f");
+  setUnit("atm", 0.00000986923266716);
+  adaptFormat(5);
 }
 
 
 void Sensor::setMMHg() {
-  setUnit("mmHg", 0.00750061575846, "%.2f");
+  setUnit("mmHg", 0.00750061575846);
+  adaptFormat(2);
 }
 
 
 void Sensor::setPSI() {
-  setUnit("psi", 0.00014503773773, "%.4f");
+  setUnit("psi", 0.00014503773773);
+  adaptFormat(4);
 }
 
 
 void Sensor::setTorr() {
-  setUnit("torr", 0.00750061682704, "%.2f");
+  setUnit("torr", 0.00750061682704);
+  adaptFormat(2);
 }
 
