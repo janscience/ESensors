@@ -24,6 +24,7 @@ for Teensy and Arduino.
 ## Documentation
 
 - [Installation instructions](docs/installation.md)
+- [User guide](docs/userguide.md)
 
 The [Documentation](docs/) also provides resources on [environmental
 parameters](docs/parameters/), [sensor chips](docs/chips/), and [power
