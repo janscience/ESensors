@@ -31,7 +31,7 @@ time_t getTeensyTime() {
   return Teensy3Clock.get();
 }
 
-void setup(void) {
+void setup() {
   Serial.begin(9600);
   while (!Serial && millis() < 2000) {};
   setSyncProvider(getTeensyTime);  // enable real time clock
