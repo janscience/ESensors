@@ -1,13 +1,13 @@
 #include <AbsoluteHumidity.h>
 
 
-AbsoluteHumidity::AbsoluteHumidity(Sensor *temperature, Sensor *humidity, Sensors *sensors)
+AbsoluteHumidity::AbsoluteHumidity(Sensor *humidity, Sensor *temperature, Sensors *sensors)
   : SensorDerived(temperature, humidity, sensors,
 		  "absolute humidity", "H", "g/m^3", "%.1f", 0.1) {
 }
 
 
-float AbsoluteHumidity::compute(float temperature, float humidity,
+float AbsoluteHumidity::compute(float humidity, float temperature,
 				float none) const {
   // from https://github.com/finitespace/BME280/blob/master/src/EnvironmentCalculations.cpp
   const float mw = 18.01534; 	// molar mass of water g/mol

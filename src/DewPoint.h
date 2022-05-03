@@ -1,5 +1,5 @@
 /*
-  DewPoint - SensorDerived that computes the dew point from temperature and humidity.
+  DewPoint - SensorDerived that computes the dew point from humidity and temperature.
   Created by Jan Benda, May 3nd, 2022.
 */
 
@@ -15,10 +15,10 @@ class DewPoint : public SensorDerived {
 
  public:
 
-  DewPoint(Sensor *temperature, Sensor *humidity, Sensors *sensors=0);
+  DewPoint(Sensor *humidity, Sensor *temperature, Sensors *sensors=0);
 
-  // Dew point in degrees celsius computed from temperature and humidity.
-  virtual float compute(float temperature, float humidity,
+  // Dew point in degrees celsius computed from humidity and temperature.
+  virtual float compute(float humidity, float temperature,
 			float none=0.0) const;
   
 };

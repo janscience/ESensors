@@ -116,25 +116,4 @@ class PressureBME280 : public SensorValue<SenseBME280> {
 };
 
 
-class SeaLevelPressureBME280 : public PressureBME280 {
-
- public:
-
-  // Provide altitude in meter.
-  SeaLevelPressureBME280(SenseBME280 *bme, float altitude);
-
-  // Provide altitude in meter.
-  SeaLevelPressureBME280(SenseBME280 *bme, Sensors *sensors, float altitude);
-  
-  // The equivalent sea level pressure in Pascal.
-  // On error, return -INFINITY.
-  virtual float reading() const;
-
-protected:
-
-  float Altitude;
-  
-};
-
-
 #endif

@@ -4,7 +4,8 @@
 #include <SenseBME280.h>
 #include <LightTSL2591.h>
 #include <DewPoint.h>
-#include <AbsoluteHumidity.h>
+//#include <AbsoluteHumidity.h>
+//#include <SeaLevelPressure.h>
 
 
 Sensors sensors;
@@ -13,10 +14,10 @@ TemperatureDS18x20 temp(&sensors, 10);  // DATA on pin 10
 SenseBME280 bme;
 TemperatureBME280 tempbme(&bme, &sensors);
 HumidityBME280 hum(&bme, &sensors);
-AbsoluteHumidity abshum(&tempbme, &hum, &sensors);
-DewPoint dp(&tempbme, &hum, &sensors);
+//AbsoluteHumidity abshum(&hum, &tempbme, &sensors);
+DewPoint dp(&hum, &tempbme, &sensors);
 PressureBME280 pres(&bme, &sensors);
-//SeaLevelPressureBME280 slpres(&bme, &sensors, 460.0);
+//SeaLevelPressure slpres(&pres, &tempbme, 460.0, &sensors);
 LightTSL2591 tsl(&Wire);
 //Channel0TSL2591 chn0(&tsl, &sensors);
 //Channel1TSL2591 chn1(&tsl, &sensors);

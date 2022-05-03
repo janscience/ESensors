@@ -109,28 +109,3 @@ float PressureBME280::reading() const {
   return SDC->pressure();
 }
 
-
-SeaLevelPressureBME280::SeaLevelPressureBME280(SenseBME280 *bme,
-					       float altitude)
-  : PressureBME280(bme, 0),
-    Altitude(altitude) {
-  setName("sea level pressure", "P0");
-}
-
-
-SeaLevelPressureBME280::SeaLevelPressureBME280(SenseBME280 *bme,
-					       Sensors *sensors,
-					       float altitude)
-  : PressureBME280(bme, sensors),
-    Altitude(altitude) {
-  setName("sea level pressure", "P0");
-}
-
-
-float SeaLevelPressureBME280::reading() const {
-  // see https://keisan.casio.com/exec/system/1224575267
-  // derivation: https://keisan.casio.com/keisan/image/Convertpressure.pdf
-  float pressure = SDC->pressure();
-  float temp = SDC->temperature();
-  return pressure / pow(1.0 - ((0.0065 * Altitude) / (temp + (0.0065 * Altitude) + 273.15)), 5.257);
-}

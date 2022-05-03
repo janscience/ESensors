@@ -1,5 +1,5 @@
 /*
-  AbsoluteHumidity - SensorDerived that computes the absolute humidity from temperature and humidity.
+  AbsoluteHumidity - SensorDerived that computes the absolute humidity from humidity and temperature.
   Created by Jan Benda, May 3nd, 2022.
 */
 
@@ -15,10 +15,10 @@ class AbsoluteHumidity : public SensorDerived {
 
  public:
 
-  AbsoluteHumidity(Sensor *temperature, Sensor *humidity, Sensors *sensors=0);
+  AbsoluteHumidity(Sensor *humidity, Sensor *temperature, Sensors *sensors=0);
 
-  // Absolute humidity in g/m^3.
-  virtual float compute(float temperature, float humidity,
+  // Absolute humidity in g/m^3 computed from humidity and temperature.
+  virtual float compute(float humidity, float temperature,
 			float none=0.0) const;
   
 };
