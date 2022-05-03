@@ -104,18 +104,6 @@ class HumidityBME280 : public SensorValue<SenseBME280> {
 };
 
 
-class AbsoluteHumidityBME280 : public SensorValue<SenseBME280> {
-
- public:
-
-  AbsoluteHumidityBME280(SenseBME280 *bme, Sensors *sensors=0);
-
-  // The absolute humidity in g/m^3.
-  // On error, return -INFINITY.
-  virtual float reading() const;
-};
-
-
 class PressureBME280 : public SensorValue<SenseBME280> {
 
  public:

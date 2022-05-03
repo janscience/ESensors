@@ -99,24 +99,6 @@ float HumidityBME280::reading() const {
 }
 
 
-AbsoluteHumidityBME280::AbsoluteHumidityBME280(SenseBME280 *bme,
-					       Sensors *sensors)
-  : SensorValue<SenseBME280>(bme, sensors,
-			     "absolute humidity", "H", "g/m^3", "%.1f", 0.1) {
-}
-
-
-float AbsoluteHumidityBME280::reading() const {
-  // from https://github.com/finitespace/BME280/blob/master/src/EnvironmentCalculations.cpp
-  float temp = SDC->temperature();
-  float humidity = SDC->humidity();
-  const float mw = 18.01534; 	// molar mass of water g/mol
-  const float R = 8.31447215; 	// universal gas constant J/mol/K
-  temp = pow(2.718281828, (17.67 * temp) / (temp + 243.5));
-  return (6.112 * temp * humidity * mw)/((273.15 + temp) * R);
-}
-
-
 PressureBME280::PressureBME280(SenseBME280 *bme, Sensors *sensors)
   : SensorValue<SenseBME280>(bme, sensors,
 			     "pressure", "P", "Pa", "%.0f", 3.3) {

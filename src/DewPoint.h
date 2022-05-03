@@ -17,7 +17,7 @@ class DewPoint : public SensorDerived {
 
   DewPoint(Sensor *temperature, Sensor *humidity, Sensors *sensors=0);
 
-  // The dew point in degrees celsius.
+  // Dew point in degrees celsius computed from temperature and humidity.
   virtual float compute(float temperature, float humidity,
 			float none=0.0) const;
   
