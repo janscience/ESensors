@@ -123,3 +123,11 @@ void SensorDerived::getData() {
   for (size_t k=0; k<NSnsr; k++)
     Snsr[k]->get();
 }
+
+
+float SensorDerived::reading() const {
+  if (NSnsr == 3)
+    return compute(Snsr[0]->reading(), Snsr[1]->reading(), Snsr[2]->reading());
+  else
+    return compute(Snsr[0]->reading(), Snsr[1]->reading());
+}

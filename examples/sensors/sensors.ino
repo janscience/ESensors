@@ -3,6 +3,7 @@
 #include <TemperatureDS18x20.h>
 #include <SenseBME280.h>
 #include <LightTSL2591.h>
+#include <DewPoint.h>
 
 
 Sensors sensors;
@@ -12,13 +13,13 @@ SenseBME280 bme;
 TemperatureBME280 tempbme(&bme, &sensors);
 HumidityBME280 hum(&bme, &sensors);
 //AbsoluteHumidityBME280 abshum(&bme, &sensors);
-//DewPointBME280 dp(&bme, &sensors);
+DewPoint dp(&tempbme, &hum, &sensors);
 PressureBME280 pres(&bme, &sensors);
 //SeaLevelPressureBME280 slpres(&bme, &sensors, 460.0);
 LightTSL2591 tsl(&Wire);
 //Channel0TSL2591 chn0(&tsl, &sensors);
 //Channel1TSL2591 chn1(&tsl, &sensors);
-GainTSL2591 gain(&tsl, &sensors);
+//GainTSL2591 gain(&tsl, &sensors);
 //IRRatioTSL2591 irratio(&tsl, &sensors);
 //IrradianceFullTSL2591 irrfull(&tsl, &sensors);
 //IrradianceIRTSL2591 irrIR(&tsl, &sensors);

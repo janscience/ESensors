@@ -116,18 +116,6 @@ class AbsoluteHumidityBME280 : public SensorValue<SenseBME280> {
 };
 
 
-class DewPointBME280 : public SensorValue<SenseBME280> {
-
- public:
-
-  DewPointBME280(SenseBME280 *bme, Sensors *sensors=0);
-
-  // The dew point in degrees celsius.
-  // On error, return -INFINITY.
-  virtual float reading() const;
-};
-
-
 class PressureBME280 : public SensorValue<SenseBME280> {
 
  public:

@@ -8,6 +8,7 @@
 
 
 #include <Arduino.h>
+#include <Sensor.h>
 
 
 class SensorDerived : public Sensor {
@@ -60,7 +61,13 @@ class SensorDerived : public Sensor {
 
   // The sensor reading in the basic unit.
   // On error, return -INFINITY.
-  virtual float reading() const = 0;
+  // Calls compute() with the respective sensor readings.
+  virtual float reading() const;
+
+  // Compute the derived sensor quantity from sensor readings.
+  // The values are passed in the same order as the Sensors
+  // were provided to the constructer.
+  virtual float compute(float sensor1, float sensor2, float sensor3=0.0) const = 0;
 
   
 protected:

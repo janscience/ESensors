@@ -117,23 +117,6 @@ float AbsoluteHumidityBME280::reading() const {
 }
 
 
-DewPointBME280::DewPointBME280(SenseBME280 *bme, Sensors *sensors)
-  : SensorValue<SenseBME280>(bme, sensors,
-			     "dew point", "Tdp", "ºC", "%.1f", 0.35) {
-}
-
-
-float DewPointBME280::reading() const {
-  // https://en.wikipedia.org/wiki/Dew_point
-  float temp = SDC->temperature();
-  float humidity = SDC->humidity();
-  const float b = 17.62;
-  const float c = 243.12;
-  float gamma = log(0.01*humidity) + (b * temp)/(c + temp);
-  return c * gamma/(b - gamma);
-}
-
-
 PressureBME280::PressureBME280(SenseBME280 *bme, Sensors *sensors)
   : SensorValue<SenseBME280>(bme, sensors,
 			     "pressure", "P", "Pa", "%.0f", 3.3) {
