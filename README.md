@@ -10,10 +10,30 @@ for Teensy and Arduino.
 - [SensorDevice](src/SensorDevice.h): Virtual base class for a sensor device.
 - [Sensor](src/Sensor.h): Virtual base class for reading a value from a sensor.
 - [SensorValue](src/SensorValue.h): Template base class for a sensor reading of a SensorDevice.
+- [SensorDerived](src/SensorDerived.h): Base class for sensors computing a derived measure from several Sensors.
+
+- [AbsoluteHumidity](src/AbsoluteHumidity.h): Compute absolute humidity from relative humidity and temperature.
+- [DewPoint](src/DewPoint.h): Compute dew point from relative humidity and temperature.
+- [SeaLevelPressure](src/SeaLevelPressure.h): Estimate sea level pressure from pressure, temperature, and known altitude.
 
 - [TemperatureDS18x20](src/TemperatureDS18x20.h): A Sensor that reads temperature from a DS18x20 1-wire device.
 - [SenseBME280](src/SenseBME280.h): The Bosch BME280 temperature, humidity, and pressure sensor with many derived measures.
 - [LightTSL2591](src/LightTSL2591.h): Read light intensity from AMS TSL2591.
+
+
+## Documentation
+
+- [Installation instructions](docs/installation.md)
+
+The [Documentation](docs/) also provides resources on [environmental
+parameters](docs/parameters/), [sensor chips](docs/chips/), and [power
+supply](docs/power/):
+
+- [Environmental parameters](docs/parameters/): Infos on how two measure
+  environmental parameters.
+- [Sensor chips](docs/chips/): Development boards and librariers for
+  sensor chips.
+- [Power supply](docs/power/): Some solutions for power supply.
 
 
 ## Examples
@@ -28,77 +48,14 @@ the Sensors libraries.
 
 ## Utilities
 
-In [utils/](utils) you find some useful python scripts.
+In [utils/](utils) you find useful python scripts.
 
 - [sensors](utils/sensors): plot the content of the csv file written by the [Sensors](src/Sensors.h) library.
 
 
-## Documentation
-
-The [Documentation](docs/) provides resources on [environmental
-parameters](docs/parameters/), [sensor chips](docs/chips/), and [power
-supply](docs/power/).
-
-- [Environmental parameters](docs/parameters/): Infos on how two measure
-  environmental parameters.
-- [Sensor chips](docs/chips/): Development boards and librariers for
-  sensor chips.
-- [Power supply](docs/power/): Some solutions for power supply.
-
-
-## Dependencies
-
-Sensors is based on the following libraries:
-
-- [SdFat version2](https://github.com/greiman/SdFat)
-- [SparkFun BME280](https://github.com/sparkfun/SparkFun_BME280_Arduino_Library)
-- [TSL2591MI](https://bitbucket.org/christandlg/tsl2591mi/)
-
-The [SdFat version2](https://github.com/greiman/SdFat) library is
-already included in
-[Teensyduino](https://www.pjrc.com/teensy/teensyduino.html). When
-installing Teensyduino make sure you selected it.
-
-_Note_: you need Arduino 1.8.19 and Teensyduoino 1.56 or higher! When
-installing Teensyduoino simply select all libraries for installation.
-Remove `SdFat` from your `Arduino/libraries` folder, it is now
-supplied by Teensyduoino.
-
-For installing the libraries for the environmental sensors, open in
-the Arduino IDE: Tools - Manage libraries. Search for the libraries
-and install them.
-
-
-## Installation
-
-Clone the [Sensors](https://github.com/janscience/Sensors) repository
-directly into 'Arduino/libraries':
-```sh
-cd Arduino/libraries
-git clone https://github.com/janscience/Sensors.git
-```
-
-Alternatively, download the whole repository as a zip archive (open
-https://github.com/janscience/Sensors in your browser and click on the
-green "Code" button). Unpack the zip file:
-```sh
-cd Arduino/libraries
-unzip ~/Downloads/Sensors-main.zip
-```
-
-If you want to edit the Sensors files, mark the library as developmental:
-```sh
-cd Arduino/libraries/Sensors
-touch .development
-```
-
-Close the Arduino IDE and open it again. Then the Arduino IDE knows
-about the Sensors library and its examples.
-
-
 ## Applications of the Sensors libraries
 
-TeeRec is used in:
+Sensors is used in:
 
 - [TeeGrid](https://github.com/janscience/TeeGrid): Electrode arrays
   based on 8-16channel recording devices for recording electric fish
