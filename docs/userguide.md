@@ -1,8 +1,9 @@
 # User guide
 
 The Sensors library is a high level interface to various sensor chips
-that (i) provides a common interface to the sensors, and (ii) manages
-multiple sensors.
+that (i) provides a common interface to the sensors, (ii) manages
+multiple sensors, and (iii) provides a non-blocking interface to read
+out sensor values.
 
 
 ## Using a single sensor
@@ -11,8 +12,7 @@ Any class derived from the [Sensor class](../src/Sensor.h) can read a
 specific environmental parameter from a sensor chip/device.
 
 For example, the DS18x20 only reads temperature. Include the header
-file, [TemperatureDS18x20.h](../src/TemperatureDS18x20.h), and
-retrieve the sensor readings:
+file, [TemperatureDS18x20.h](../src/TemperatureDS18x20.h), initialize the temperature sensor, and retrieve the sensor readings:
 
 ```py
 #include <TemperatureDS18x20.h>
@@ -34,7 +34,7 @@ void loop() {
 
 Some chips provide multiple types of sensor readings, for example
 temperature and humidity. They then need to be passed to specific
-[Sensor classes](../src/Sensor.h) classes, each providing access to
+[Sensor class](../src/Sensor.h)es, each providing access to
 one type of sensor reading. These chips are interfaced via a
 [SensorDevice class](../src/SensorDevice.h) and the accessing classes
 are derived from the [SensorValue template class](../src/SensorValue.h)
@@ -73,12 +73,11 @@ void loop() {
 
 The [Sensors class](../src/Sensors.h) manages a single or multiple
 [Sensor](../src/Sensor.h)s. It provides infrastructure to read them in
-parallel, to write readings on Serial port, and to write the readings
-into csv files.
+parallel, to write readings to the Serial port or into csv files.
 
-For this one has pass an instance of the [Sensors
-class](../src/Sensors.h) to the individual sensors. Alternatively,
-they can be manually added via the addSensor() method.
+For this, an instance of the [Sensors class](../src/Sensors.h) needs
+to be passed to the individual sensors. Alternatively, they can be
+manually added via the addSensor() method.
 
 Then our example looks like this:
 
@@ -94,14 +93,18 @@ PressureBME280 pres(&bme, &sensors);
 void setup() {
   Wire.begin();             // init the I2C bus.
   bme.beginI2C(Wire, 0x77); // init the sensor chip.
+  sensors.report();         // write infos to all avaliable sensors to Serial.
+  sensors.start();
 }
 
 void loop() {
-  sensors.read();          // read them all!
+  sensors.read();           // read them all in parallel!
   float T = temp.value(); 
   float RH = hum.value(); 
   float p = pres.value(); 
   // ... do something with T, RH, and p ...
+  // or,  for example,
+  sensors.print();          // print sensor readings with unit to Serial.
 }
 ```
 
@@ -131,17 +134,32 @@ function of the [Sensors class](../src/Sensors.h) in the
 `loop()`. This function calls `request()` and `get()` at appropriate
 times without blocking. Whenever new sensor values are available,
 `update()` returns `true` and the values can be read out as usual via
-`value()`:
+`value()`. This way, other things can be controlled, while the sensors
+work on getting their data:
 
 ```py
 void loop() {
-  if (sensors.update()) {
-    float T = temp.value(); 
-    float RH = hum.value(); 
-    float p = pres.value(); 
-    // ... do something with T, RH, and p ...
+  if (sensors.update()) {     // does not block!
+    // ... do something with sensor readings, for example:
+    sensors.print();          // print sensor readings with unit to Serial.
   }
   // do something else!
 }
 ```
 
+By default, the sensor readings are done as quickly as possible,
+i.e. `update()` return `true` after the maximum delay required by the
+managed sensors.
+
+The sensor readings can be scheduled at a given interval, via
+`setInterval()` that takes a floating point number specifying a time
+in seconds:
+
+```py
+void setup() {
+  // ...
+  sensors.setInterval(5.7); // read sensors every 5.7s. Call this before start().
+  sensors.report();         // write infos to all avaliable sensors to Serial.
+  sensors.start();
+}
+```

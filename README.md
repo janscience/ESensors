@@ -23,7 +23,7 @@ for Teensy and Arduino.
 
 ## Documentation
 
-- [Installation instructions](docs/installation.md)
+- [Installation instructions](docs/install.md)
 - [User guide](docs/userguide.md)
 
 The [Documentation](docs/) also provides resources on [environmental

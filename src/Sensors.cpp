@@ -5,7 +5,7 @@
 Sensors::Sensors() :
   NSensors(0),
   MaxDelay(0),
-  Interval(10000),
+  Interval(0),
   Time(0),
   TimeStamp(0),
   State(0),
@@ -73,8 +73,8 @@ void Sensors::start() {
       MaxDelay = Snsrs[k]->delayTime();
   }
   UseInterval = Interval;
-  if (UseInterval < 2*MaxDelay)
-    UseInterval = 2*MaxDelay;
+  if (UseInterval < MaxDelay + 10)
+    UseInterval = MaxDelay + 10;
   Time = UseInterval - MaxDelay;
   TimeStamp = 0;
   State = 0;
