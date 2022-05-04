@@ -11,7 +11,7 @@ For various other units see this
 The [Sensor class](../../../src/Sensor.h) provides conversions to some
 of the many pressure units. For example, for an output in hPa:
 
-```py
+```cpp
 #include <SenseBME280.h>
 
 SenseBME280 bme;
@@ -29,7 +29,7 @@ void setup() {
 
 Other available units are
 
-```py
+```cpp
   pressure.setBar();
   pressure.setMilliBar();
   pressure.setAt();

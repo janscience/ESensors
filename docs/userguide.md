@@ -14,7 +14,7 @@ specific environmental parameter from a sensor chip/device.
 For example, the DS18x20 only reads temperature. Include the header
 file, [TemperatureDS18x20.h](../src/TemperatureDS18x20.h), initialize the temperature sensor, and retrieve the sensor readings:
 
-```py
+```cpp
 #include <TemperatureDS18x20.h>
 
 TemperatureDS18x20 temp(10);  // DATA on pin 10
@@ -43,7 +43,7 @@ and own a pointer to the sensor device.
 An example is the [Bosch BME280](chips/bme280.md) chip. It measures
 temperature, humidity, and pressure. You can use it like this:
 
-```py
+```cpp
 #include <SenseBME280.h>
 
 SenseBME280 bme;
@@ -81,7 +81,7 @@ manually added via the addSensor() method.
 
 Then our example looks like this:
 
-```py
+```cpp
 #include <Sensors.h>
 #include <SenseBME280.h>
 
@@ -137,7 +137,7 @@ times without blocking. Whenever new sensor values are available,
 `value()`. This way, other things can be controlled, while the sensors
 work on getting their data:
 
-```py
+```cpp
 void loop() {
   if (sensors.update()) {     // does not block!
     // ... do something with sensor readings, for example:
@@ -155,7 +155,7 @@ The sensor readings can be scheduled at a given interval, via
 `setInterval()` that takes a floating point number specifying a time
 in seconds:
 
-```py
+```cpp
 void setup() {
   // ...
   sensors.setInterval(5.7); // read sensors every 5.7s. Call this before start().
