@@ -81,6 +81,14 @@ void setup() {
 }
 ```
 
+This produces
+
+```txt
+air temperature T_air=294.77K
+air temperature T_air=294.77K
+air temperature T_air=294.78K
+```
+
 The sensor reading can always be retrieved in its original unit
 (`basicUnit()`) via the `reading()` function instead of `value()`.
 
@@ -89,11 +97,13 @@ The sensor reading can always be retrieved in its original unit
 
 Some chips provide multiple types of sensor readings, for example
 temperature and humidity. They then need to be passed to specific
-[Sensor class](../src/Sensor.h)es, each providing access to
-one type of sensor reading. These chips are interfaced via a
-[SensorDevice class](../src/SensorDevice.h) and the accessing classes
-are derived from the [SensorValue template class](../src/SensorValue.h)
-that own a pointer to the sensor device.
+[Sensor class](../src/Sensor.h)es, each providing access to one type
+of sensor reading. These chips are interfaced via a [SensorDevice
+class](../src/SensorDevice.h), that does not expose a value and a
+unit. This is what the accessing classes, derived from the
+[SensorValue template class](../src/SensorValue.h), do.  They own a
+pointer to the sensor device and retrieve one specific type of sensor
+reading..
 
 An example is the [Bosch BME280](chips/bme280.md) chip. It measures
 temperature, humidity, and pressure. You can use it like this:
@@ -101,14 +111,16 @@ temperature, humidity, and pressure. You can use it like this:
 ```cpp
 #include <SenseBME280.h>
 
-SenseBME280 bme;
-TemperatureBME280 temp(&bme);
-HumidityBME280 hum(&bme);
-PressureBME280 pres(&bme);
+SenseBME280 bme;               // the SensorDevice.
+TemperatureBME280 temp(&bme);  // a SensorValue.
+HumidityBME280 hum(&bme);      // another SensorValue.
+PressureBME280 pres(&bme);     // a third SensorValue.
 
 void setup() {
-  Wire.begin();             // init the I2C bus.
-  bme.beginI2C(Wire, 0x77); // init the sensor chip.
+  Wire.begin();                // init the I2C bus.
+  bme.beginI2C(Wire, 0x77);    // init the sensor chip.
+  temp.setName("air temperature", "T_air");
+  pres.setHecto();
 }
 
 void loop() {
@@ -279,3 +291,7 @@ accumulated (to write at least one 512 byte block), as checked by
 `sensors.pending()`, the buffer is written to the CSV file via
 `sensors.writeCSV()`. If you need to close this file, simply call
 `sensors.closeCSV()`.
+
+
+## Reporting on Serial
+

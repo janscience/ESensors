@@ -9,6 +9,7 @@
 #include <TemperatureDS18x20.h>
 #include <SenseBME280.h>
 #include <LightTSL2591.h>
+#include <DewPoint.h>
 
 
 // Default settings: -----------------------------------------------------------------------
@@ -28,7 +29,7 @@ TemperatureDS18x20 temp(&sensors);
 SenseBME280 bme;
 TemperatureBME280 tempbme(&bme, &sensors);
 HumidityBME280 hum(&bme, &sensors);
-DewPointBME280 dp(&bme, &sensors);
+DewPoint dp(&hum, &tempbme, &sensors);
 PressureBME280 pres(&bme, &sensors);
 LightTSL2591 tsl(&Wire);
 Channel0TSL2591 chn0(&tsl, &sensors);
@@ -90,7 +91,7 @@ void loop() {
   digitalWrite(led_pin, HIGH);
   setSyncProvider(getTeensyTime);
   sensors.read();
-  if (sensors.pending())
+  if (sensors.pendingCSV())
     sensors.writeCSV();
   tsl.setTemperature(bme.temperature());
   digitalWrite(led_pin, LOW);

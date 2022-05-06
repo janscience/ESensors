@@ -69,10 +69,6 @@ class Sensors {
   // Before using read() for the first time you need to call start().
   void read();
 
-  // Return true if sensor readings prepared for csv files are pending
-  // and the csv file is not busy.
-  bool pending();
-
   // Whether and how print*() and write*() functions should output timestamps.
   void setPrintTime(print_time_t pt);
 
@@ -103,6 +99,10 @@ class Sensors {
   // Return true on success, false on failure or no available sensors.
   bool openCSV(SdFat &sd, const char *path,
 	       bool symbols=false, bool append=false);
+
+  // Return true if sensor readings prepared for csv files are pending
+  // and the csv file is not busy.
+  bool pendingCSV();
 
   // Write current time and sensor readings to csv file.
   // Return true on success, false on failure or if file is not open

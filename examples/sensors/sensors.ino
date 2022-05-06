@@ -4,8 +4,8 @@
 #include <SenseBME280.h>
 #include <LightTSL2591.h>
 #include <DewPoint.h>
-//#include <AbsoluteHumidity.h>
-//#include <SeaLevelPressure.h>
+#include <AbsoluteHumidity.h>
+#include <SeaLevelPressure.h>
 
 
 Sensors sensors;

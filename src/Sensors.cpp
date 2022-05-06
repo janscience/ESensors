@@ -125,13 +125,6 @@ void Sensors::read() {
 }
 
 
-bool Sensors::pending() {
-  if (DF)
-    return (strlen(Data) > NData/2 && !DF.isBusy());
-  return false;
-}
-
-
 void Sensors::setPrintTime(print_time_t pt) {
   PrintTime = pt;
 }
@@ -324,6 +317,13 @@ bool Sensors::openCSV(SdFat &sd, const char *path,
   }
   else
     return false;
+}
+
+
+bool Sensors::pendingCSV() {
+  if (DF)
+    return (strlen(Data) > NData/2 && !DF.isBusy());
+  return false;
 }
 
 
