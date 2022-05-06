@@ -50,7 +50,7 @@ class Sensors {
 
   // The delay needed between request() and get().
   // Only available after calling start().
-  unsigned long delayTime() const { return MaxDelay; };
+  unsigned long delayTime() const;
 
   // Get sensor readings from all sensors.
   void get();
@@ -123,7 +123,6 @@ class Sensors {
   static const uint8_t MaxSensors = 20; 
   uint8_t NSensors; 
   Sensor *Snsrs[MaxSensors];
-  unsigned long MaxDelay;
   unsigned long Interval;
   unsigned long UseInterval;
   elapsedMillis Time;

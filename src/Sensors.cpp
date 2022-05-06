@@ -4,7 +4,6 @@
 
 Sensors::Sensors() :
   NSensors(0),
-  MaxDelay(0),
   Interval(0),
   Time(0),
   TimeStamp(0),
@@ -67,15 +66,10 @@ void Sensors::report() {
 
 
 void Sensors::start() {
-  MaxDelay = 0;
-  for (uint8_t k=0; k<NSensors; k++) {
-    if (Snsrs[k]->available() && Snsrs[k]->delayTime() > MaxDelay)
-      MaxDelay = Snsrs[k]->delayTime();
-  }
   UseInterval = Interval;
-  if (UseInterval < MaxDelay + 10)
-    UseInterval = MaxDelay + 10;
-  Time = UseInterval - MaxDelay;
+  if (UseInterval < delayTime() + 10)
+    UseInterval = delayTime() + 10;
+  Time = UseInterval - delayTime();
   TimeStamp = 0;
   State = 0;
   Data[0] = '\0';
@@ -86,6 +80,16 @@ void Sensors::request() {
   for (uint8_t k=0; k<NSensors; k++)
     Snsrs[k]->request();
   State = 1;
+}
+
+
+unsigned long Sensors::delayTime() const {
+  unsigned long max_delay = 0;
+  for (uint8_t k=0; k<NSensors; k++) {
+    if (Snsrs[k]->available() && Snsrs[k]->delayTime() > max_delay)
+      max_delay = Snsrs[k]->delayTime();
+  }
+  return max_delay;
 }
 
 
@@ -101,7 +105,7 @@ void Sensors::get() {
 
 bool Sensors::update() {
   switch (State) {
-  case 0: if (Time > UseInterval - MaxDelay)
+  case 0: if (Time > UseInterval - delayTime())
       request();
     break;
   case 1: if (Time > UseInterval) {
