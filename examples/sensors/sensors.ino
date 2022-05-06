@@ -54,7 +54,7 @@ void setup() {
   sensors.read();
   // go:
   sensors.start();
-  sensors.printHeader();
+  sensors.printHeader(true);
 }
 
 void loop(void) {

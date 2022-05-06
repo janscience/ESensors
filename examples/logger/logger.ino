@@ -23,12 +23,12 @@ HumidityBME280 hum(&bme, &sensors);
 DewPoint dp(&hum, &tempbme, &sensors);
 PressureBME280 pres(&bme, &sensors);
 LightTSL2591 tsl(&Wire);
-Channel0TSL2591 chn0(&tsl, &sensors);
-Channel1TSL2591 chn1(&tsl, &sensors);
-GainTSL2591 gain(&tsl, &sensors);
+//Channel0TSL2591 chn0(&tsl, &sensors);
+//Channel1TSL2591 chn1(&tsl, &sensors);
+//GainTSL2591 gain(&tsl, &sensors);
 IRRatioTSL2591 irratio(&tsl, &sensors);
-IrradianceFullTSL2591 irrfull(&tsl, &sensors);
-IrradianceIRTSL2591 irrIR(&tsl, &sensors);
+//IrradianceFullTSL2591 irrfull(&tsl, &sensors);
+//IrradianceIRTSL2591 irrIR(&tsl, &sensors);
 IlluminanceTSL2591 illum(&tsl, &sensors);
 
 SdFat sdcard;
