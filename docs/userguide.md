@@ -271,7 +271,7 @@ void loop() {
 }
 ```
 
-You need to initialize the SD card, and the open the a new CSV file on
+You need to initialize the SD card, and then open a new CSV file on
 the SD card (`sensors.openCSV()`). In the loop sensors are
 periodically read as managed by `sensors.update()`. This function
 writes the sensor readings into an internal buffer. If enough data
