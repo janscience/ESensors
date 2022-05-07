@@ -125,6 +125,11 @@ void Sensors::read() {
 }
 
 
+time_t Sensors::timeStamp() const {
+  return TimeStamp;
+}
+
+
 void Sensors::setPrintTime(print_time_t pt) {
   PrintTime = pt;
 }

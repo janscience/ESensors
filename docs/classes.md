@@ -30,7 +30,7 @@ Member functions:
 
 Available SensorDevices:
 
-- [`LightTSL2591`](chips/tsl2591md)
+- [`LightTSL2591`](chips/tsl2591.md)
 - [`SenseBME280`](chips/bme280.md)
 
 
@@ -96,7 +96,7 @@ reading of this device. See the documentation of the
 
 ## SensorDerived
 
-A [SensorDerived]()../src/SensorDerived.h] is a [Sensor](#sensor) that
+A [SensorDerived](../src/SensorDerived.h) is a [Sensor](#sensor) that
 does not get its readings from a device but computes it from readings
 of other sensors.
 
@@ -114,7 +114,7 @@ Available derived sensors are:
 General member functions:
 
 - `addSensor()`: add a [Sensor](#sensor).
-- `size()`: the number of manages [Sensor](#sensor)s.
+- `size()`: the number of managed [Sensor](#sensor)s.
 - `sensors()`: the number of currently available [Sensor](#sensor)s.
 
 Control reading of sensor data:
@@ -124,8 +124,9 @@ Control reading of sensor data:
 - `delayTime()`: the maximum delay time of all the [Sensor](#sensor)s.
 - `get()`: get sensor readings from all [Sensor](#sensor)s.
 - `read()`: blocking read: `request()`, `delay()`, and `get()`.
+- `timeStamp()`: time stamp of last sensor reading.
 - `interval()`, `setInterval()`: time interval for repetitive reads used in `update()`.
-- `update()`: control requests and gets for all [Sensor](#sensor)s.
+- `update()`: non-blocking control of requests and gets for all [Sensor](#sensor)s.
 
 Output on Serial:
 

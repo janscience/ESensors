@@ -69,6 +69,9 @@ class Sensors {
   // Before using read() for the first time you need to call start().
   void read();
 
+  // Time stamp of last reading of sensor values.
+  time_t timeStamp() const;
+
   // Whether and how print*() and write*() functions should output timestamps.
   void setPrintTime(print_time_t pt);
 

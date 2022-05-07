@@ -38,7 +38,7 @@ the Sensors libraries.
 
 In [utils/](utils) you find useful python scripts.
 
-- [sensors](utils/sensors): plot the content of the csv file written by the [Sensors](src/Sensors.h) library.
+- [sensors](utils/sensors): plot the content of the csv file written by the [Sensors](doc/classes.md#sensors) library.
 
 
 ## Applications of the Sensors libraries
