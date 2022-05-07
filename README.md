@@ -1,3 +1,5 @@
+![arduino-lint](https://github.com/janscience/ESensors/actions/workflows/arduinolint.yml/badge.svg)
+
 # ESensors
 
 A library and background information for environmental sensors (air
