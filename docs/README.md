@@ -1,7 +1,8 @@
 # [Sensors](https://github.com/janscience/Sensors) documentation
 
-- [Installation instructions](docs/install.md)
-- [User guide](docs/userguide.md)
+- [Installation instructions](install.md)
+- [User guide](userguide.md)
+- [Class overview](classes.md)
 - [Parameters](parameters/): Infos on how two measure
   environmental parameters.
 - [Sensor chips](chips/): Development boards and librariers for
