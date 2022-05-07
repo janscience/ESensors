@@ -58,18 +58,22 @@ DerivedESensor::DerivedESensor(ESensor *sensor1, ESensor *sensor2, ESensor *sens
 
 const char* DerivedESensor::chip() const {
   char *sp = DChip;
+  int n = 0;
   for (size_t k=0; k<NSnsr; k++) {
-    if (k > 0) {
-      if (k + 1 < NSnsr)
-	*(sp++) = ',';
-      else {
+    if (strlen(Snsr[k]->chip()) > 0) {
+      if (n > 0) {
+	if (n + 1 < NSnsr)
+	  *(sp++) = ',';
+	else {
+	  *(sp++) = ' ';
+	  *(sp++) = '&';
+	}
 	*(sp++) = ' ';
-	*(sp++) = '&';
       }
-      *(sp++) = ' ';
+      strcpy(sp, Snsr[k]->chip());
+      sp += strlen(Snsr[k]->chip());
+      n++;
     }
-    strcpy(sp, Snsr[k]->chip());
-    sp += strlen(Snsr[k]->chip());
   }
   return DChip;
 }
@@ -77,18 +81,22 @@ const char* DerivedESensor::chip() const {
 
 const char* DerivedESensor::identifier() const {
   char *sp = DIdentifier;
+  int n = 0;
   for (size_t k=0; k<NSnsr; k++) {
-    if (k > 0) {
-      if (k + 1 < NSnsr)
-	*(sp++) = ',';
-      else {
+    if (strlen(Snsr[k]->identifier()) > 0) {
+      if (n > 0) {
+	if (n + 1 < NSnsr)
+	  *(sp++) = ',';
+	else {
+	  *(sp++) = ' ';
+	  *(sp++) = '&';
+	}
 	*(sp++) = ' ';
-	*(sp++) = '&';
       }
-      *(sp++) = ' ';
+      strcpy(sp, Snsr[k]->identifier());
+      sp += strlen(Snsr[k]->identifier());
+      n++;
     }
-    strcpy(sp, Snsr[k]->identifier());
-    sp += strlen(Snsr[k]->identifier());
   }
   return DIdentifier;
 }
