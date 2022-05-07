@@ -1,11 +1,11 @@
 # User guide
 
-The [Sensors](https://github.com/janscience/Sensors) library is a high
+The [Sensors library](classes.md) is a high
 level interface to various sensor chips. It
 
 1. provides a common interface to various sensors,
 
-2. reports sensor values with flexible units,
+2. reports sensor values with flexible names and units,
 
 3. manages multiple sensors, and
 
@@ -14,11 +14,12 @@ level interface to various sensor chips. It
 
 ## Using a single sensor
 
-Any class derived from the [Sensor class](../src/Sensor.h) can read a
-specific environmental parameter from a sensor chip/device.
+Any class derived from the [Sensor class](classes.md#sensor) can read
+a specific environmental parameter from a sensor chip/device.
 
 For example, the DS18x20 only reads temperature. Include the header
-file, [TemperatureDS18x20.h](../src/TemperatureDS18x20.h), initialize the temperature sensor, and retrieve the sensor readings:
+file, [TemperatureDS18x20.h](../src/TemperatureDS18x20.h), initialize
+the temperature sensor, and retrieve the sensor readings:
 
 ```cpp
 #include <TemperatureDS18x20.h>
@@ -38,9 +39,10 @@ void loop() {
 
 ## Sensor names and units
 
-Each sensor has a name, a mathematical symbol, and a unit specifying
-what exactly is returned by the sensor.  It also provides a format
-string that can be used to format the returned value.
+Each [Sensor](classes.md#sensor) has a name, a mathematical symbol,
+and a unit specifying what exactly is returned by the sensor.  It also
+provides a format string that can be used to format the returned
+value.
 
 ```cpp
 void loop() {
@@ -97,13 +99,13 @@ The sensor reading can always be retrieved in its original unit
 
 Some chips provide multiple types of sensor readings, for example
 temperature and humidity. They then need to be passed to specific
-[Sensor class](../src/Sensor.h)es, each providing access to one type
+[Sensor class](classes.md#sensor)es, each providing access to one type
 of sensor reading. These chips are interfaced via a [SensorDevice
-class](../src/SensorDevice.h), that does not expose a value and a
+class](classes.md#sensordevice), that does not expose a value and a
 unit. This is what the accessing classes, derived from the
-[SensorValue template class](../src/SensorValue.h), do.  They own a
+[SensorValue template class](classes.md#sensorvalue), do.  They own a
 pointer to the sensor device and retrieve one specific type of sensor
-reading..
+reading.
 
 An example is the [Bosch BME280](chips/bme280.md) chip. It measures
 temperature, humidity, and pressure. You can use it like this:
@@ -140,10 +142,10 @@ void loop() {
 Some environmental parameters can be computed from basic sensor
 readings. For example the dew point can be computed from humidity and
 temperature. These computed parameters are also provided as
-[Sensor](../src/Sensor.h)s via the [SensorDerived
-class](../src/SensorDerived.h). Sensors providing the required
+[Sensor](classes.md#sensor)s via the [SensorDerived
+class](classes.md#sensorderived). Sensors providing the required
 parameters are passed to their constructors. This way, derived
-measures can be used as any other [Sensor](../src/Sensor.h) with a
+measures can be used as any other [Sensor](classes.md#sensor) with a
 porper name and unit.
 
 For example:
@@ -168,11 +170,11 @@ void loop() {
 
 ## Managing multiple sensors
 
-The [Sensors class](../src/Sensors.h) manages a single or multiple
-[Sensor](../src/Sensor.h)s. It provides infrastructure to read them in
+The [Sensors class](classes.md#sensors) manages a single or multiple
+[Sensor](classes.md#sensor)s. It provides infrastructure to read them in
 parallel, to write readings to the Serial port or into csv files.
 
-For this, an instance of the [Sensors class](../src/Sensors.h) needs
+For this, an instance of the [Sensors class](classes.md#sensors) needs
 to be passed to the individual sensors. Alternatively, they can be
 manually added via the `addSensor()` method.
 
@@ -211,8 +213,8 @@ void loop() {
 Many sensor devices need quite some time to generate a single reading:
 
 1. The reading has to be initiated (via the `request()` member
-   function of either a single [Sensor](../src/Sensor.h) or many
-   [Sensors](../src/Sensors.h)).
+   function of either a single [Sensor](classes.md#sensor) or many
+   [Sensors](classes.md#sensors)).
 
 2. Then we need to wait for the conversion
    to finish. How long is known by the `delayTime()` member function.
@@ -227,7 +229,7 @@ Steps 1 - 3 are combined in the `read()` member function, that blocks
 for the time given by `delayTime()`.
 
 Alternatively, one can repetitively call the `update()` member
-function of the [Sensors class](../src/Sensors.h) in the
+function of the [Sensors class](classes.md#sensorss) in the
 `loop()`. This function calls `request()` and `get()` at appropriate
 times without blocking. Whenever new sensor values are available,
 `update()` returns `true` and the values can be read out as usual via
@@ -263,12 +265,12 @@ void setup() {
 
 ## Writing CSV files
 
-The [Sensors class](../src/Sensors.h) also provides a simple interface
-to write the sensor readings into a CSV file on an SD card. This is a
-text file with "comma separated values" arranged in a table. A header
-specifies the names and units of the sensors, and then each line
-contains a time stamp and the sensor readings. CSV files can be
-openend in spreadsheet programs or easily processed in a script.
+The [Sensors class](classes.md#sensors) also provides a simple
+interface to write the sensor readings into a CSV file on an SD
+card. This is a text file with "comma separated values" arranged in a
+table. A header specifies the names and units of the sensors, and then
+each line contains a time stamp and the sensor readings. CSV files can
+be openend in spreadsheet programs or easily processed in a script.
 
 A minimum example looks like this (see also [logger
 example](../examples/logger/)):
@@ -327,7 +329,7 @@ accumulated (to write at least one 512 byte block), as checked by
 
 ## Reporting on Serial
 
-The [Sensors class](../src/Sensors.h) also provides some convenience
+The [Sensors class](classes.md#sensors) also provides some convenience
 functions to report sensor properties and values on the Serial
 port. Use the Serial monitr or plotter of the Arduino IDE to see them.
 

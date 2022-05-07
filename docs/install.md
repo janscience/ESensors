@@ -5,7 +5,7 @@ First, make sure that you install all the libraries needed by Sensors.
 
 ## Dependencies
 
-Sensors is based on the following libraries:
+The Sensors library is based on the following libraries:
 
 - [SdFat version2](https://github.com/greiman/SdFat)
 - [SparkFun BME280](https://github.com/sparkfun/SparkFun_BME280_Arduino_Library)
