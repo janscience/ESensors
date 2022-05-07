@@ -17,7 +17,8 @@ class AbsoluteHumidity : public DerivedESensor {
 
   AbsoluteHumidity(ESensor *humidity, ESensor *temperature, ESensors *sensors=0);
 
-  // Absolute humidity in g/m^3 computed from humidity and temperature.
+  // Absolute humidity in g/m^3 computed from realtive humidity (fraction)
+  // and temperature (degrees celsius).
   virtual float compute(float humidity, float temperature,
 			float none=0.0) const;
   

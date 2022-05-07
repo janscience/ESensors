@@ -40,6 +40,7 @@ void setup() {
   sensors.setInterval(0.2);
   Wire.begin();
   bme.beginI2C(Wire, 0x77);
+  hum.setPercent();
   pres.setHecto();
   //slpres.setMilliBar();
   tsl.begin();

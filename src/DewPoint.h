@@ -17,7 +17,10 @@ class DewPoint : public DerivedESensor {
 
   DewPoint(ESensor *humidity, ESensor *temperature, ESensors *sensors=0);
 
-  // Dew point in degrees celsius computed from humidity and temperature.
+  // Dew point in degrees celsius computed from realtive humidity (fraction)
+  // and temperature (degrees celsius).
+  // https://en.wikipedia.org/wiki/Dew_point
+  // Magnus formula
   virtual float compute(float humidity, float temperature,
 			float none=0.0) const;
   

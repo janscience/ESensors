@@ -58,7 +58,7 @@ DerivedESensor::DerivedESensor(ESensor *sensor1, ESensor *sensor2, ESensor *sens
 
 const char* DerivedESensor::chip() const {
   char *sp = DChip;
-  int n = 0;
+  unsigned int n = 0;
   for (size_t k=0; k<NSnsr; k++) {
     if (strlen(Snsr[k]->chip()) > 0) {
       if (n > 0) {
@@ -81,7 +81,7 @@ const char* DerivedESensor::chip() const {
 
 const char* DerivedESensor::identifier() const {
   char *sp = DIdentifier;
-  int n = 0;
+  unsigned int n = 0;
   for (size_t k=0; k<NSnsr; k++) {
     if (strlen(Snsr[k]->identifier()) > 0) {
       if (n > 0) {

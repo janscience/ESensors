@@ -54,7 +54,7 @@ class SenseBME280 : public ESensorDevice, protected BME280 {
   // On error, return -INFINITY.
   float temperature() const { return Celsius; };
 
-  // The relative humidity in percent.
+  // The relative humidity as a fraction.
   // On error, return -INFINITY.
   float humidity() const { return Humidity; };
 
@@ -98,7 +98,7 @@ class HumidityBME280 : public ESensorValue<SenseBME280> {
 
   HumidityBME280(SenseBME280 *bme, ESensors *sensors=0);
 
-  // The relative humidity in percent.
+  // The relative humidity as a fraction.
   // On error, return -INFINITY.
   virtual float reading() const;
 };

@@ -72,7 +72,7 @@ void SenseBME280::getData() {
   BME280_SensorMeasurements measurements;
   readAllMeasurements(&measurements, 0);
   Celsius = measurements.temperature;
-  Humidity = measurements.humidity;
+  Humidity = 0.01*measurements.humidity;
   Pressure = measurements.pressure;
 }
 
@@ -90,7 +90,7 @@ float TemperatureBME280::reading() const {
 
 HumidityBME280::HumidityBME280(SenseBME280 *bme, ESensors *sensors)
   : ESensorValue<SenseBME280>(bme, sensors,
-			      "humidity", "RH", "%", "%.1f", 0.07) {
+			      "humidity", "RH", "", "%.3f", 0.03) {
 }
 
 

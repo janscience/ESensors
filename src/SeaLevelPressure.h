@@ -21,6 +21,8 @@ class SeaLevelPressure : public DerivedESensor {
 
   // The equivalent sea level pressure in Pascal
   // computed from pressure and temperature.
+  // see https://keisan.casio.com/exec/system/1224575267
+  // derivation: https://keisan.casio.com/keisan/image/Convertpressure.pdf
   virtual float compute(float pressure, float temperature,
 			float none=0.0) const;
 

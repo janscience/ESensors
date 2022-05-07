@@ -136,6 +136,7 @@ void setup() {
   Wire.begin();                // init the I2C bus.
   bme.beginI2C(Wire, 0x77);    // init the sensor chip.
   temp.setName("air temperature", "T_air");
+  hum.setPercent();
   pres.setHecto();
 }
 
@@ -313,6 +314,7 @@ void setup() {
   setSyncProvider(getTeensyTime);  // get time from Teensy internal real time clock
   Wire.begin();
   bme.beginI2C(Wire, 0x77);
+  hum.setPercent();
   pres.setHecto();   // hPa
   sensors.setInterval(10.0);
   sdcard.begin(BUILTIN_SDCARD);              // initialize SD card
