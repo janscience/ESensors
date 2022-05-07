@@ -1,4 +1,4 @@
-![arduino-lint](https://github.com/janscience/ESensors/actions/workflows/arduinolint.yml/badge.svg)
+![arduino-lint](https://github.com/janscience/ESensors/actions/workflows/arduino-lint.yml/badge.svg)
 
 # ESensors
 
