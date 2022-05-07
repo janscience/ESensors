@@ -1,10 +1,20 @@
-# [Sensors](https://github.com/janscience/Sensors) documentation
+# Sensors documentation
+
+## [Sensors](https://github.com/janscience/Sensors) library
 
 - [Installation instructions](install.md)
 - [User guide](userguide.md)
 - [Class overview](classes.md)
+- [Sensor chips](chips/): Infos on development boards and libraries for
+  specific sensor chips.
+
+
+## Environmental parameters
+
 - [Parameters](parameters/): Infos on how two measure
   environmental parameters.
-- [Sensor chips](chips/): Development boards and librariers for
-  sensor chips.
+
+
+## Power supply
+
 - [Power supply](power/): Some solutions for power supply.

@@ -1,40 +1,26 @@
 # Sensors
 
-[Hard-](docs/) and software for environmental sensors (air and water)
-for Teensy and Arduino.
+A library and background information for environmental sensors (air
+and water) for Teensy and Arduino.
 
 
-## Sensors library
-
-- [Sensors](src/Sensors.h): Manage environmental sensors.
-- [SensorDevice](src/SensorDevice.h): Virtual base class for a sensor device.
-- [Sensor](src/Sensor.h): Virtual base class for reading a value from a sensor.
-- [SensorValue](src/SensorValue.h): Template base class for a sensor reading of a SensorDevice.
-- [SensorDerived](src/SensorDerived.h): Base class for sensors computing a derived measure from several Sensors.
-
-- [AbsoluteHumidity](src/AbsoluteHumidity.h): Compute absolute humidity from relative humidity and temperature.
-- [DewPoint](src/DewPoint.h): Compute dew point from relative humidity and temperature.
-- [SeaLevelPressure](src/SeaLevelPressure.h): Estimate sea level pressure from pressure, temperature, and known altitude.
-
-- [TemperatureDS18x20](src/TemperatureDS18x20.h): A Sensor that reads temperature from a DS18x20 1-wire device.
-- [SenseBME280](src/SenseBME280.h): The Bosch BME280 temperature, humidity, and pressure sensor with many derived measures.
-- [LightTSL2591](src/LightTSL2591.h): Read light intensity from AMS TSL2591.
-
-
-## Documentation
+## [Sensors](https://github.com/janscience/Sensors) library
 
 - [Installation instructions](docs/install.md)
 - [User guide](docs/userguide.md)
 - [Class overview](docs/classes.md)
+- [Sensor chips](docs/chips/): Infos on development boards and libraries for
+  specific sensor chips.
 
-The [Documentation](docs/) also provides resources on [environmental
-parameters](docs/parameters/), [sensor chips](docs/chips/), and [power
-supply](docs/power/):
 
-- [Environmental parameters](docs/parameters/): Infos on how two measure
+## Environmental parameters
+
+- [Parameters](docs/parameters/): Infos on how two measure
   environmental parameters.
-- [Sensor chips](docs/chips/): Development boards and librariers for
-  sensor chips.
+
+
+## Power supply
+
 - [Power supply](docs/power/): Some solutions for power supply.
 
 
