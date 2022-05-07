@@ -1,27 +1,27 @@
 /*
-  SensorDevice - Virtual base class for a sensor device.
+  ESensorDevice - Virtual base class for an environmental sensor device.
   Created by Jan Benda, April 24th, 2022.
 
   This is the basic interface for reading some data from a sensor device.
-  The Sensor class then retrieves a single sensor reading.
+  The ESensor class then retrieves a single sensor reading.
 */
 
-#ifndef SensorDevice_h
-#define SensorDevice_h
+#ifndef ESensorDevice_h
+#define ESensorDevice_h
 
 
 #include <Arduino.h>
 #include <TimeLib.h>
 
 
-class SensorDevice {
+class ESensorDevice {
 
  public:
 
   static const float NoValue = -INFINITY;
 
   // Initialize the sensor.
-  SensorDevice();
+  ESensorDevice();
 
   // Return name of sensor chip model as character array.
   virtual const char* chip() const;

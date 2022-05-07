@@ -1,9 +1,9 @@
-#include <Sensors.h>
-#include <Sensor.h>
+#include <ESensors.h>
+#include <ESensor.h>
 
 
-Sensor::Sensor() :
-  SensorDevice(),
+ESensor::ESensor() :
+  ESensorDevice(),
   Name(""),
   Symbol(""),
   BasicUnit(""),
@@ -15,9 +15,9 @@ Sensor::Sensor() :
 }
 
 
-Sensor::Sensor(const char *name, const char *symbol, const char *unit,
-	       const char *format, float resolution) :
-  Sensor() {
+ESensor::ESensor(const char *name, const char *symbol, const char *unit,
+		 const char *format, float resolution) :
+  ESensor() {
   strcpy(BasicUnit, unit);
   setName(name);
   setSymbol(symbol);
@@ -27,59 +27,59 @@ Sensor::Sensor(const char *name, const char *symbol, const char *unit,
 }
 
 
-Sensor::Sensor(Sensors *sensors, const char *name, const char *symbol,
-	       const char *unit, const char *format, float resolution) :
-  Sensor(name, symbol, unit, format, resolution) {
+ESensor::ESensor(ESensors *sensors, const char *name, const char *symbol,
+		 const char *unit, const char *format, float resolution) :
+  ESensor(name, symbol, unit, format, resolution) {
   if (sensors != 0)
     sensors->addSensor(*this);
 }
 
 
-const char* Sensor::name() const {
+const char* ESensor::name() const {
   return Name;
 }
 
 
-void Sensor::setName(const char *name) {
+void ESensor::setName(const char *name) {
   strcpy(Name, name);
 }
 
 
-void Sensor::setName(const char *name, const char *symbol) {
+void ESensor::setName(const char *name, const char *symbol) {
   strcpy(Name, name);
   strcpy(Symbol, symbol);
 }
 
 
-const char* Sensor::symbol() const {
+const char* ESensor::symbol() const {
   return Symbol;
 }
 
 
-void Sensor::setSymbol(const char *symbol) {
+void ESensor::setSymbol(const char *symbol) {
   strcpy(Symbol, symbol);
 }
 
 
-const char* Sensor::basicUnit() const {
+const char* ESensor::basicUnit() const {
   return BasicUnit;
 }
 
 
-const char* Sensor::unit() const {
+const char* ESensor::unit() const {
   return Unit;
 }
 
 
-void Sensor::setUnit(const char *unit, float factor, float offset) {
+void ESensor::setUnit(const char *unit, float factor, float offset) {
   strcpy(Unit, unit);
   Factor = factor;
   Offset = offset;
 }
 
 
-void Sensor::setUnit(const char *unit, float factor, float offset,
-		     const char *format) {
+void ESensor::setUnit(const char *unit, float factor, float offset,
+		      const char *format) {
   strcpy(Unit, unit);
   Factor = factor;
   Offset = offset;
@@ -87,7 +87,7 @@ void Sensor::setUnit(const char *unit, float factor, float offset,
 }
 
 
-void Sensor::setUnit(const char *unit, float factor, const char *format) {
+void ESensor::setUnit(const char *unit, float factor, const char *format) {
   strcpy(Unit, unit);
   Factor = factor;
   Offset = 0.0;
@@ -95,32 +95,32 @@ void Sensor::setUnit(const char *unit, float factor, const char *format) {
 }
 
 
-const char* Sensor::format() const {
+const char* ESensor::format() const {
   return Format;
 }
 
 
-void Sensor::setFormat(const char *format) {
+void ESensor::setFormat(const char *format) {
   strcpy(Format, format);
 }
 
 
-void Sensor::setResolution(float resolution) {
+void ESensor::setResolution(float resolution) {
   Resolution = resolution;
 }
 
 
-float Sensor::resolution() const {
+float ESensor::resolution() const {
   return Factor*Resolution;
 }
 
 
-int Sensor::resolutionStr(char *s) const {
+int ESensor::resolutionStr(char *s) const {
   return sprintf(s, Format, resolution());
 }
 
 
-void Sensor::report() {
+void ESensor::report() {
   if (available()) {
     char rs[10];
     resolutionStr(rs);
@@ -137,24 +137,24 @@ void Sensor::report() {
 }
 
 
-float Sensor::value() const {
+float ESensor::value() const {
   return Factor*reading() + Offset;
 }
 
 
-int Sensor::valueStr(char *s) const {
+int ESensor::valueStr(char *s) const {
   return sprintf(s, Format, value());
 }
 
 
-float Sensor::read() {
-  SensorDevice::read();
+float ESensor::read() {
+  ESensorDevice::read();
   return value();
 }
 
 
-void Sensor::parseFormat(char *prefix, int *width,
-			 int *decimals, char *ftype) const {
+void ESensor::parseFormat(char *prefix, int *width,
+			  int *decimals, char *ftype) const {
   *prefix = '\0';
   *width = -1;
   *decimals = -1;
@@ -193,7 +193,7 @@ void Sensor::parseFormat(char *prefix, int *width,
 }
 
 
-void Sensor::adaptFormat(int decimals) {
+void ESensor::adaptFormat(int decimals) {
   // parse format string:
   char fpref[10];
   int width;
@@ -227,7 +227,7 @@ void Sensor::adaptFormat(int decimals) {
 }
 
 
-void Sensor::setSIPrefix(const char *prefix, float factor, int decimals) {
+void ESensor::setSIPrefix(const char *prefix, float factor, int decimals) {
   // new unit string:
   char us[20];
   sprintf(us, "%s%s", prefix, unit());
@@ -237,59 +237,59 @@ void Sensor::setSIPrefix(const char *prefix, float factor, int decimals) {
 }
 
 
-void Sensor::setPercent() {
+void ESensor::setPercent() {
   setUnit("%", 100.0);
   adaptFormat(-2);
 }
 
 
-void Sensor::setKelvin() {
+void ESensor::setKelvin() {
   setUnit("K", 1.0, 273.15);
 }
 
 
-void Sensor::setFahrenheit() {
+void ESensor::setFahrenheit() {
   setUnit("F", 9.0/5.0, 32.0);
 }
 
 
-void Sensor::setBar() {
+void ESensor::setBar() {
   setUnit("bar", 1e-5);
   adaptFormat(5);
 }
 
 
-void Sensor::setMilliBar() {
+void ESensor::setMilliBar() {
   setUnit("mbar", 0.01);
   adaptFormat(2);
 }
 
 
-void Sensor::setAt() {
+void ESensor::setAt() {
   setUnit("at", 0.0000101971621298);
   adaptFormat(5);
 }
 
 
-void Sensor::setAtm() {
+void ESensor::setAtm() {
   setUnit("atm", 0.00000986923266716);
   adaptFormat(5);
 }
 
 
-void Sensor::setMMHg() {
+void ESensor::setMMHg() {
   setUnit("mmHg", 0.00750061575846);
   adaptFormat(2);
 }
 
 
-void Sensor::setPSI() {
+void ESensor::setPSI() {
   setUnit("psi", 0.00014503773773);
   adaptFormat(4);
 }
 
 
-void Sensor::setTorr() {
+void ESensor::setTorr() {
   setUnit("torr", 0.00750061682704);
   adaptFormat(2);
 }

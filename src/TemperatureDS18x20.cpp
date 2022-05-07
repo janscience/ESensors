@@ -1,8 +1,8 @@
 #include <TemperatureDS18x20.h>
 
 
-TemperatureDS18x20::TemperatureDS18x20(Sensors *sensors)
-  : Sensor(sensors, "temperature", "T", "ºC", "%.2f", 0.0625) {
+TemperatureDS18x20::TemperatureDS18x20(ESensors *sensors)
+  : ESensor(sensors, "temperature", "T", "ºC", "%.2f", 0.0625) {
   Type_s = -1;
   memset(Addr, 0, sizeof(Addr));
   Celsius = NoValue;
@@ -15,7 +15,7 @@ TemperatureDS18x20::TemperatureDS18x20(uint8_t pin)
 }
 
 
-TemperatureDS18x20::TemperatureDS18x20(Sensors *sensors, uint8_t pin)
+TemperatureDS18x20::TemperatureDS18x20(ESensors *sensors, uint8_t pin)
   : TemperatureDS18x20(sensors) {
   begin(pin);
 }

@@ -2,7 +2,7 @@
 
 
 LightTSL2591::LightTSL2591() :
-  SensorDevice(),
+  ESensorDevice(),
   TSL2591TwoWire() {
   DelayTime = 130;
   IrradianceFull = NoValue;
@@ -17,7 +17,7 @@ LightTSL2591::LightTSL2591() :
 
 
 LightTSL2591::LightTSL2591(TwoWire *wire) :
-  SensorDevice(),
+  ESensorDevice(),
   TSL2591TwoWire(wire) {
   DelayTime = 130;
   IrradianceFull = NoValue;
@@ -131,9 +131,9 @@ float LightTSL2591::IRRatio() const {
 }
 
 
-Channel0TSL2591::Channel0TSL2591(LightTSL2591 *tsl, Sensors *sensors)
-  : SensorValue<LightTSL2591>(tsl, sensors,
-			      "channel0", "C0", "counts", "%5.0f", 1.0) {
+Channel0TSL2591::Channel0TSL2591(LightTSL2591 *tsl, ESensors *sensors)
+  : ESensorValue<LightTSL2591>(tsl, sensors,
+			       "channel0", "C0", "counts", "%5.0f", 1.0) {
 }
 
 
@@ -142,9 +142,9 @@ float Channel0TSL2591::reading() const {
 }
 
 
-Channel1TSL2591::Channel1TSL2591(LightTSL2591 *tsl, Sensors *sensors)
-  : SensorValue<LightTSL2591>(tsl, sensors,
-			      "channel1", "C1", "counts", "%5.0f", 1.0) {
+Channel1TSL2591::Channel1TSL2591(LightTSL2591 *tsl, ESensors *sensors)
+  : ESensorValue<LightTSL2591>(tsl, sensors,
+			       "channel1", "C1", "counts", "%5.0f", 1.0) {
 }
 
 
@@ -153,9 +153,9 @@ float Channel1TSL2591::reading() const {
 }
 
 
-GainTSL2591::GainTSL2591(LightTSL2591 *tsl, Sensors *sensors)
-  : SensorValue<LightTSL2591>(tsl, sensors,
-			      "gain", "g", "", "%1.0f", 1.0) {
+GainTSL2591::GainTSL2591(LightTSL2591 *tsl, ESensors *sensors)
+  : ESensorValue<LightTSL2591>(tsl, sensors,
+			       "gain", "g", "", "%1.0f", 1.0) {
 }
 
 
@@ -164,9 +164,9 @@ float GainTSL2591::reading() const {
 }
 
 
-IRRatioTSL2591::IRRatioTSL2591(LightTSL2591 *tsl, Sensors *sensors)
-  : SensorValue<LightTSL2591>(tsl, sensors,
-			      "IRratio", "R", "", "%4.2f", 0.01) {
+IRRatioTSL2591::IRRatioTSL2591(LightTSL2591 *tsl, ESensors *sensors)
+  : ESensorValue<LightTSL2591>(tsl, sensors,
+			       "IRratio", "R", "", "%4.2f", 0.01) {
 }
 
 
@@ -175,10 +175,10 @@ float IRRatioTSL2591::reading() const {
 }
 
 
-IrradianceFullTSL2591::IrradianceFullTSL2591(LightTSL2591 *tsl, Sensors *sensors)
-  : SensorValue<LightTSL2591>(tsl, sensors,
-			      "irradiance full", "E_e full", "W/cm^2",
-			      "%8.3f", 0.01) {
+IrradianceFullTSL2591::IrradianceFullTSL2591(LightTSL2591 *tsl, ESensors *sensors)
+  : ESensorValue<LightTSL2591>(tsl, sensors,
+			       "irradiance full", "E_e full", "W/cm^2",
+			       "%8.3f", 0.01) {
 }
 
 
@@ -187,10 +187,10 @@ float IrradianceFullTSL2591::reading() const {
 }
 
 
-IrradianceIRTSL2591::IrradianceIRTSL2591(LightTSL2591 *tsl, Sensors *sensors)
-  : SensorValue<LightTSL2591>(tsl, sensors,
-			      "irradiance IR", "E_e IR", "W/cm^2",
-			      "%8.3f", 0.01) {
+IrradianceIRTSL2591::IrradianceIRTSL2591(LightTSL2591 *tsl, ESensors *sensors)
+  : ESensorValue<LightTSL2591>(tsl, sensors,
+			       "irradiance IR", "E_e IR", "W/cm^2",
+			       "%8.3f", 0.01) {
 }
 
 
@@ -199,10 +199,10 @@ float IrradianceIRTSL2591::reading() const {
 }
 
 
-IrradianceVisibleTSL2591::IrradianceVisibleTSL2591(LightTSL2591 *tsl, Sensors *sensors)
-  : SensorValue<LightTSL2591>(tsl, sensors,
-			      "irradiance visible", "E_e vis", "W/cm^2",
-			      "%8.3f", 0.01) {
+IrradianceVisibleTSL2591::IrradianceVisibleTSL2591(LightTSL2591 *tsl, ESensors *sensors)
+  : ESensorValue<LightTSL2591>(tsl, sensors,
+			       "irradiance visible", "E_e vis", "W/cm^2",
+			       "%8.3f", 0.01) {
 }
 
 
@@ -211,9 +211,9 @@ float IrradianceVisibleTSL2591::reading() const {
 }
 
 
-IlluminanceTSL2591::IlluminanceTSL2591(LightTSL2591 *tsl, Sensors *sensors)
-  : SensorValue<LightTSL2591>(tsl, sensors,
-			      "illuminance", "E", "lx", "%8.2f", 1.0) {
+IlluminanceTSL2591::IlluminanceTSL2591(LightTSL2591 *tsl, ESensors *sensors)
+  : ESensorValue<LightTSL2591>(tsl, sensors,
+			       "illuminance", "E", "lx", "%8.2f", 1.0) {
 }
 
 

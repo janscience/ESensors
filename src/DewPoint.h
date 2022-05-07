@@ -1,5 +1,5 @@
 /*
-  DewPoint - SensorDerived that computes the dew point from humidity and temperature.
+  DewPoint - DerivedESensor that computes the dew point from humidity and temperature.
   Created by Jan Benda, May 3nd, 2022.
 */
 
@@ -8,14 +8,14 @@
 
 
 #include <Arduino.h>
-#include <SensorDerived.h>
+#include <DerivedESensor.h>
 
 
-class DewPoint : public SensorDerived {
+class DewPoint : public DerivedESensor {
 
  public:
 
-  DewPoint(Sensor *humidity, Sensor *temperature, Sensors *sensors=0);
+  DewPoint(ESensor *humidity, ESensor *temperature, ESensors *sensors=0);
 
   // Dew point in degrees celsius computed from humidity and temperature.
   virtual float compute(float humidity, float temperature,

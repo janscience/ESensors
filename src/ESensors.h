@@ -1,27 +1,27 @@
 /*
-  Sensors - Manage environmental sensors.
+  ESensors - Manage environmental sensors.
   Created by Jan Benda, November 27th, 2021.
 */
 
-#ifndef Sensors_h
-#define Sensors_h
+#ifndef ESensors_h
+#define ESensors_h
 
 
 #include <Arduino.h>
 #include <SdFat.h>
-#include <Sensor.h>
+#include <ESensor.h>
 
 
-class Sensors {
+class ESensors {
 
  public:
   
   enum print_time_t { NO_TIME, SEC_TIME, ISO_TIME };
 
-  Sensors();
+  ESensors();
 
   // Add a sensor if available.
-  void addSensor(Sensor &sensor);
+  void addSensor(ESensor &sensor);
 
   // Number of currently managed sensors.
   uint8_t size() const { return NSensors; };
@@ -30,7 +30,7 @@ class Sensors {
   uint8_t sensors() const;
 
   // The index-th sensor.
-  Sensor &operator[](uint8_t index) { return *Snsrs[index]; };
+  ESensor &operator[](uint8_t index) { return *Snsrs[index]; };
 
   // Update interval for reading sensor values in seconds.
   float interval() const;
@@ -125,7 +125,7 @@ class Sensors {
 
   static const uint8_t MaxSensors = 20; 
   uint8_t NSensors; 
-  Sensor *Snsrs[MaxSensors];
+  ESensor *Snsrs[MaxSensors];
   unsigned long Interval;
   unsigned long UseInterval;
   elapsedMillis Time;

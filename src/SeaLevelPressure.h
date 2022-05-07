@@ -1,5 +1,5 @@
 /*
-  SeaLevelPressure - SensorDerived that computes the equivalent sea level pressure from pressure and temperature.
+  SeaLevelPressure - DerivedESensor that computes the equivalent sea level pressure from pressure and temperature.
   Created by Jan Benda, May 3nd, 2022.
 */
 
@@ -8,16 +8,16 @@
 
 
 #include <Arduino.h>
-#include <SensorDerived.h>
+#include <DerivedESensor.h>
 
 
-class SeaLevelPressure : public SensorDerived {
+class SeaLevelPressure : public DerivedESensor {
 
  public:
 
   // Provide altitude in meter.
-  SeaLevelPressure(Sensor *pressure, Sensor *temperature, float altitude,
-		   Sensors *sensors=0);
+  SeaLevelPressure(ESensor *pressure, ESensor *temperature, float altitude,
+		   ESensors *sensors=0);
 
   // The equivalent sea level pressure in Pascal
   // computed from pressure and temperature.

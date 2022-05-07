@@ -1,9 +1,9 @@
 #include <AbsoluteHumidity.h>
 
 
-AbsoluteHumidity::AbsoluteHumidity(Sensor *humidity, Sensor *temperature, Sensors *sensors)
-  : SensorDerived(temperature, humidity, sensors,
-		  "absolute humidity", "H", "g/m^3", "%.1f", 0.1) {
+AbsoluteHumidity::AbsoluteHumidity(ESensor *humidity, ESensor *temperature, ESensors *sensors)
+  : DerivedESensor(temperature, humidity, sensors,
+		   "absolute humidity", "H", "g/m^3", "%.1f", 0.1) {
 }
 
 

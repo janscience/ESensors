@@ -1,51 +1,51 @@
 /*
-  SensorDerived - Base class for sensors computing a derived measure from several Sensors.
+  DerivedESensor - Base class for sensors computing a derived measure from several Sensors.
   Created by Jan Benda, May 2nd, 2022.
 */
 
-#ifndef SensorDerived_h
-#define SensorDerived_h
+#ifndef DerivedESensor_h
+#define DerivedESensor_h
 
 
 #include <Arduino.h>
-#include <Sensor.h>
+#include <ESensor.h>
 
 
-class SensorDerived : public Sensor {
+class DerivedESensor : public ESensor {
 
  public:
 
   // Initialize the sensor and set name, mathematical symbol, basic unit,
   // format, and resolution of sensor readings.
   // Use sensor1.reading() and sensor2.reading() to compute a derived measure.
-  SensorDerived(Sensor *sensor1, Sensor *sensor2,
-		const char *name, const char *symbol, const char *unit,
-		const char *format, float resolution=1.0);
+  DerivedESensor(ESensor *sensor1, ESensor *sensor2,
+		 const char *name, const char *symbol, const char *unit,
+		 const char *format, float resolution=1.0);
 
   // Initialize the sensor and set name, mathematical symbol, basic unit,
   // format, and resolution of sensor readings.
   // Use sensor1.reading(), sensor2.reading(), and sensor3.reading()
   // to compute a derived measure.
-  SensorDerived(Sensor *sensor1, Sensor *sensor2, Sensor *sensor3,
-		const char *name, const char *symbol, const char *unit,
-		const char *format, float resolution=1.0);
+  DerivedESensor(ESensor *sensor1, ESensor *sensor2, ESensor *sensor3,
+		 const char *name, const char *symbol, const char *unit,
+		 const char *format, float resolution=1.0);
 
   // Initialize the sensor, add it to sensors, and set name,
   // mathematical symbol, basic unit, format, and resolution of sensor
   // readings.
   // Use sensor1.reading() and sensor2.reading() to compute a derived measure.
-  SensorDerived(Sensor *sensor1, Sensor *sensor2,
-		Sensors *sensors, const char *name, const char *symbol,
-		const char *unit, const char *format, float resolution=1.0);
+  DerivedESensor(ESensor *sensor1, ESensor *sensor2,
+		 ESensors *sensors, const char *name, const char *symbol,
+		 const char *unit, const char *format, float resolution=1.0);
 
   // Initialize the sensor, add it to sensors, and set name,
   // mathematical symbol, basic unit, format, and resolution of sensor
   // readings.
   // Use sensor1.reading(), sensor2.reading(), and sensor3.reading()
   // to compute a derived measure.
-  SensorDerived(Sensor *sensor1, Sensor *sensor2, Sensor *sensor3,
-		Sensors *sensors, const char *name, const char *symbol,
-		const char *unit, const char *format, float resolution=1.0);
+  DerivedESensor(ESensor *sensor1, ESensor *sensor2, ESensor *sensor3,
+		 ESensors *sensors, const char *name, const char *symbol,
+		 const char *unit, const char *format, float resolution=1.0);
 
   // Return name of sensor chip models as character array.
   virtual const char* chip() const;
@@ -84,7 +84,7 @@ protected:
   // The sensors with the primary data:
   size_t NSnsr;
   static const size_t MaxSnsr = 3;
-  Sensor *Snsr[MaxSnsr];
+  ESensor *Snsr[MaxSnsr];
   
 };
 

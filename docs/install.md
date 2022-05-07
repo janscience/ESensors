@@ -1,11 +1,11 @@
 # Installation
 
-First, make sure that you install all the libraries needed by Sensors.
+First, make sure that you install all the libraries needed by ESensors.
 
 
 ## Dependencies
 
-The Sensors library is based on the following libraries:
+The ESensors library is based on the following libraries:
 
 - [SdFat version2](https://github.com/greiman/SdFat)
 - [SparkFun BME280](https://github.com/sparkfun/SparkFun_BME280_Arduino_Library)
@@ -28,26 +28,26 @@ and install them.
 
 ## Installation
 
-Clone the [Sensors](https://github.com/janscience/Sensors) repository
+Clone the [ESensors](https://github.com/janscience/ESensors) repository
 directly into 'Arduino/libraries':
 ```sh
 cd Arduino/libraries
-git clone https://github.com/janscience/Sensors.git
+git clone https://github.com/janscience/ESensors.git
 ```
 
 Alternatively, download the whole repository as a zip archive (open
-https://github.com/janscience/Sensors in your browser and click on the
+https://github.com/janscience/ESensors in your browser and click on the
 green "Code" button). Unpack the zip file:
 ```sh
 cd Arduino/libraries
-unzip ~/Downloads/Sensors-main.zip
+unzip ~/Downloads/ESensors-main.zip
 ```
 
-If you want to edit the Sensors files, mark the library as developmental:
+If you want to edit the ESensors files, mark the library as developmental:
 ```sh
-cd Arduino/libraries/Sensors
+cd Arduino/libraries/ESensors
 touch .development
 ```
 
 Close the Arduino IDE and open it again. Then the Arduino IDE knows
-about the Sensors library and its examples.
+about the ESensors library and its examples.

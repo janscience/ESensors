@@ -1,5 +1,5 @@
 /*
-  AbsoluteHumidity - SensorDerived that computes the absolute humidity from humidity and temperature.
+  AbsoluteHumidity - DerivedESensor that computes the absolute humidity from humidity and temperature.
   Created by Jan Benda, May 3nd, 2022.
 */
 
@@ -8,14 +8,14 @@
 
 
 #include <Arduino.h>
-#include <SensorDerived.h>
+#include <DerivedESensor.h>
 
 
-class AbsoluteHumidity : public SensorDerived {
+class AbsoluteHumidity : public DerivedESensor {
 
  public:
 
-  AbsoluteHumidity(Sensor *humidity, Sensor *temperature, Sensors *sensors=0);
+  AbsoluteHumidity(ESensor *humidity, ESensor *temperature, ESensors *sensors=0);
 
   // Absolute humidity in g/m^3 computed from humidity and temperature.
   virtual float compute(float humidity, float temperature,

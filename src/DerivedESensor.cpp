@@ -1,12 +1,12 @@
-#include <Sensors.h>
-#include <SensorDerived.h>
+#include <ESensors.h>
+#include <DerivedESensor.h>
 
 
-SensorDerived::SensorDerived(Sensor *sensor1, Sensor *sensor2,
-			     const char *name, const char *symbol,
-			     const char *unit, const char *format,
-			     float resolution) :
-  Sensor(name, symbol, unit, format, resolution),
+DerivedESensor::DerivedESensor(ESensor *sensor1, ESensor *sensor2,
+			       const char *name, const char *symbol,
+			       const char *unit, const char *format,
+			       float resolution) :
+  ESensor(name, symbol, unit, format, resolution),
   NSnsr(2) {
   Snsr[0] = sensor1;
   Snsr[1] = sensor2;
@@ -15,11 +15,11 @@ SensorDerived::SensorDerived(Sensor *sensor1, Sensor *sensor2,
 }
 
 
-SensorDerived::SensorDerived(Sensor *sensor1, Sensor *sensor2, Sensor *sensor3,
-			     const char *name, const char *symbol,
-			     const char *unit, const char *format,
-			     float resolution) :
-  Sensor(name, symbol, unit, format, resolution),
+DerivedESensor::DerivedESensor(ESensor *sensor1, ESensor *sensor2, ESensor *sensor3,
+			       const char *name, const char *symbol,
+			       const char *unit, const char *format,
+			       float resolution) :
+  ESensor(name, symbol, unit, format, resolution),
   NSnsr(3) {
   Snsr[0] = sensor1;
   Snsr[1] = sensor2;
@@ -29,11 +29,11 @@ SensorDerived::SensorDerived(Sensor *sensor1, Sensor *sensor2, Sensor *sensor3,
 }
 
 
-SensorDerived::SensorDerived(Sensor *sensor1, Sensor *sensor2,
-			     Sensors *sensors, const char *name,
-			     const char *symbol, const char *unit,
-			     const char *format, float resolution) :
-  Sensor(sensors, name, symbol, unit, format, resolution),
+DerivedESensor::DerivedESensor(ESensor *sensor1, ESensor *sensor2,
+			       ESensors *sensors, const char *name,
+			       const char *symbol, const char *unit,
+			       const char *format, float resolution) :
+  ESensor(sensors, name, symbol, unit, format, resolution),
   NSnsr(2) {
   Snsr[0] = sensor1;
   Snsr[1] = sensor2;
@@ -42,11 +42,11 @@ SensorDerived::SensorDerived(Sensor *sensor1, Sensor *sensor2,
 }
 
 
-SensorDerived::SensorDerived(Sensor *sensor1, Sensor *sensor2, Sensor *sensor3,
-			     Sensors *sensors, const char *name,
-			     const char *symbol, const char *unit,
-			     const char *format, float resolution) :
-  Sensor(sensors, name, symbol, unit, format, resolution),
+DerivedESensor::DerivedESensor(ESensor *sensor1, ESensor *sensor2, ESensor *sensor3,
+			       ESensors *sensors, const char *name,
+			       const char *symbol, const char *unit,
+			       const char *format, float resolution) :
+  ESensor(sensors, name, symbol, unit, format, resolution),
   NSnsr(3) {
   Snsr[0] = sensor1;
   Snsr[1] = sensor2;
@@ -56,7 +56,7 @@ SensorDerived::SensorDerived(Sensor *sensor1, Sensor *sensor2, Sensor *sensor3,
 }
 
 
-const char* SensorDerived::chip() const {
+const char* DerivedESensor::chip() const {
   char *sp = DChip;
   for (size_t k=0; k<NSnsr; k++) {
     if (k > 0) {
@@ -75,7 +75,7 @@ const char* SensorDerived::chip() const {
 }
 
 
-const char* SensorDerived::identifier() const {
+const char* DerivedESensor::identifier() const {
   char *sp = DIdentifier;
   for (size_t k=0; k<NSnsr; k++) {
     if (k > 0) {
@@ -94,7 +94,7 @@ const char* SensorDerived::identifier() const {
 }
 
   
-bool SensorDerived::available() {
+bool DerivedESensor::available() {
   for (size_t k=0; k<NSnsr; k++) {
     if (! Snsr[k]->available())
       return false;
@@ -103,7 +103,7 @@ bool SensorDerived::available() {
 }
 
 
-unsigned long SensorDerived::delayTime() const {
+unsigned long DerivedESensor::delayTime() const {
   unsigned long dtime = 0;
   for (size_t k=0; k<NSnsr; k++) {
     if (Snsr[k]->delayTime() > dtime)
@@ -113,19 +113,19 @@ unsigned long SensorDerived::delayTime() const {
 }
 
 
-void SensorDerived::requestData() {
+void DerivedESensor::requestData() {
   for (size_t k=0; k<NSnsr; k++)
     Snsr[k]->request();
 }
 
 
-void SensorDerived::getData() {
+void DerivedESensor::getData() {
   for (size_t k=0; k<NSnsr; k++)
     Snsr[k]->get();
 }
 
 
-float SensorDerived::reading() const {
+float DerivedESensor::reading() const {
   if (NSnsr == 3)
     return compute(Snsr[0]->reading(), Snsr[1]->reading(), Snsr[2]->reading());
   else

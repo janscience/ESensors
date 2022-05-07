@@ -1,5 +1,5 @@
 #include <TimeLib.h>
-#include <Sensors.h>
+#include <ESensors.h>
 #include <TemperatureDS18x20.h>
 #include <SenseBME280.h>
 #include <LightTSL2591.h>
@@ -8,7 +8,7 @@
 #include <SeaLevelPressure.h>
 
 
-Sensors sensors;
+ESensors sensors;
 
 TemperatureDS18x20 temp(&sensors, 10);  // DATA on pin 10
 SenseBME280 bme;
@@ -35,8 +35,8 @@ void setup() {
   Serial.begin(9600);
   while (!Serial && millis() < 2000) {};
   setSyncProvider(getTeensyTime);  // enable real time clock
-  // sensors.setPrintTime(Sensors::ISO_TIME);
-  sensors.setPrintTime(Sensors::NO_TIME);  // no time column for the serial plotter
+  // sensors.setPrintTime(ESensors::ISO_TIME);
+  sensors.setPrintTime(ESensors::NO_TIME);  // no time column for the serial plotter
   sensors.setInterval(0.2);
   Wire.begin();
   bme.beginI2C(Wire, 0x77);

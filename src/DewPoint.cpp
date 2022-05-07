@@ -1,9 +1,9 @@
 #include <DewPoint.h>
 
 
-DewPoint::DewPoint(Sensor *humidity, Sensor *temperature, Sensors *sensors)
-  : SensorDerived(temperature, humidity, sensors,
-		  "dew point", "Tdp", "ºC", "%5.1f", 0.35) {
+DewPoint::DewPoint(ESensor *humidity, ESensor *temperature, ESensors *sensors)
+  : DerivedESensor(temperature, humidity, sensors,
+		   "dew point", "Tdp", "ºC", "%5.1f", 0.35) {
 }
 
 

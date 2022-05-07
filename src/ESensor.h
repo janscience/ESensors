@@ -1,41 +1,41 @@
 /*
-  Sensor - Virtual base class for reading a value from a sensor.
+  ESensor - Virtual base class for reading a value from an environmental sensor.
   Created by Jan Benda, November 27th, 2021.
 */
 
-#ifndef Sensor_h
-#define Sensor_h
+#ifndef ESensor_h
+#define ESensor_h
 
 
 #include <Arduino.h>
 #include <TimeLib.h>
-#include <SensorDevice.h>
+#include <ESensorDevice.h>
 
 
-class Sensors;
+class ESensors;
 
 
-class Sensor : public SensorDevice {
+class ESensor : public ESensorDevice {
 
  public:
 
   // Initialize the sensor.
-  Sensor();
+  ESensor();
 
   // Initialize the sensor and set name, mathematical symbol, basic unit,
   // format, and resolution of sensor readings.
   // The derived unit is also set to unit, the conversion factor
   // is set to one, the offset to zero.
-  Sensor(const char *name, const char *symbol, const char *unit,
-	 const char *format, float resolution=1.0);
+  ESensor(const char *name, const char *symbol, const char *unit,
+	  const char *format, float resolution=1.0);
 
   // Initialize the sensor, add it to sensors, and set name,
   // mathematical symbol, basic unit, format and resolution of sensor
   // readings.
   // The derived unit is also set to unit, the conversion factor
   // is set to one, the offset to zero.
-  Sensor(Sensors *sensors, const char *name, const char *symbol,
-	 const char *unit, const char *format, float resolution=1.0);
+  ESensor(ESensors *sensors, const char *name, const char *symbol,
+	  const char *unit, const char *format, float resolution=1.0);
 
   // Return name of environmental sensor reading as character array.
   const char* name() const;

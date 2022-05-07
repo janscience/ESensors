@@ -1,20 +1,20 @@
-# Sensor classes
+# ESensor classes
 
-- [`SensorDevice`](#sensordevice): Virtual base class for a sensor device.
-- [`Sensor`](#sensor): Virtual base class for reading a value from a sensor.
-- [`SensorValue`](#sensorvalue): Template base class for a [`Sensor`](#sensor) reading of a [`SensorDevice`(#sensordevice).
-- [`SensorDerived`](#sensorderived): Base class for [`Sensor`](#sensor)s computing a derived measure from several [`Sensor`](#sensor)s.
-- [`Sensors`](#sensors): Manage mutliple [`Sensor`](#sensor)s.
+- [`ESensorDevice`](#esensordevice): Virtual base class for an environmental sensor device.
+- [`ESensor`](#esensor): Virtual base class for reading a value from an environmental sensor.
+- [`ESensorValue`](#esensorvalue): Template base class for a [`ESensor`](#esensor) reading of a [`ESensorDevice`(#esensordevice).
+- [`DerivedESensor`](#derivedesensor): Base class for [`ESensor`](#esensor)s computing a derived measure from other [`ESensor`](#esensor)s.
+- [`ESensors`](#esensors): Manage mutliple [`ESensor`](#esensor)s.
 
 
-## SensorDevice
+## ESensorDevice
 
-The virtual [SensorDevice class](../src/SensorDevice.h) interfaces a
+The virtual [ESensorDevice class](../src/ESensorDevice.h) interfaces a
 sensor chip/device. It provides basic infrastructure for requesting
 and retrieving sensor readings.
 
-The actual sensor readings need to be accessed via a [Sensor
-class](#sensor).
+The actual sensor readings need to be accessed via a [ESensor
+class](#esensor) - see [ESensorValue](#esensorvalue) below.
 
 Member functions:
 
@@ -28,19 +28,19 @@ Member functions:
 - `read()`: blocking read: initiate measurement (request()), wait for delayTime(), and retrieve the data (get()).
 - `timeStamp()`: time stamp of last sensor reading.
 
-Available SensorDevices:
+Available ESensorDevices:
 
 - [`LightTSL2591`](chips/tsl2591.md)
 - [`SenseBME280`](chips/bme280.md)
 
 
-## Sensor
+## ESensor
 
-A [Sensor](../src/Sensor.h) is a [SensorDevice](#sensordevice) that
+An [ESensor](../src/Sensor.h) is an [ESensorDevice](#esensordevice) that
 provides a single type of sensor reading. A name, symbol, and a unit
 are assigned to the sensor reading.
 
-Member functions in addition to [SensorDevice](#sensordevice):
+Member functions in addition to [ESensorDevice](#esensordevice):
 
 - `name()`, `setName()`: name of the sensor value.
 - `symbol()`, `setSymbol()`: mathematical symbol of the sensor value.
@@ -80,23 +80,23 @@ Member functions for unit conversion of pressures:
 - `setPSI()`
 - `setTorr()`
 
-Available Sensors:
+Available ESensors:
 
 - `TemperatureDS18x20`
 
 
-## SensorValue
+## ESensorValue
 
-A [SensorValue](../src/SensorValue.h) is a [Sensor](#sensor) that owns
-a [SensorDevice](#sensordevice) and exposes a single type of sensor
-reading of this device. See the documentation of the
-[SensorDevice](#sensordevice)s listed above for available
-[Sensor](#sensor) classes.
+An [ESensorValue](../src/ESensorValue.h) is an [ESensor](#esensor)
+that owns a [ESensorDevice](#esensordevice) and exposes a single type
+of sensor reading of this device. See the documentation of the
+[ESensorDevice](#esensordevice)s listed above for available
+[ESensor](#esensor) classes.
 
 
-## SensorDerived
+## DerivedESensor
 
-A [SensorDerived](../src/SensorDerived.h) is a [Sensor](#sensor) that
+A [DerivedESensor](../src/DerivedESensor.h) is an [ESensor](#esensor) that
 does not get its readings from a device but computes it from readings
 of other sensors.
 
@@ -107,30 +107,30 @@ Available derived sensors are:
 - [`SeaLevelPressure`](../src/SeaLevelPressure.h): pressure at sea level in Pascal.
 
 
-## Sensors
+## ESensors
 
-[Sensors](../src/Sensors.h) manages many [Sensor](#sensor)s.
+[ESensors](../src/ESensors.h) manages many [ESensor](#esensor)s.
 
 General member functions:
 
-- `addSensor()`: add a [Sensor](#sensor).
-- `size()`: the number of managed [Sensor](#sensor)s.
-- `sensors()`: the number of currently available [Sensor](#sensor)s.
+- `addSensor()`: add an [ESensor](#esensor).
+- `size()`: the number of managed [ESensor](#esensor)s.
+- `sensors()`: the number of currently available [ESensor](#esensor)s.
 
 Control reading of sensor data:
 
-- `start()`: initialize reading from [Sensor](#sensor)s.
-- `request()`: request a reading from all [Sensor](#sensor)s.
-- `delayTime()`: the maximum delay time of all the [Sensor](#sensor)s.
-- `get()`: get sensor readings from all [Sensor](#sensor)s.
+- `start()`: initialize reading from [ESensor](#esensor)s.
+- `request()`: request a reading from all [ESensor](#esensor)s.
+- `delayTime()`: the maximum delay time of all the [ESensor](#esensor)s.
+- `get()`: get sensor readings from all [ESensor](#esensor)s.
 - `read()`: blocking read: `request()`, `delay()`, and `get()`.
 - `timeStamp()`: time stamp of last sensor reading.
 - `interval()`, `setInterval()`: time interval for repetitive reads used in `update()`.
-- `update()`: non-blocking control of requests and gets for all [Sensor](#sensor)s.
+- `update()`: non-blocking control of requests and gets for all [ESensor](#esensor)s.
 
 Output on Serial:
 
-- `report()`: report properties (name, unit, chip, etc. ) of managed [Sensor](#sensor)s on Serial.
+- `report()`: report properties (name, unit, chip, etc. ) of managed [ESensor](#esensor)s on Serial.
 - `setPrintTime()`: control whether and how time stamps are reported.
 - `print()`: print sensor names, readings, and units on Serial.
 - `printHeader()`: print header with sensor names and units on Serial.

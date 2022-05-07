@@ -1,38 +1,37 @@
 /*
-  SensorValue - Template base class for a sensor reading of a SensorDevice.
+  ESensorValue - Template base class for a sensor reading of an ESensorDevice.
   Created by Jan Benda, April 30th, 2022.
 */
 
-#ifndef SensorValue_h
-#define SensorValue_h
+#ifndef ESensorValue_h
+#define ESensorValue_h
 
 
 #include <Arduino.h>
-#include <Sensor.h>
+#include <ESensor.h>
 
 
-// Subclass SensorValue and implement its reading() function to return
+// Subclass ESensorValue and implement its reading() function to return
 // a specific type of sensor reading from S.
 
-// S is a Sensor or SensorDevice that provides multiple types of
+// S is a ESensor or ESensorDevice that provides multiple types of
 // sensor readings.
 template <class S>
-class SensorValue : public Sensor {
+class ESensorValue : public ESensor {
 
  public:
 
-  SensorValue(S *s,
-	      const char *name, const char *symbol,
-	      const char *unit, const char *format,
-	      float resolution) :
-    Sensor(0, name, symbol, unit, format, resolution),
+  ESensorValue(S *s, const char *name, const char *symbol,
+	       const char *unit, const char *format,
+	       float resolution) :
+    ESensor(0, name, symbol, unit, format, resolution),
     SDC(s) {};
 
-  SensorValue(S *s, Sensors *sensors,
-	      const char *name, const char *symbol,
-	      const char *unit, const char *format,
-	      float resolution) :
-    Sensor(sensors, name, symbol, unit, format, resolution),
+  ESensorValue(S *s, ESensors *sensors,
+	       const char *name, const char *symbol,
+	       const char *unit, const char *format,
+	       float resolution) :
+    ESensor(sensors, name, symbol, unit, format, resolution),
     SDC(s) {};
 
   // Return true if sensor device is available.
@@ -56,7 +55,7 @@ class SensorValue : public Sensor {
   // Retrieve a sensor reading from the device.
   virtual void getData() { return SDC->get(); };
 
-  // The Sensor or SensorDevice.
+  // The ESensor or ESensorDevice.
   S *SDC;
 
 };

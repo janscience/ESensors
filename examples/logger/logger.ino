@@ -1,6 +1,6 @@
 #include <TimeLib.h>
 #include <SdFat.h>
-#include <Sensors.h>
+#include <ESensors.h>
 #include <TemperatureDS18x20.h>
 #include <SenseBME280.h>
 #include <LightTSL2591.h>
@@ -14,7 +14,7 @@ float sensorsInterval = 2.0; // interval between sensors readings in seconds
 
 // ------------------------------------------------------------------------------------------
 
-Sensors sensors;
+ESensors sensors;
 
 TemperatureDS18x20 temp(&sensors);
 SenseBME280 bme;
@@ -54,7 +54,7 @@ void setup() {
   irratio.setPercent();
   sensors.setInterval(sensorsInterval);
   sdcard.begin(BUILTIN_SDCARD);
-  sensors.setPrintTime(Sensors::ISO_TIME);
+  sensors.setPrintTime(ESensors::ISO_TIME);
   sensors.report();
   bool success = sensors.openCSV(sdcard, "sensors", symbols);
   digitalWrite(led_pin, LOW);

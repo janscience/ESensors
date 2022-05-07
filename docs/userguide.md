@@ -1,6 +1,6 @@
 # User guide
 
-The [Sensors library](classes.md) is a high
+The [ESensors library](classes.md) is a high
 level interface to various sensor chips. It
 
 1. provides a common interface to various sensors,
@@ -14,7 +14,7 @@ level interface to various sensor chips. It
 
 ## Using a single sensor
 
-Any class derived from the [Sensor class](classes.md#sensor) can read
+Any class derived from the [ESensor class](classes.md#esensor) can read
 a specific environmental parameter from a sensor chip/device.
 
 For example, the DS18x20 only reads temperature. Include the header
@@ -39,7 +39,7 @@ void loop() {
 
 ## Sensor names and units
 
-Each [Sensor](classes.md#sensor) has a name, a mathematical symbol,
+Each [ESensor](classes.md#esensor) has a name, a mathematical symbol,
 and a unit specifying what exactly is returned by the sensor.  It also
 provides a format string that can be used to format the returned
 value.
@@ -66,12 +66,13 @@ been measured, using the `setName()` and `setSymbol()` functions.
 
 You can also change the unit via `setUnit()`, that provides a new unit
 and a factor and offset to be used to compute the sensor value for
-this unit. The sensor class provides a number of functions that you
-can use to change the SI unit prefix (e.g. `setMilli()`, `setKilo()`,
-etc., to change a fraction to percent (`setPercent()`), or to change
-degree Celsius to Kelvin (`setKelvin()`), for example. These functions
-also modify the format string in a smart way. Or adapt the format
-string directly via `setFormat()`.
+this unit. The [ESensor](classes.md#esensor) class provides a number
+of functions that you can use to change the SI unit prefix
+(e.g. `setMilli()`, `setKilo()`, etc., to change a fraction to percent
+(`setPercent()`), or to change degree Celsius to Kelvin
+(`setKelvin()`), for example. These functions also modify the format
+string in a smart way. Or adapt the format string directly via
+`setFormat()`.
 
 Change names and units according to your needs in the setup function.
 
@@ -99,11 +100,11 @@ The sensor reading can always be retrieved in its original unit
 
 Some chips provide multiple types of sensor readings, for example
 temperature and humidity. They then need to be passed to specific
-[Sensor class](classes.md#sensor)es, each providing access to one type
-of sensor reading. These chips are interfaced via a [SensorDevice
-class](classes.md#sensordevice), that does not expose a value and a
+[ESensor class](classes.md#esensor)es, each providing access to one type
+of sensor reading. These chips are interfaced via a [ESensorDevice
+class](classes.md#esensordevice), that does not expose a value and a
 unit. This is what the accessing classes, derived from the
-[SensorValue template class](classes.md#sensorvalue), do.  They own a
+[ESensorValue template class](classes.md#esensorvalue), do.  They own a
 pointer to the sensor device and retrieve one specific type of sensor
 reading.
 
@@ -113,10 +114,10 @@ temperature, humidity, and pressure. You can use it like this:
 ```cpp
 #include <SenseBME280.h>
 
-SenseBME280 bme;               // the SensorDevice.
-TemperatureBME280 temp(&bme);  // a SensorValue.
-HumidityBME280 hum(&bme);      // another SensorValue.
-PressureBME280 pres(&bme);     // a third SensorValue.
+SenseBME280 bme;               // the ESensorDevice.
+TemperatureBME280 temp(&bme);  // a ESensorValue.
+HumidityBME280 hum(&bme);      // another ESensorValue.
+PressureBME280 pres(&bme);     // a third ESensorValue.
 
 void setup() {
   Wire.begin();                // init the I2C bus.
@@ -142,11 +143,11 @@ void loop() {
 Some environmental parameters can be computed from basic sensor
 readings. For example the dew point can be computed from humidity and
 temperature. These computed parameters are also provided as
-[Sensor](classes.md#sensor)s via the [SensorDerived
-class](classes.md#sensorderived). Sensors providing the required
-parameters are passed to their constructors. This way, derived
-measures can be used as any other [Sensor](classes.md#sensor) with a
-porper name and unit.
+[ESensor](classes.md#esensor)s via the [DerivedESensor
+class](classes.md#derivedesensor). [ESensor](classes.md#esnsor)s
+providing the required parameters are passed to their
+constructors. This way, derived measures can be used as any other
+[ESensor](classes.md#esensor) with a porper name and unit.
 
 For example:
 
@@ -157,7 +158,7 @@ For example:
 SenseBME280 bme;
 TemperatureBME280 temp(&bme);
 HumidityBME280 hum(&bme);
-DewPoint dp(&hum, &temp);    // provide Sensors to dew point computation.
+DewPoint dp(&hum, &temp);    // provide ESensors to dew point computation.
 
 // ...
 
@@ -170,19 +171,21 @@ void loop() {
 
 ## Managing multiple sensors
 
-The [Sensors class](classes.md#sensors) manages a single or multiple
-[Sensor](classes.md#sensor)s. It provides infrastructure to read them in
+The [ESensors class](classes.md#esensors) manages a single or multiple
+[ESensor](classes.md#esensor)s. It provides infrastructure to read them in
 parallel, to write readings to the Serial port or into csv files.
 
-For this, an instance of the [Sensors class](classes.md#sensors) needs
+For this, an instance of the [ESensors class](classes.md#esensors) needs
 to be passed to the individual sensors. Alternatively, they can be
 manually added via the `addSensor()` method.
 
 Then our example looks like this:
 
 ```cpp
-#include <Sensors.h>
+#include <ESensors.h>
 #include <SenseBME280.h>
+
+ESensors sensors;
 
 SenseBME280 bme;
 TemperatureBME280 temp(&bme, &sensors);  // add to sensors!
@@ -213,8 +216,8 @@ void loop() {
 Many sensor devices need quite some time to generate a single reading:
 
 1. The reading has to be initiated (via the `request()` member
-   function of either a single [Sensor](classes.md#sensor) or many
-   [Sensors](classes.md#sensors)).
+   function of either a single [ESensor](classes.md#esensor) or many
+   [ESensors](classes.md#esensors)).
 
 2. Then we need to wait for the conversion
    to finish. How long is known by the `delayTime()` member function.
@@ -229,7 +232,7 @@ Steps 1 - 3 are combined in the `read()` member function, that blocks
 for the time given by `delayTime()`.
 
 Alternatively, one can repetitively call the `update()` member
-function of the [Sensors class](classes.md#sensorss) in the
+function of the [ESensors class](classes.md#esensorss) in the
 `loop()`. This function calls `request()` and `get()` at appropriate
 times without blocking. Whenever new sensor values are available,
 `update()` returns `true` and the values can be read out as usual via
@@ -265,7 +268,7 @@ void setup() {
 
 ## Writing CSV files
 
-The [Sensors class](classes.md#sensors) also provides a simple
+The [ESensors class](classes.md#esensors) also provides a simple
 interface to write the sensor readings into a CSV file on an SD
 card. This is a text file with "comma separated values" arranged in a
 table. A header specifies the names and units of the sensors, and then
@@ -278,10 +281,10 @@ example](../examples/logger/)):
 ```cpp
 #include <TimeLib.h>      // needed for time stamps
 #include <SdFat.h>        // accessing the SD card
-#include <Sensors.h>
+#include <ESensors.h>
 #include <SenseBME280.h>
 
-Sensors sensors;
+ESensors sensors;
 
 SenseBME280 bme;
 TemperatureBME280 temp(&bme, &sensors);
@@ -329,7 +332,7 @@ accumulated (to write at least one 512 byte block), as checked by
 
 ## Reporting on Serial
 
-The [Sensors class](classes.md#sensors) also provides some convenience
+The [ESensors class](classes.md#esensors) also provides some convenience
 functions to report sensor properties and values on the Serial
 port. Use the Serial monitr or plotter of the Arduino IDE to see them.
 
@@ -340,9 +343,9 @@ port. Use the Serial monitr or plotter of the Arduino IDE to see them.
 units:
 
 ```cpp
-#include <Sensors.h>
+#include <ESensors.h>
 
-Sensors sensors;
+ESensors sensors;
 // ...
 
 void setup() {
@@ -356,7 +359,7 @@ void setup() {
 Output:
 
 ```txt
-5 of 6 sensors available, read every 2s:
+5 of 6 environmental sensors available, read every 2s:
   temperature T (ºC):	 on BME280 device at a resolution of 0.01ºC.
   humidity RH (%):	 on BME280 device at a resolution of 0.1%.
   dew point Tdp (ºC):	 on BME280 & BME280 device (ID:  & ) at a resolution of   0.3ºC.
@@ -449,7 +452,7 @@ T/ºC	RH/%	P/hPa	E/lx
 writing CSV files and for `printHeader()` and `printValues()`.
 
 No time stamp is written by default or when calling
-`sensors.printValues(Sensors::NO_TIME)` (as in the examples above).
+`sensors.printValues(ESensors::NO_TIME)` (as in the examples above).
 
 For writing time stamps you first need to enable the real time clock. For example, when using the internal clock of the Teensy, you do:
 
@@ -462,7 +465,7 @@ time_t getTeensyTime() {
 
 void setup() {
   setSyncProvider(getTeensyTime);  // enable real time clock
-  sensors.setPrintTime(Sensors::ISO_TIME);
+  sensors.setPrintTime(ESensors::ISO_TIME);
   // ...
 }
 ```
@@ -479,7 +482,7 @@ t/s	T/ºC	RH/%	P/hPa	E/lx
 2022-05-06T23:17:25	20.76	56.7	970.14	    0.94
 ```
 
-For `sensors.setPrintTime(Sensors::SEC_TIME)` you get
+For `sensors.setPrintTime(ESensors::SEC_TIME)` you get
 
 ```txt
 t/s	T/ºC	RH/%	P/hPa	E/lx

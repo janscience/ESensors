@@ -2,7 +2,7 @@
 
 
 SenseBME280::SenseBME280() :
-  SensorDevice(),
+  ESensorDevice(),
   BME280() {
   Celsius = NoValue;
   Humidity = NoValue;
@@ -77,9 +77,9 @@ void SenseBME280::getData() {
 }
 
 
-TemperatureBME280::TemperatureBME280(SenseBME280 *bme, Sensors *sensors)
-  : SensorValue<SenseBME280>(bme, sensors,
-			     "temperature", "T", "ºC", "%.2f", 0.01) {
+TemperatureBME280::TemperatureBME280(SenseBME280 *bme, ESensors *sensors)
+  : ESensorValue<SenseBME280>(bme, sensors,
+			      "temperature", "T", "ºC", "%.2f", 0.01) {
 }
 
 
@@ -88,9 +88,9 @@ float TemperatureBME280::reading() const {
 }
 
 
-HumidityBME280::HumidityBME280(SenseBME280 *bme, Sensors *sensors)
-  : SensorValue<SenseBME280>(bme, sensors,
-			     "humidity", "RH", "%", "%.1f", 0.07) {
+HumidityBME280::HumidityBME280(SenseBME280 *bme, ESensors *sensors)
+  : ESensorValue<SenseBME280>(bme, sensors,
+			      "humidity", "RH", "%", "%.1f", 0.07) {
 }
 
 
@@ -99,9 +99,9 @@ float HumidityBME280::reading() const {
 }
 
 
-PressureBME280::PressureBME280(SenseBME280 *bme, Sensors *sensors)
-  : SensorValue<SenseBME280>(bme, sensors,
-			     "pressure", "P", "Pa", "%.0f", 3.3) {
+PressureBME280::PressureBME280(SenseBME280 *bme, ESensors *sensors)
+  : ESensorValue<SenseBME280>(bme, sensors,
+			      "pressure", "P", "Pa", "%.0f", 3.3) {
 }
 
 

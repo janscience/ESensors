@@ -1,6 +1,6 @@
-# Sensors documentation
+# ESensors documentation
 
-## [Sensors](https://github.com/janscience/Sensors) library
+## [ESensors](https://github.com/janscience/ESensors) library
 
 - [Installation instructions](install.md)
 - [User guide](userguide.md)

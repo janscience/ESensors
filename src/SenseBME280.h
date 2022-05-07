@@ -19,12 +19,12 @@
 #include <Arduino.h>
 #include <Wire.h>
 #include <SparkFunBME280.h>
-#include <SensorDevice.h>
-#include <SensorValue.h>
+#include <ESensorDevice.h>
+#include <ESensorValue.h>
 
 
 // Simple wrapper around Spark Fun BME280 library.
-class SenseBME280 : public SensorDevice, protected BME280 {
+class SenseBME280 : public ESensorDevice, protected BME280 {
 
  public:
 
@@ -80,11 +80,11 @@ class SenseBME280 : public SensorDevice, protected BME280 {
 };
 
 
-class TemperatureBME280 : public SensorValue<SenseBME280> {
+class TemperatureBME280 : public ESensorValue<SenseBME280> {
 
  public:
 
-  TemperatureBME280(SenseBME280 *bme, Sensors *sensors=0);
+  TemperatureBME280(SenseBME280 *bme, ESensors *sensors=0);
 
   // The temperature in degrees celsius.
   // On error, return -INFINITY.
@@ -92,11 +92,11 @@ class TemperatureBME280 : public SensorValue<SenseBME280> {
 };
 
 
-class HumidityBME280 : public SensorValue<SenseBME280> {
+class HumidityBME280 : public ESensorValue<SenseBME280> {
 
  public:
 
-  HumidityBME280(SenseBME280 *bme, Sensors *sensors=0);
+  HumidityBME280(SenseBME280 *bme, ESensors *sensors=0);
 
   // The relative humidity in percent.
   // On error, return -INFINITY.
@@ -104,11 +104,11 @@ class HumidityBME280 : public SensorValue<SenseBME280> {
 };
 
 
-class PressureBME280 : public SensorValue<SenseBME280> {
+class PressureBME280 : public ESensorValue<SenseBME280> {
 
  public:
 
-  PressureBME280(SenseBME280 *bme, Sensors *sensors=0);
+  PressureBME280(SenseBME280 *bme, ESensors *sensors=0);
 
   // The pressure in Pascal.
   // On error, return -INFINITY.

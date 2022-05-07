@@ -1,10 +1,10 @@
 #include <SeaLevelPressure.h>
 
 
-SeaLevelPressure::SeaLevelPressure(Sensor *pressure, Sensor *temperature,
-				   float altitude, Sensors *sensors)
-  : SensorDerived(pressure, temperature, sensors,
-		  "sea level pressure", "P0", "Pa", "%5.1f", 1.0),
+SeaLevelPressure::SeaLevelPressure(ESensor *pressure, ESensor *temperature,
+				   float altitude, ESensors *sensors)
+  : DerivedESensor(pressure, temperature, sensors,
+		   "sea level pressure", "P0", "Pa", "%5.1f", 1.0),
     Altitude(altitude) {
   setFormat(pressure->format());
 }

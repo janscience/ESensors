@@ -4,9 +4,9 @@
 
   Wrapper for [TSL2591MI](https://bitbucket.org/christandlg/tsl2591mi/).
 
-  [Infos, Datasheet, libraries](https://github.com/janscience/Sensors/blob/main/docs/chips/tsl2591.md)
+  [Infos, Datasheet, libraries](https://github.com/janscience/ESensors/blob/main/docs/chips/tsl2591.md)
 
-  [Background light measurements](https://github.com/janscience/Sensors/tree/main/docs/parameters/light)
+  [Background light measurements](https://github.com/janscience/ESensors/tree/main/docs/parameters/light)
 */
 
 #ifndef LightTSL2591_h
@@ -16,13 +16,13 @@
 #include <Arduino.h>
 #include <Wire.h>
 #include <TSL2591TwoWire.h>
-#include <SensorDevice.h>
-#include <Sensor.h>
-#include <SensorValue.h>
+#include <ESensorDevice.h>
+#include <ESensor.h>
+#include <ESensorValue.h>
 
 
 // Simple wrapper around TSL2591MI library.
-class LightTSL2591 : public SensorDevice, protected TSL2591TwoWire {
+class LightTSL2591 : public ESensorDevice, protected TSL2591TwoWire {
 
  public:
 
@@ -133,33 +133,33 @@ class LightTSL2591 : public SensorDevice, protected TSL2591TwoWire {
 };
 
 
-class Channel0TSL2591 : public SensorValue<LightTSL2591> {
+class Channel0TSL2591 : public ESensorValue<LightTSL2591> {
 
  public:
 
-  Channel0TSL2591(LightTSL2591 *tsl, Sensors *sensors=0);
+  Channel0TSL2591(LightTSL2591 *tsl, ESensors *sensors=0);
 
   // Temperature corrected channel count of the full spectrum sensor.
   virtual float reading() const;
 };
 
 
-class Channel1TSL2591 : public SensorValue<LightTSL2591> {
+class Channel1TSL2591 : public ESensorValue<LightTSL2591> {
 
  public:
 
-  Channel1TSL2591(LightTSL2591 *tsl, Sensors *sensors=0);
+  Channel1TSL2591(LightTSL2591 *tsl, ESensors *sensors=0);
 
   // Temperature corrected channel count of the IR spectrum sensor.
   virtual float reading() const;
 };
 
 
-class GainTSL2591 : public SensorValue<LightTSL2591> {
+class GainTSL2591 : public ESensorValue<LightTSL2591> {
 
  public:
 
-  GainTSL2591(LightTSL2591 *tsl, Sensors *sensors=0);
+  GainTSL2591(LightTSL2591 *tsl, ESensors *sensors=0);
 
   // The gain code that was active when getting the sensor readings.
   // 0: low (x1), 1: medium (x24.5), 2: high (x400), 3: max (x9200).
@@ -167,22 +167,22 @@ class GainTSL2591 : public SensorValue<LightTSL2591> {
 };
 
 
-class IRRatioTSL2591 : public SensorValue<LightTSL2591> {
+class IRRatioTSL2591 : public ESensorValue<LightTSL2591> {
 
  public:
 
-  IRRatioTSL2591(LightTSL2591 *tsl, Sensors *sensors=0);
+  IRRatioTSL2591(LightTSL2591 *tsl, ESensors *sensors=0);
 
   // IR ratio C1DATA / C0DATA.
   virtual float reading() const;
 };
 
 
-class IrradianceFullTSL2591 : public SensorValue<LightTSL2591> {
+class IrradianceFullTSL2591 : public ESensorValue<LightTSL2591> {
 
  public:
 
-  IrradianceFullTSL2591(LightTSL2591 *tsl, Sensors *sensors=0);
+  IrradianceFullTSL2591(LightTSL2591 *tsl, ESensors *sensors=0);
 
   // The irradiance of the full spectrum in W/m^2.
   // On error, return -INFINITY.
@@ -190,11 +190,11 @@ class IrradianceFullTSL2591 : public SensorValue<LightTSL2591> {
 };
 
 
-class IrradianceIRTSL2591 : public SensorValue<LightTSL2591> {
+class IrradianceIRTSL2591 : public ESensorValue<LightTSL2591> {
 
  public:
 
-  IrradianceIRTSL2591(LightTSL2591 *tsl, Sensors *sensors=0);
+  IrradianceIRTSL2591(LightTSL2591 *tsl, ESensors *sensors=0);
 
   // The irradiance of the IR spectrum in W/m^2.
   // On error, return -INFINITY.
@@ -202,11 +202,11 @@ class IrradianceIRTSL2591 : public SensorValue<LightTSL2591> {
 };
 
 
-class IrradianceVisibleTSL2591 : public SensorValue<LightTSL2591> {
+class IrradianceVisibleTSL2591 : public ESensorValue<LightTSL2591> {
 
  public:
 
-  IrradianceVisibleTSL2591(LightTSL2591 *tsl, Sensors *sensors=0);
+  IrradianceVisibleTSL2591(LightTSL2591 *tsl, ESensors *sensors=0);
 
   // The irradiance of the visible spectrum in W/m^2.
   // On error, return -INFINITY.
@@ -214,11 +214,11 @@ class IrradianceVisibleTSL2591 : public SensorValue<LightTSL2591> {
 };
 
 
-class IlluminanceTSL2591 : public SensorValue<LightTSL2591> {
+class IlluminanceTSL2591 : public ESensorValue<LightTSL2591> {
 
  public:
 
-  IlluminanceTSL2591(LightTSL2591 *tsl, Sensors *sensors=0);
+  IlluminanceTSL2591(LightTSL2591 *tsl, ESensors *sensors=0);
 
   // The illuminance in Lux.
   // On error, return -INFINITY.

@@ -1,8 +1,8 @@
 #include <TimeLib.h>
-#include <Sensors.h>
+#include <ESensors.h>
 
 
-Sensors::Sensors() :
+ESensors::ESensors() :
   NSensors(0),
   Interval(0),
   Time(0),
@@ -17,7 +17,7 @@ Sensors::Sensors() :
 }
 
 
-void Sensors::addSensor(Sensor &sensor) {
+void ESensors::addSensor(ESensor &sensor) {
   if (NSensors >= MaxSensors) {
     Serial.println("Maximum number of supported sensors exceeded!");
     return;
@@ -26,7 +26,7 @@ void Sensors::addSensor(Sensor &sensor) {
 }
 
 
-uint8_t Sensors::sensors() const {
+uint8_t ESensors::sensors() const {
   uint8_t n = 0;
   for (uint8_t k=0; k<NSensors; k++) {
     if (Snsrs[k]->available())
@@ -36,21 +36,21 @@ uint8_t Sensors::sensors() const {
 }
 
 
-float Sensors::interval() const {
+float ESensors::interval() const {
   return 0.001*Interval;
 }
 
 
-void Sensors::setInterval(float interval) {
+void ESensors::setInterval(float interval) {
   Interval = (unsigned long)(1000.0*interval);
 }
 
 
-void Sensors::report() {
+void ESensors::report() {
   char ds[2] = {'\0', '\0'};
   if (NSensors > 1)
     ds[0] = 's';
-  Serial.printf("%d of %d sensor%s available, read every %gs:\n",
+  Serial.printf("%d of %d environmental sensor%s available, read every %gs:\n",
 		sensors(), NSensors, ds, 0.001*Interval);
   int n = 0;
   for (uint8_t k=0; k<NSensors; k++) {
@@ -65,7 +65,7 @@ void Sensors::report() {
 }
 
 
-void Sensors::start() {
+void ESensors::start() {
   UseInterval = Interval;
   if (UseInterval < delayTime() + 10)
     UseInterval = delayTime() + 10;
@@ -76,14 +76,14 @@ void Sensors::start() {
 }
 
 
-void Sensors::request() {
+void ESensors::request() {
   for (uint8_t k=0; k<NSensors; k++)
     Snsrs[k]->request();
   State = 1;
 }
 
 
-unsigned long Sensors::delayTime() const {
+unsigned long ESensors::delayTime() const {
   unsigned long max_delay = 0;
   for (uint8_t k=0; k<NSensors; k++) {
     if (Snsrs[k]->available() && Snsrs[k]->delayTime() > max_delay)
@@ -93,7 +93,7 @@ unsigned long Sensors::delayTime() const {
 }
 
 
-void Sensors::get() {
+void ESensors::get() {
   TimeStamp = now();
   for (uint8_t k=0; k<NSensors; k++)
     Snsrs[k]->get();
@@ -103,7 +103,7 @@ void Sensors::get() {
 }
 
 
-bool Sensors::update() {
+bool ESensors::update() {
   switch (State) {
   case 0: if (Time > UseInterval - delayTime())
       request();
@@ -118,24 +118,24 @@ bool Sensors::update() {
 }
 
 
-void Sensors::read() {
+void ESensors::read() {
   request();
   delay(delayTime());
   get();
 }
 
 
-time_t Sensors::timeStamp() const {
+time_t ESensors::timeStamp() const {
   return TimeStamp;
 }
 
 
-void Sensors::setPrintTime(print_time_t pt) {
+void ESensors::setPrintTime(print_time_t pt) {
   PrintTime = pt;
 }
 
 
-void Sensors::print(bool symbols) {
+void ESensors::print(bool symbols) {
   if (PrintTime == ISO_TIME)
     Serial.printf("Timestamp = %04d-%02d-%02dT%02d:%02d:%02d\n",
 		  year(TimeStamp), month(TimeStamp), day(TimeStamp),
@@ -161,7 +161,7 @@ void Sensors::print(bool symbols) {
 }
 
 
-void Sensors::printHeader(bool symbols) {
+void ESensors::printHeader(bool symbols) {
   int n = 0;
   if (PrintTime != NO_TIME) {
     if (symbols)
@@ -187,7 +187,7 @@ void Sensors::printHeader(bool symbols) {
 }
 
 
-void Sensors::printValues() {
+void ESensors::printValues() {
   int n = 1;
   // print time:
   if (PrintTime == ISO_TIME)
@@ -212,7 +212,7 @@ void Sensors::printValues() {
 }
 
 
-bool Sensors::makeCSVHeader(bool symbols) {
+bool ESensors::makeCSVHeader(bool symbols) {
   Header[0] = '\0';
   Data[0] = '\0';
   MData = 0;
@@ -266,7 +266,7 @@ bool Sensors::makeCSVHeader(bool symbols) {
 }
 
 
-bool Sensors::makeCSVData() {
+bool ESensors::makeCSVData() {
   if (MData == 0)
     return false;
   if (strlen(Data) > NData - MData) {
@@ -299,8 +299,8 @@ bool Sensors::makeCSVData() {
 }
 
 
-bool Sensors::openCSV(SdFat &sd, const char *path,
-		      bool symbols, bool append) {
+bool ESensors::openCSV(SdFat &sd, const char *path,
+		       bool symbols, bool append) {
   if (DF)
     closeCSV();
   if (Header[0] == '\0')
@@ -325,14 +325,14 @@ bool Sensors::openCSV(SdFat &sd, const char *path,
 }
 
 
-bool Sensors::pendingCSV() {
+bool ESensors::pendingCSV() {
   if (DF)
     return (strlen(Data) > NData/2 && !DF.isBusy());
   return false;
 }
 
 
-bool Sensors::writeCSV() {
+bool ESensors::writeCSV() {
   if (Data[0] == '\0' || !DF)
     return false;
   // write data:
@@ -348,7 +348,7 @@ bool Sensors::writeCSV() {
 }
 
 
-bool Sensors::closeCSV() {
+bool ESensors::closeCSV() {
   if (!DF)
     return false;
   writeCSV();

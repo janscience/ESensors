@@ -8,8 +8,8 @@ Measured in Pascal (Pa).
 For various other units see this
 [converter](https://www.beamex.com/resources/pressure-unit-converter/).
 
-The [Sensor class](../../../src/Sensor.h) provides conversions to some
-of the many pressure units. For example, for an output in hPa:
+The [ESensor class](../../classes.md#esensor) provides conversions to
+some of the many pressure units. For example, for an output in hPa:
 
 ```cpp
 #include <SenseBME280.h>

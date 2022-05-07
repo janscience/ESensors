@@ -1,7 +1,7 @@
-#include <SensorDevice.h>
+#include <ESensorDevice.h>
 
 
-SensorDevice::SensorDevice() :
+ESensorDevice::ESensorDevice() :
   Chip(""),
   Identifier(""),
   Measuring(false),
@@ -9,27 +9,27 @@ SensorDevice::SensorDevice() :
 }
 
 
-const char* SensorDevice::chip() const {
+const char* ESensorDevice::chip() const {
   return Chip;
 }
 
 
-void SensorDevice::setChip(const char *chip) {
+void ESensorDevice::setChip(const char *chip) {
   strncpy(Chip, chip, MaxStr);
 }
 
 
-const char* SensorDevice::identifier() const {
+const char* ESensorDevice::identifier() const {
   return Identifier;
 }
 
 
-void SensorDevice::setIdentifier(const char *identifier) {
+void ESensorDevice::setIdentifier(const char *identifier) {
   strncpy(Identifier, identifier, MaxStr);
 }
 
 
-void SensorDevice::report() {
+void ESensorDevice::report() {
   if (available()) {
     Serial.printf("device %s", chip());
     if (strlen(identifier()) > 0)
@@ -38,7 +38,7 @@ void SensorDevice::report() {
 }
 
 
-void SensorDevice::request() {
+void ESensorDevice::request() {
   if (Measuring)
     return;
   requestData();
@@ -46,11 +46,11 @@ void SensorDevice::request() {
 }
 
 
-void SensorDevice::requestData() {
+void ESensorDevice::requestData() {
 }
 
 
-void SensorDevice::get() {
+void ESensorDevice::get() {
   if (!Measuring)
     return;
   getData();
@@ -59,13 +59,13 @@ void SensorDevice::get() {
 }
 
 
-void SensorDevice::read() {
+void ESensorDevice::read() {
   request();
   delay(delayTime());
   get();
 }
 
 
-time_t SensorDevice::timeStamp() const {
+time_t ESensorDevice::timeStamp() const {
   return TimeStamp;
 }

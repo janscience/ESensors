@@ -1,10 +1,10 @@
-# Sensors
+# ESensors
 
 A library and background information for environmental sensors (air
 and water) for Teensy and Arduino.
 
 
-## [Sensors](https://github.com/janscience/Sensors) library
+## [ESensors](https://github.com/janscience/ESensors) library
 
 - [Installation instructions](docs/install.md)
 - [User guide](docs/userguide.md)
@@ -27,7 +27,7 @@ and water) for Teensy and Arduino.
 ## Examples
 
 In [examples/](examples) you find sketches demonstrating the use of
-the Sensors libraries.
+the ESensors library.
 
 - [sensors](examples/sensors): read sensors and write readings to serial.
 - [logger](examples/logger): periodically write sensor readings with time stamp into a CSV file.
@@ -38,12 +38,12 @@ the Sensors libraries.
 
 In [utils/](utils) you find useful python scripts.
 
-- [sensors](utils/sensors): plot the content of the csv file written by the [Sensors](doc/classes.md#sensors) library.
+- [sensors.py](utils/sensors.py): plot the content of the csv file written by the [ESensors](doc/classes.md#esensors) library.
 
 
-## Applications of the Sensors libraries
+## Applications of the ESensors libraries
 
-Sensors is used in:
+ESensors is used in:
 
 - [TeeGrid](https://github.com/janscience/TeeGrid): Electrode arrays
   based on 8-16channel recording devices for recording electric fish
