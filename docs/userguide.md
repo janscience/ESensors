@@ -12,6 +12,19 @@ level interface to various sensor chips. It
 4. provides a non-blocking interface to read out sensor values in parallel.
 
 
+## Content
+
+- [Using a single sensor](#using-a-single-sensor)
+- [Sensor names and units](#sensor-names-and-units)
+- [Chips with multiple sensors](#chips-with-multiple-sensors)
+- [Derived sensor readings](#derived-sensor-readings)
+- [Managing multiple sensors](#managing-multiple-sensors)
+- [Non-blocking reads](#non-blocking-reads)
+- [Writing CSV files](#writing-csv-files)
+- [Reporting on Serial](#reporting-on-serial)
+- [Time stamps](#time-stamps)
+
+
 ## Using a single sensor
 
 Any class derived from the [ESensor class](classes.md#esensor) can read
@@ -367,7 +380,7 @@ Output:
   illuminance E (lx):	 on TSL2591 device (ID: 50) at a resolution of     1.00lx.
 ```
 
-## print()
+### print()
 
 `print()` prints out the current sensor readings with name and unit:
 
@@ -406,7 +419,7 @@ E =     4.83lx
 ```
 
 
-## printHeader() and printValues()
+### printHeader() and printValues()
 
 `printHeader()` and `printValues()` can be used to print sensor
 readings in tabular from with tab separated columns. This is great for
@@ -446,7 +459,7 @@ T/ºC	RH/%	P/hPa	E/lx
 20.85	59.3	970.05	    1.09
 ```
 
-## setPrintTime()
+## Time stamps
 
 `setPrintTime()` controls how time stamps are reported both for
 writing CSV files and for `printHeader()` and `printValues()`.
