@@ -24,5 +24,5 @@ Ambient light sensor (ALS)
 
 ## Chips
 
-- [AMS TSL2591 light-to-digital converter](../../chips/tsl2591.md)
-- [BH1750](../../chips/bh1750.md)
+- [AMS TSL2591 light-to-digital converter](../chips/tsl2591.md)
+- [BH1750](../chips/bh1750.md)

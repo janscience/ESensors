@@ -8,7 +8,7 @@ Measured in Pascal (Pa).
 For various other units see this
 [converter](https://www.beamex.com/resources/pressure-unit-converter/).
 
-The [ESensor class](../../classes.md#esensor) provides conversions to
+The [ESensor class](../classes.md#esensor) provides conversions to
 some of the many pressure units. For example, for an output in hPa:
 
 ```cpp
@@ -42,7 +42,7 @@ Other available units are
 
 ## Hardware
 
-- [Bosch Sensortec BME280](../../chips/bme280.md)
+- [Bosch Sensortec BME280](../chips/bme280.md)
 
 - [BMP388](https://www.bluedot.space/products/bmp388/)
 
@@ -58,5 +58,5 @@ calculator](https://keisan.casio.com/exec/system/1224575267) and
 [derivation of
 equation](https://keisan.casio.com/keisan/image/Convertpressure.pdf).
 
-Implemented in [class SeaLevelPressure](../../../src/SeaLevelPressure.h).
+Implemented in [class SeaLevelPressure](../../src/SeaLevelPressure.h).
 

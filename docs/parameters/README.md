@@ -4,13 +4,13 @@
 
 - [temperature](temperature/)
 - [humidity](humidity.md)
-- [air pressure](airpressure/)
+- [air pressure](airpressure.md)
 - [light](light/)
 - [rain](rain/)
 
 ## Water
 
-- [water conductivity](conductivity/)
+- [water conductivity](conductivity.md)
 - [turbitity](turbitity/)
 - [water velocity](velocity/)
 - [water level](waterlevel/)
