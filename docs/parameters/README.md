@@ -3,7 +3,7 @@
 ## Air
 
 - [temperature](temperature/)
-- [humidity](humidity/)
+- [humidity](humidity.md)
 - [air pressure](airpressure/)
 - [light](light/)
 - [rain](rain/)

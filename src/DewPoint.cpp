@@ -9,9 +9,11 @@ DewPoint::DewPoint(ESensor *humidity, ESensor *temperature, ESensors *sensors)
 
 float DewPoint::compute(float humidity, float temperature,
 			float none) const {
-  const float b = 17.62;
-  const float c = 243.12;
-  float gamma = log(humidity) + (b * temperature)/(c + temperature);
+  // Magnus formula with Arden Buck equation:
+  const float b = 18.678;
+  const float c = 257.14;
+  const float d = 234.5;
+  float gamma = log(humidity*exp((b-temperature/d)*(temperature/(c+temperature))));
   return c * gamma/(b - gamma);
 }
 
