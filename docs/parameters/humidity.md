@@ -40,7 +40,7 @@ from relative humidity (*RH*, given as a fraction, not percent) and temperature 
 
 with *b* = 17.62 and *c* = 243.12°C.
 
-An improved approximation of *&gamma();(T,RH)* is
+An improved approximation of *&gamma;(T,RH)* is
 
 ![Magnus Arden Buck](images/magnus-arden-buck.svg)
 
