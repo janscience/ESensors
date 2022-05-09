@@ -20,7 +20,9 @@ def sensors(path):
         name = hn
         unit = ''
         if '/' in hn:
-            name, unit = hn.split('/')
+            hnp = hn.split('/')
+            name = hnp[0]
+            unit = '/'.join(hnp[1:])
         if len(unit) > 0:
             if len(unit) > 2 and unit[-2] == '.':
                 unit = unit[:-2]
