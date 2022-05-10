@@ -1,7 +1,7 @@
 /*
   TemperatureDS18x20 - read temperature from a DS18x20 1-wire device.
   Created by Jan Benda, November 27th, 2021.
-  Based on https://github.com/PaulStoffregen/OneWire/blob/master/examples/DS18x20_Temperature/DS18x20_Temperature.pde
+  Based on https://github.com/PaulStoffregen/OneWire/blob/master/examples/DS18x20_Temperature/DS18x20_Temperature.ino
 
   The temperature sensor needs to be connected to the Teensy in the
   following way:

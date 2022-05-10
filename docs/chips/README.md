@@ -1,5 +1,9 @@
 # Sensor chips
 
+## Temperature
+
+- [Dallas DS18x20](ds18x20.md)
+
 ## Pressure
 
 - [Bosch Sensortec BME280](bme280.md)
