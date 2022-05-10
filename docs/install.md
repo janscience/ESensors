@@ -1,6 +1,12 @@
 # Installation
 
-First, make sure that you install all the libraries needed by ESensors.
+You can install the ESensors library via the Library manager of the
+Arduino IDE (Tools menu). Install all its dependencies. That's it!
+
+For a manual installation from the [ESensors github
+repository](https://github.com/janscience/ESensors), install all the
+libraries ESensors is depending on and then clone the repository, as
+described in the following.
 
 
 ## Dependencies
