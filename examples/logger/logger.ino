@@ -81,6 +81,7 @@ void setup() {
 void loop() {
   if (sensors.update()) {
     digitalWrite(led_pin, HIGH);
+    tsl.setTemperature(bme.temperature());
     sensors.print(symbols);
     Serial.println();
     delay(50);
