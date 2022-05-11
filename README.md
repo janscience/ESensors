@@ -2,11 +2,23 @@
 
 # ESensors
 
-A library and background information for environmental sensors (air
-and water) for Teensy and Arduino.
+A library for environmental sensors (air and water) for Teensy and
+Arduino with additional background information.
 
 
 ## [ESensors](https://github.com/janscience/ESensors) library
+
+
+### Features
+
+- Blocking and non-blocking reads from many sensors in parallel.
+- Sensor readings in adaptable units.
+- Output of sensor properties and readings on Serial and into CSV files on SD card.
+- Hardware independent derived measures, like for example, dew point and absolute humidity.
+- Currently supported sensors are: DS18x20, BME280, and TSL2591.
+
+
+### Documentation
 
 - [Installation instructions](docs/install.md)
 - [User guide](docs/userguide.md)
@@ -43,7 +55,7 @@ In [utils/](utils) you find useful python scripts.
 - [sensors.py](utils/sensors.py): plot the content of the csv file written by the [ESensors](doc/classes.md#esensors) library.
 
 
-## Applications of the ESensors libraries
+## Applications of the ESensors library
 
 ESensors is used in:
 
