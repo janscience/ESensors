@@ -213,7 +213,7 @@ float IrradianceVisibleTSL2591::reading() const {
 
 IlluminanceTSL2591::IlluminanceTSL2591(LightTSL2591 *tsl, ESensors *sensors)
   : ESensorValue<LightTSL2591>(tsl, sensors,
-			       "illuminance", "E", "lx", "%8.2f", 1.0) {
+			       "illuminance", "E", "lx", "%6.5g", 1.0) {
 }
 
 
