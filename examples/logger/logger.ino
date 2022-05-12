@@ -22,7 +22,7 @@ TemperatureBME280 tempbme(&bme, &sensors);
 HumidityBME280 hum(&bme, &sensors);
 DewPoint dp(&hum, &tempbme, &sensors);
 PressureBME280 pres(&bme, &sensors);
-LightTSL2591 tsl(&Wire);
+LightTSL2591 tsl;
 //Channel0TSL2591 chn0(&tsl, &sensors);
 //Channel1TSL2591 chn1(&tsl, &sensors);
 //GainTSL2591 gain(&tsl, &sensors);
@@ -50,7 +50,7 @@ void setup() {
   bme.beginI2C(Wire, 0x77);
   hum.setPercent();
   pres.setHecto();
-  tsl.begin();
+  tsl.begin(Wire);
   tsl.setGain(LightTSL2591::AUTO_GAIN);
   irratio.setPercent();
   sensors.setInterval(sensorsInterval);

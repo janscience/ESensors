@@ -18,11 +18,11 @@ HumidityBME280 hum(&bme, &sensors);
 DewPoint dp(&hum, &tempbme, &sensors);
 PressureBME280 pres(&bme, &sensors);
 //SeaLevelPressure slpres(&pres, &tempbme, 460.0, &sensors);
-LightTSL2591 tsl(&Wire);
+LightTSL2591 tsl;
 //Channel0TSL2591 chn0(&tsl, &sensors);
 //Channel1TSL2591 chn1(&tsl, &sensors);
 //GainTSL2591 gain(&tsl, &sensors);
-//IRRatioTSL2591 irratio(&tsl, &sensors);
+IRRatioTSL2591 irratio(&tsl, &sensors);
 //IrradianceFullTSL2591 irrfull(&tsl, &sensors);
 //IrradianceIRTSL2591 irrIR(&tsl, &sensors);
 IlluminanceTSL2591 illum(&tsl, &sensors);
@@ -37,15 +37,15 @@ void setup() {
   setSyncProvider(getTeensyTime);  // enable real time clock
   // sensors.setPrintTime(ESensors::ISO_TIME);
   sensors.setPrintTime(ESensors::NO_TIME);  // no time column for the serial plotter
-  sensors.setInterval(0.2);
+  sensors.setInterval(2.0);
   Wire.begin();
   bme.beginI2C(Wire, 0x77);
   hum.setPercent();
   pres.setHecto();
   //slpres.setMilliBar();
-  tsl.begin();
+  tsl.begin(Wire);
   tsl.setGain(LightTSL2591::AUTO_GAIN);
-  //irratio.setPercent();
+  irratio.setPercent();
   Serial.println();
   //sensors.report();  // nice, but confuses the serial plotter
   //Serial.println();

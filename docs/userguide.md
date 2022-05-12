@@ -316,7 +316,7 @@ void setup() {
   bme.beginI2C(Wire, 0x77);
   hum.setPercent();
   pres.setHecto();   // hPa
-  sensors.setInterval(10.0);
+  sensors.setInterval(2.0);
   sdcard.begin(BUILTIN_SDCARD);              // initialize SD card
   sensors.setPrintTime(Sensors::ISO_TIME);   // Report time stamps in ISO format
   // Open "sensors.csv" on SD card and write header:
@@ -343,6 +343,23 @@ accumulated (to write at least one 512 byte block), as checked by
 `sensors.closeCSV()`.
 
 `setPrintTime()` specifies whether and how to report time stamps.
+
+The sketch produces a file `sensors.csv` on the SD card that looks
+like this:
+
+```txt
+time/s,temperature/ºC,humidity/%,pressure/hPa
+time/s,temperature/ºC,humidity/%,pressure/hPa
+2022-05-12T23:13:46,24.53,58.1,967.09
+2022-05-12T23:13:48,24.54,58.0,967.19
+2022-05-12T23:13:50,24.71,72.6,967.12
+2022-05-12T23:13:52,24.63,76.0,967.12
+2022-05-12T23:13:54,24.64,70.8,967.11
+2022-05-12T23:13:56,24.66,69.5,967.11
+2022-05-12T23:13:58,24.68,71.1,967.14
+2022-05-12T23:14:00,24.70,72.4,967.13
+2022-05-12T23:14:02,24.71,74.8,967.14
+```
 
 
 ## Reporting on Serial
