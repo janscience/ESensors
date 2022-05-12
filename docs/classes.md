@@ -45,7 +45,7 @@ Member functions in addition to [ESensorDevice](#esensordevice):
 - `name()`, `setName()`: name of the sensor value.
 - `symbol()`, `setSymbol()`: mathematical symbol of the sensor value.
 - `unit()`, `setUnit()`: unit of the sensor value as set by setUnit().
-- `format()`, `setFormat()`: format string for printing out the sensor value.
+- `format()`, `compactFormat()`, `setFormat()`: format strings for printing out the sensor value.
 - `basicUnit()`: unit of the basic sensor reading.
 - `resolution()`, `resolutionStr()`: resolution of the sensor readings in the current unit.
 - `report()`: report name, symbol, unit, chip and identity of sensor on Serial.

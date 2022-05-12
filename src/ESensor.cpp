@@ -8,7 +8,8 @@ ESensor::ESensor() :
   Symbol(""),
   BasicUnit(""),
   Unit(""),
-  Format("%.2f"),
+  Format("%.5g"),
+  CompactFormat("%.5g"),
   Factor(1.0),
   Offset(0.0),
   Resolution(1.0) {
@@ -83,7 +84,7 @@ void ESensor::setUnit(const char *unit, float factor, float offset,
   strcpy(Unit, unit);
   Factor = factor;
   Offset = offset;
-  strcpy(Format, format);
+  setFormat(format);
 }
 
 
@@ -91,7 +92,7 @@ void ESensor::setUnit(const char *unit, float factor, const char *format) {
   strcpy(Unit, unit);
   Factor = factor;
   Offset = 0.0;
-  strcpy(Format, format);
+  setFormat(format);
 }
 
 
@@ -100,8 +101,23 @@ const char* ESensor::format() const {
 }
 
 
+const char* ESensor::compactFormat() const {
+  return CompactFormat;
+}
+
+
 void ESensor::setFormat(const char *format) {
   strcpy(Format, format);
+  // format without width:
+  char fpref[10];
+  int width;
+  int decis;
+  char ftype[10];
+  parseFormat(fpref, &width, &decis, ftype);
+  if (decis >= 0)
+    sprintf(CompactFormat, "%%%s.%d%s", fpref, decis, ftype);
+  else
+    sprintf(CompactFormat, "%%%s%s", fpref, ftype);
 }
 
 
@@ -116,7 +132,7 @@ float ESensor::resolution() const {
 
 
 int ESensor::resolutionStr(char *s) const {
-  return sprintf(s, Format, resolution());
+  return sprintf(s, CompactFormat, resolution());
 }
 
 
@@ -142,8 +158,11 @@ float ESensor::value() const {
 }
 
 
-int ESensor::valueStr(char *s) const {
-  return sprintf(s, Format, value());
+int ESensor::valueStr(char *s, bool compact) const {
+  if (compact)
+    return sprintf(s, CompactFormat, value());
+  else
+    return sprintf(s, Format, value());
 }
 
 
@@ -216,14 +235,16 @@ void ESensor::adaptFormat(int decimals) {
     }
   }
   // assemble format string:
+  char format[10];
   if (width >= 0 && decis >= 0)
-    sprintf(Format, "%%%s%d.%d%s", fpref, width, decis, ftype);
+    sprintf(format, "%%%s%d.%d%s", fpref, width, decis, ftype);
   else if (width >= 0)
-    sprintf(Format, "%%%s%d%s", fpref, width, ftype);
+    sprintf(format, "%%%s%d%s", fpref, width, ftype);
   else if (decis >= 0)
-    sprintf(Format, "%%%s.%d%s", fpref, decis, ftype);
+    sprintf(format, "%%%s.%d%s", fpref, decis, ftype);
   else
-    sprintf(Format, "%%%s%s", fpref, ftype);
+    sprintf(format, "%%%s%s", fpref, ftype);
+  setFormat(format);
 }
 
 

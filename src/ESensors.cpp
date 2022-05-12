@@ -145,7 +145,7 @@ void ESensors::print(bool symbols) {
   char s[20];
   for (uint8_t k=0; k<NSensors; k++) {
     if (Snsrs[k]->available()) {
-      Snsrs[k]->valueStr(s);
+      Snsrs[k]->valueStr(s, true);
       if (symbols)
 	Serial.printf("%s = %s%s\n", Snsrs[k]->symbol(), s, Snsrs[k]->unit());
       else

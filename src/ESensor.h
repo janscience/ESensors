@@ -60,7 +60,6 @@ class ESensor : public ESensorDevice {
   const char* unit() const;
 
   // Set unit of environmental sensor reading to unit.
-  
   // Optionally, the sensor reading can be mutliplied by factor and
   // offsetted by offset to result in the desired unit.
   void setUnit(const char *unit, float factor=1.0, float offset=0.0);
@@ -77,6 +76,9 @@ class ESensor : public ESensorDevice {
   // Return format string for sensor readings as character array.
   const char* format() const;
 
+  // Return format string for sensor readings without width as character array.
+  const char* compactFormat() const;
+
   // Set format string for environmental sensor reading to format.
   void setFormat(const char *format);
 
@@ -85,7 +87,7 @@ class ESensor : public ESensorDevice {
   // resolution with Factor before returning the value.
   virtual float resolution() const;
   
-  // Print the resolution using format string into string s.
+  // Print the resolution using the compact format string into string s.
   // Return the number of printed characters.
   int resolutionStr(char *s) const;
   
@@ -105,8 +107,9 @@ class ESensor : public ESensorDevice {
   virtual float value() const;
   
   // Print the sensor reading using format string into string s.
+  // If compact then use the compact format that has the width removed.
   // Return the number of printed characters.
-  int valueStr(char *s) const;
+  int valueStr(char *s, bool compact=false) const;
 
   // Initiate measurement (request()), wait for delayTime(), retrieve the
   // data (get()) and return the result (value()).
@@ -192,6 +195,7 @@ protected:
   char BasicUnit[20];
   char Unit[20];
   char Format[10];
+  char CompactFormat[10];
   float Factor;
   float Offset;
   float Resolution;
