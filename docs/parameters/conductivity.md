@@ -2,26 +2,77 @@
 
 Qunatified via electrical conductivity (EC) between two electrodes. 
 
-- *R*: Resistance measured between two electrodes in the water.
-- *C=d/a*: cell constant (1/cm) as distance between electrodes (cm) divided by effective area of the electrodes (cm<sup>2</sup>). Should be less than 1 cm<sup>-1</sup> for low conductivity measurements.
-- *&kappa;=C/R*: conductivity, usually in mS/cm.
+- Resistance *R* measured between two electrodes in the water.
+
+- *Cell constant *K* (1/cm)
+
+  ![cellconstant](images/cellconstant.svg)
+
+  as distance *d* between electrodes (cm) divided by effective area
+  *A* of the electrodes (cm<sup>2</sup>). Should be less than 1
+  cm<sup>-1</sup> for low conductivity measurements.
+
+- Conductivity
+
+  ![conductivity](images/conductivity.svg)
+
+  usually measured in mS/cm.
 
 ![cell constants](https://andyjconnelly.files.wordpress.com/2017/07/electrical-conductivity-of-common-solutions3.png?w=1140&h=921)
 
-Use AC current to measure resistance between electrodes with amplitude below 1.1V to avoid electrolysis. Lower frequency for low conductivities (300Hz up to less than 100kHz?).
+Use AC current to measure resistance between electrodes with amplitude
+below 1.1V to avoid electrolysis. Lower frequency for low
+conductivities (300Hz up to less than 100kHz?).
 
 
 ## Temperature correction
 
-Conductivity depends on temperature. It is usually temperature corrected to 20&#8451; or 25&#8451;.
+Conductivity depends on temperature. It is usually temperature
+corrected to 20&#8451; or 25&#8451;.
 
 - Linear temperature correction for moderate and high conductivities:
 
-  ![tempcorrection](https://latex.codecogs.com/svg.image?\large&space;\kappa_{ref}&space;=&space;\frac{\kappa}{1&plus;\alpha(T-T_{ref})})
+  ![tempcorrection](images/conductivity-tempcorr.svg)
   
   &alpha; is about 2 to 5 %/K for drinking water or pure water, respectively.
 
-- Non-linear correction by polynomial of 4th order acording to "Natural Water temperature correction  (ISO/DIN  7888)".
+- Non-linear correction by polynomial of 4th order acording to
+  "Natural Water temperature correction (ISO/DIN 7888)".
+
+
+## Measure resistance
+
+We measure the resistance *R* in a voltage devider equation. A voltage
+*U* is applied to a resistance *R<sub>0</sub>* in series with the
+resistance *R* of the water. We measure the voltage *V* between the
+two resistances against ground.
+
+How to choose *R<sub>0</sub>*? The smaller, the larger the range of
+voltages we get. However, the smaller *R<sub>0</sub>*, the larger the
+current. Also, for the water resistance *R* we expect at minimum
+*R<sub>min</sub> = 0.1cm<sup>-1</sup>/1mS cm<sup>-1</sup> =
+100&Ohm;*. The Teensy supplies at maximum *I<sub>max</sub>=250*mA. So
+*R<sub>0</sub> + R<sub>min</sub> > U/I<sub>max</sub> = 3.3V/250mA =
+13.2&Ohm;*. But of course we do not want to drain the battery with
+250mA. Better would be a tenth, or let's say 10mA. Then we get
+*R<sub>0</sub> + R<sub>min</sub> > 3.3V/10mA = 330&Ohm;*. So with
+*R<sub>0</sub> = 200&Ohm;* we should be doing fine.
+
+With Ohms law we get for the voltage divider the two equations
+
+![voltagedivider](images/conductivity-voltagedivider.svg)
+
+that result in
+
+![waterresistance](images/conductivity-resistance.svg)
+
+Solving for the water conductivity yields
+
+![conductivity](images/conductivity-conductivity.svg)
+
+For calibrating, this is a function with two unknowns
+*&alpha;=K/R<sub>0</sub>* and *U* that relate the measured voltage
+with the water conductivity.
 
 
 ## Resources
@@ -57,7 +108,7 @@ Conductivity depends on temperature. It is usually temperature corrected to 20&#
 
 ## Arduino projects
 
-- [Three Dollar EC - PPM Meter](https://hackaday.io/project/7008-hacking-the-way-to-growing-food/log/24646-three-dollar-ec-ppm-meter-arduino): nice and simple, but with quite some of theoretical background.
+- [Three Dollar EC - PPM Meter](https://hackaday.io/project/7008-hacking-the-way-to-growing-food/log/24646-three-dollar-ec-ppm-meter-arduino): nice and simple, and with quite some of theoretical background.
 - [Arduino Electrical Conductivity (EC - PPM - TDS) Meter](https://create.arduino.cc/projecthub/mircemk/arduino-electrical-conductivity-ec-ppm-tds-meter-c48201)
 - [Water Probe with Arduino Uno](https://create.arduino.cc/projecthub/EDUcentrum/water-probe-with-arduino-uno-423483): very simple conversions from Ohm, to Siemens and to ppm.
 - [Build and Test a Conductivity Probe with Arduino](https://www.teachengineering.org/activities/view/nyu_probe_activity1): very detailed and didactic. Instructions for assembling a probe.
