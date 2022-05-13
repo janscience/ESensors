@@ -55,7 +55,7 @@ current. Also, for the water resistance *R* we expect at minimum
 250mA. So *R<sub>0</sub> + R<sub>min</sub> > U/I<sub>max</sub>* =
 3.3V/250mA = 13.2&#8486;. But of course we do not want to drain the
 battery with 250mA. Better would be a tenth, or let's say 10mA. Then
-we get *R<sub>0</sub> + R<sub>min</sub> > *3.3V/10mA = 330&#8486;. So
+we get *R<sub>0</sub> + R<sub>min</sub>* > 3.3V/10mA = 330&#8486;. So
 with *R<sub>0</sub>* = 200&#8486; we should be doing fine.
 
 With Ohm's law we get for the voltage divider the two equations
