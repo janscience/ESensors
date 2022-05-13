@@ -70,9 +70,13 @@ Solving for the water conductivity yields
 
 ![conductivity](images/conductivity-conductivity.svg)
 
-For calibrating, this is a function with two unknowns,
-*&alpha;=K/R<sub>0</sub>* and *U*, that relate the measured voltage
-with the water conductivity.
+This is a function with a single unknown: *&alpha;=K/R<sub>0</sub>*,
+that relate the measured voltage with water conductivity. *U/V* is the
+maximum integer value of `analogRead()` divided by the returned value
+of `analogRead()`. `analogRead()` measures *V* relative to *U*!
+
+This is implemented in the [conductivity
+example](../../examples/conductivity).
 
 
 ## Resources
