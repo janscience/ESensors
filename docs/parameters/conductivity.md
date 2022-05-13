@@ -40,7 +40,7 @@ corrected to 20&#8451; or 25&#8451;.
   "Natural Water temperature correction (ISO/DIN 7888)".
 
 
-## Measure resistance
+## Voltage divider for measuring conductivity
 
 We measure the resistance *R* in a voltage devider equation. A voltage
 *U* is applied to a resistance *R<sub>0</sub>* in series with the
@@ -50,15 +50,15 @@ two resistances against ground.
 How to choose *R<sub>0</sub>*? The smaller, the larger the range of
 voltages we get. However, the smaller *R<sub>0</sub>*, the larger the
 current. Also, for the water resistance *R* we expect at minimum
-*R<sub>min</sub> = 0.1cm<sup>-1</sup>/1mS cm<sup>-1</sup> =
-100&Ohm;*. The Teensy supplies at maximum *I<sub>max</sub>=250*mA. So
-*R<sub>0</sub> + R<sub>min</sub> > U/I<sub>max</sub> = 3.3V/250mA =
-13.2&Ohm;*. But of course we do not want to drain the battery with
-250mA. Better would be a tenth, or let's say 10mA. Then we get
-*R<sub>0</sub> + R<sub>min</sub> > 3.3V/10mA = 330&Ohm;*. So with
-*R<sub>0</sub> = 200&Ohm;* we should be doing fine.
+*R<sub>min</sub>* = 0.1cm<sup>-1</sup>/1mS cm<sup>-1</sup> =
+100&#8486;. The Teensy supplies at maximum *I<sub>max</sub>* =
+250mA. So *R<sub>0</sub> + R<sub>min</sub> > U/I<sub>max</sub>* =
+3.3V/250mA = 13.2&#8486;. But of course we do not want to drain the
+battery with 250mA. Better would be a tenth, or let's say 10mA. Then
+we get *R<sub>0</sub> + R<sub>min</sub> > *3.3V/10mA = 330&#8486;. So
+with *R<sub>0</sub>* = 200&#8486; we should be doing fine.
 
-With Ohms law we get for the voltage divider the two equations
+With Ohm's law we get for the voltage divider the two equations
 
 ![voltagedivider](images/conductivity-voltagedivider.svg)
 
