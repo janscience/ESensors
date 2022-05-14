@@ -5,12 +5,16 @@ The resistance between two electrodes is measured by analog input.
 
 
 #include <Arduino.h>
+#include <ADC.h>
 
-
-uint8_t upin = 15;       // pin for output of U
-uint8_t vpin = 14;       // analog input pin for V
+int adc = 0;
+uint8_t upin = 17;       // pin for output of U
+uint8_t vpin = 16;       // analog input pin for V
 unsigned int bits = 12;  // resolution of analog input
 float alpha = 1.0;       // calibration factor K/R_0
+
+
+ADC ADConv;
 
 
 void setup() {
@@ -19,10 +23,12 @@ void setup() {
   
   pinMode(upin, OUTPUT);
   pinMode(vpin, INPUT);   
-
-  analogReadAveraging(4);
-  analogReadRes(bits);
-}
+  
+  ADConv.adc[adc]->setResolution(bits);
+  ADConv.adc[adc]->setAveraging(32);
+  //ADConv.adc[adc]->setConversionSpeed(ConversionSpeed);  
+  //ADConv.adc[adc]->setSamplingSpeed(SamplingSpeed);
+ }
 
 
 float getVdrop() {
@@ -30,21 +36,22 @@ float getVdrop() {
   float raw = 0.0;
   for (int k=0; k<n; k++) {
     digitalWrite(upin, HIGH);
-    analogRead(vpin);  // replace by delay?
-    int r = analogRead(vpin);
+    ADConv.adc[adc]->startSingleRead(vpin);
+    delay(10);
+    int r = ADConv.adc[adc]->readSingle();
     digitalWrite(upin, LOW);
     raw += r;
     delay(1000);
   }
   raw /= n;
-  float uv1 = float(1 << bits)/raw - 1.0;
-  return uv1;
+  float vu = raw/float(1 << bits);
+  return vu;
 }
 
 
 void loop() {
-  float uv1 = getVdrop();
-  float kappa = alpha*uv1;
-  Serial.printf("U/V-1 = %6.5g  conductivity = %6.5g uS/cm", uv1, kappa);
+  float vu = getVdrop();
+  float kappa = alpha*(1.0/vu - 1.0);
+  Serial.printf("V/U = %6.5g  conductivity = %6.5g uS/cm\n", vu, kappa);
   delay(1000);
 }
