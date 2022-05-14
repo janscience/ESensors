@@ -349,7 +349,6 @@ like this:
 
 ```txt
 time/s,temperature/ºC,humidity/%,pressure/hPa
-time/s,temperature/ºC,humidity/%,pressure/hPa
 2022-05-12T23:13:46,24.53,58.1,967.09
 2022-05-12T23:13:48,24.54,58.0,967.19
 2022-05-12T23:13:50,24.71,72.6,967.12
@@ -393,10 +392,10 @@ Output:
 ```txt
 5 of 6 environmental sensors available, read every 2s:
   temperature T (ºC):	 on BME280 device at a resolution of 0.01ºC.
-  humidity RH (%):	 on BME280 device at a resolution of 0.1%.
-  dew point Tdp (ºC):	 on BME280 & BME280 device (ID:  & ) at a resolution of   0.3ºC.
+  humidity RH (%):	 on BME280 device at a resolution of 3.0%.
+  dew point Tdp (ºC):	 on BME280 & BME280 device at a resolution of 0.3ºC.
   pressure P (hPa):	 on BME280 device at a resolution of 0.03hPa.
-  illuminance E (lx):	 on TSL2591 device (ID: 50) at a resolution of     1.00lx.
+  illuminance E (lx):	 on TSL2591 device (ID: 50) at a resolution of 1lx.
 ```
 
 ### print()
@@ -416,7 +415,7 @@ Output:
 temperature = 20.05ºC
 humidity = 51.0%
 pressure = 970.12hPa
-illuminance =     4.85lx
+illuminance = 4.85lx
 ```
 
 Passing `true` to `print()` prints the symbols instead of the names:
@@ -434,7 +433,7 @@ Output:
 T = 20.17ºC
 RH = 50.4%
 P = 970.11hPa
-E =     4.83lx
+E = 4.83lx
 ```
 
 

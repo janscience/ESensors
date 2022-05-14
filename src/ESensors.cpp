@@ -187,7 +187,7 @@ void ESensors::printHeader(bool symbols) {
 }
 
 
-void ESensors::printValues() {
+void ESensors::printValues(bool compact) {
   int n = 1;
   // print time:
   if (PrintTime == ISO_TIME)
@@ -204,7 +204,7 @@ void ESensors::printValues() {
       if (n > 0)
 	Serial.print('\t');
       n++;
-      Snsrs[k]->valueStr(s);
+      Snsrs[k]->valueStr(s, compact);
       Serial.print(s);
     }
   }

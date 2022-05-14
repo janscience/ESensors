@@ -83,8 +83,9 @@ class ESensors {
   void printHeader(bool symbols=false);
 
   // Report sensor readings separated by tabs on serial monitor.
+  // If compact then use the compact format that has the width removed.
   // Use printHeader() to annotate the printed columns.
-  void printValues();
+  void printValues(bool compact=false);
   
   // Create header line for CSV file.
   // Usually, this is automatically called by openCSV().

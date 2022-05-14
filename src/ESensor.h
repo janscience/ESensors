@@ -87,9 +87,10 @@ class ESensor : public ESensorDevice {
   // resolution with Factor before returning the value.
   virtual float resolution() const;
   
-  // Print the resolution using the compact format string into string s.
+  // Print the resolution into string s.
+  // If compact then use the compact format that has the width removed.
   // Return the number of printed characters.
-  int resolutionStr(char *s) const;
+  int resolutionStr(char *s, bool compact=false) const;
   
   // Report properties of sensor on serial monitor.
   virtual void report();

@@ -131,15 +131,18 @@ float ESensor::resolution() const {
 }
 
 
-int ESensor::resolutionStr(char *s) const {
-  return sprintf(s, CompactFormat, resolution());
+int ESensor::resolutionStr(char *s, bool compact) const {
+  if (compact)
+    return sprintf(s, CompactFormat, resolution());
+  else
+    return sprintf(s, Format, resolution());
 }
 
 
 void ESensor::report() {
   if (available()) {
     char rs[10];
-    resolutionStr(rs);
+    resolutionStr(rs, true);
     Serial.printf("%s %s", name(), symbol());
     if (strlen(unit()) > 0)
       Serial.printf(" (%s)", unit());
