@@ -85,42 +85,39 @@ R<sub>min</sub>* > 3.3V/10mA = 330&#8486;. So with *R<sub>0</sub>* =
 waste too much current.
 
 However, we would like to choose *R<sub>0</sub>* such that we make use
-of as much of the voltage range we can measure. We also do not want to
-use the full voltage range, because at the extreme values we might get
-into some trouble because of clipping. Rearranging the voltage-divider
-equation we get
+of as much of the voltage range we can measure. On the other hand, we
+also do not want to use the full voltage range, because at the extreme
+values we might get into some trouble because of clipping. Rearranging
+the voltage-divider equation we get
 
 ![R0](images/conductivity-r0.svg)
 
 For the water resistance *R* we expect for a large conductivity of
 &kappa; = 5mS cm<sup>-1</sup> and a cell constant of *K* =
-0.1cm<sup>-1</sup> as a minimal resistance *R<sub>min</sub>* =
-0.1cm<sup>-1</sup>/5mS cm<sup>-1</sup> = 20&#8486;. For a smallest
+0.1cm<sup>-1</sup> a minimal resistance *R<sub>min</sub>* =
+0.1cm<sup>-1</sup>/5mS cm<sup>-1</sup> = 20&#8486;. For the smallest
 conductivity of &kappa; = 0.001mS cm<sup>-1</sup> we get a maximum
-resistance of *R<sub>min</sub>* = 0.1cm<sup>-1</sup>/0.001mS
+resistance of *R<sub>max</sub>* = 0.1cm<sup>-1</sup>/0.001mS
 cm<sup>-1</sup> = 100k&#8486;. With a cell constant of *K* =
 1cm<sup>-1</sup> these values are ten-fold larger.
 
-Using the equation for *R<sub>0</sub>* we then get for various values
-of the maximum voltage ratio *V/U*:
+Using the equation for *R<sub>0</sub>* we then get for
+*R<sub>max</sub>* and for various values of the maximum voltage ratio
+*V/U*:
 
-| ------ | ------ | --------------- |
-| *V/U*  | *U/V-1 | *R<sub>0</sub>* |
-| ------ | ------ | --------------- |
-|   0.98 |   0.02 |       2k&#8486; |
-|   0.95 |   0.05 |       5k&#8486; |
-|   0.90 |   0.11 |      11k&#8486; |
-| ------ | ------ | --------------- |
+| *V/U*  | *U/V-1* | *R<sub>0</sub>* |
+| ------ | ------- | --------------- |
+|   0.98 |    0.02 |       2k&#8486; |
+|   0.95 |    0.05 |       5k&#8486; |
+|   0.90 |    0.11 |      11k&#8486; |
 
-and for the minimum voltage ratios:
+and for *R<sub>min</sub>* and some minimum voltage ratios:
 
-| ------ | ------ | --------------- |
-| *V/U*  | *U/V-1 | *R<sub>0</sub>* |
-| ------ | ------ | --------------- |
-|   0.02 |     49 |       1k&#8486; |
-|   0.05 |     19 |      380&#8486; |
-|   0.10 |      9 |      180&#8486; |
-| ------ | ------ | --------------- |
+| *V/U*  | *U/V-1* | *R<sub>0</sub>* |
+| ------ | ------- | --------------- |
+|   0.02 |      49 |       1k&#8486; |
+|   0.05 |      19 |      380&#8486; |
+|   0.10 |       9 |      180&#8486; |
 
 If we want to be precise for small conductivities, then we should not set
 *R<sub>0</sub>* above 1k&#8486;. A resistance of *R<sub>0</sub>* =
@@ -133,13 +130,26 @@ How to calibrate the resistance measurements to the right
 conductivities? We have just a single free parameter
 *&alpha;=K/R<sub>0</sub>*. So ideally we only need a single
 measurement of the relative voltage drop *V<sub>0</sub>/U* and a
-corresponding reading &kappa;<sub>0</sub> of a calibrated conductivity
-meter or from a standard solution. Then we calculate *&alpha;*
-according to
+corresponding reading &kappa;<sub>0</sub> from a calibrated
+conductivity meter or from a standard solution. Then we calculate
+*&alpha;* according to
 
 ![alpha](images/conductivity-alpha.svg)
 
 *&alpha;* has the same units as the conductivity.
+
+
+### Corrosion
+
+If we apply the voltage *U* continuously, then the electrodes quickly
+start to corrode. Following approach taken for the [Three Dollar EC -
+PPM
+Meter](https://hackaday.io/project/7008-hacking-the-way-to-growing-food/log/24646-three-dollar-ec-ppm-meter-arduino)
+it is sufficient to apply the voltage for only a brief period of time,
+i.e. one millisecond or so. And we might be happy if we measure
+conductivity only every 10 seconds or even less often. By minimizing
+polarization time in this way, we might get away with applying a
+unipolar voltage. This needs to be testet!
 
 
 ## Resources
