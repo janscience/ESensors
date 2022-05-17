@@ -1,21 +1,23 @@
 # Water conductivity
 
-Qunatified via electrical conductivity (EC) between two electrodes. 
+Quantified via electrical conductivity (EC) between two electrodes. 
 
-- Resistance *R* measured between two electrodes in the water.
+- Resistance *R* (&#8486;) measured between two electrodes in the water.
 
-- *Cell constant *K* (1/cm)
+- Cell constant *K* (1/cm)
 
   ![cellconstant](images/cellconstant.svg)
 
   as distance *d* between electrodes (cm) divided by effective area
   *A* of the electrodes (cm<sup>2</sup>). Should be less than 1
-  cm<sup>-1</sup> for low conductivity measurements.
+  cm<sup>-1</sup> for low conductivity measurements - see chart below.
 
 - Conductivity
 
   ![conductivity](images/conductivity.svg)
 
+  is the inverse of the resistance *R* scaled by the geometry of the
+  electrodes as captured by the cell konstant *K*. Conductivity is
   usually measured in mS/cm.
 
 ![cell constants](https://andyjconnelly.files.wordpress.com/2017/07/electrical-conductivity-of-common-solutions3.png?w=1140&h=921)
@@ -42,21 +44,11 @@ corrected to 20&#8451; or 25&#8451;.
 
 ## Voltage divider for measuring conductivity
 
-We measure the resistance *R* in a voltage devider equation. A voltage
-*U* is applied to a resistance *R<sub>0</sub>* in series with the
-resistance *R* of the water. We measure the voltage *V* between the
-two resistances against ground.
-
-How to choose *R<sub>0</sub>*? The smaller, the larger the range of
-voltages we get. However, the smaller *R<sub>0</sub>*, the larger the
-current. Also, for the water resistance *R* we expect at minimum
-*R<sub>min</sub>* = 0.1cm<sup>-1</sup>/1mS cm<sup>-1</sup> =
-100&#8486;. The Teensy supplies at maximum *I<sub>max</sub>* =
-250mA. So *R<sub>0</sub> + R<sub>min</sub> > U/I<sub>max</sub>* =
-3.3V/250mA = 13.2&#8486;. But of course we do not want to drain the
-battery with 250mA. Better would be a tenth, or let's say 10mA. Then
-we get *R<sub>0</sub> + R<sub>min</sub>* > 3.3V/10mA = 330&#8486;. So
-with *R<sub>0</sub>* = 200&#8486; we should be doing fine.
+We measure the resistance *R* of the water between two electrodes by
+means of a voltage devider. A voltage *U* is applied to a resistance
+*R<sub>0</sub>* in series with the resistance *R* of the water. We
+measure the voltage drop *V* over *R* against ground. *R<sub>0</sub>*
+is needed to limit the maximum current for high water conductivities.
 
 With Ohm's law we get for the voltage divider the two equations
 
@@ -71,12 +63,83 @@ Solving for the water conductivity yields
 ![conductivity](images/conductivity-conductivity.svg)
 
 This is a function with a single unknown: *&alpha;=K/R<sub>0</sub>*,
-that relate the measured voltage with water conductivity. *U/V* is the
+that relates the measured voltage with water conductivity. *U/V* is the
 maximum integer value of `analogRead()` divided by the returned value
 of `analogRead()`. `analogRead()` measures *V* relative to *U*!
 
 This is implemented in the [conductivity
 example](../../examples/conductivity).
+
+
+### Choosing the voltage divider resistance
+
+How to choose *R<sub>0</sub>*? It definitely should be large enough to
+limit the current to the maximum current of *I<sub>max</sub>* = 250mA
+the Teensy supplies at *U =* 3.3V. This is ensured by a minimum
+overall resistance of *U/I<sub>max</sub>* = 3.3V/250mA = 13.2&#8486;,
+which is already close to the minimum water resistance we expect. But
+of course we do not want to drain the battery with 250mA. Better would
+be a tenth, or let's say 10mA. Then we get *R<sub>0</sub> +
+R<sub>min</sub>* > 3.3V/10mA = 330&#8486;. So with *R<sub>0</sub>* =
+200&#8486; or larger we definitely do not harm the Teensy nore to we
+waste too much current.
+
+However, we would like to choose *R<sub>0</sub>* such that we make use
+of as much of the voltage range we can measure. We also do not want to
+use the full voltage range, because at the extreme values we might get
+into some trouble because of clipping. Rearranging the voltage-divider
+equation we get
+
+![R0](images/conductivity-r0.svg)
+
+For the water resistance *R* we expect for a large conductivity of
+&kappa; = 5mS cm<sup>-1</sup> and a cell constant of *K* =
+0.1cm<sup>-1</sup> as a minimal resistance *R<sub>min</sub>* =
+0.1cm<sup>-1</sup>/5mS cm<sup>-1</sup> = 20&#8486;. For a smallest
+conductivity of &kappa; = 0.001mS cm<sup>-1</sup> we get a maximum
+resistance of *R<sub>min</sub>* = 0.1cm<sup>-1</sup>/0.001mS
+cm<sup>-1</sup> = 100k&#8486;. With a cell constant of *K* =
+1cm<sup>-1</sup> these values are ten-fold larger.
+
+Using the equation for *R<sub>0</sub>* we then get for various values
+of the maximum voltage ratio *V/U*:
+
+| ------ | ------ | --------------- |
+| *V/U*  | *U/V-1 | *R<sub>0</sub>* |
+| ------ | ------ | --------------- |
+|   0.98 |   0.02 |       2k&#8486; |
+|   0.95 |   0.05 |       5k&#8486; |
+|   0.90 |   0.11 |      11k&#8486; |
+| ------ | ------ | --------------- |
+
+and for the minimum voltage ratios:
+
+| ------ | ------ | --------------- |
+| *V/U*  | *U/V-1 | *R<sub>0</sub>* |
+| ------ | ------ | --------------- |
+|   0.02 |     49 |       1k&#8486; |
+|   0.05 |     19 |      380&#8486; |
+|   0.10 |      9 |      180&#8486; |
+| ------ | ------ | --------------- |
+
+If we want to be precise for small conductivities, then we should not set
+*R<sub>0</sub>* above 1k&#8486;. A resistance of *R<sub>0</sub>* =
+500&#8486; might be a good compromise.
+
+
+### Calibration
+
+How to calibrate the resistance measurements to the right
+conductivities? We have just a single free parameter
+*&alpha;=K/R<sub>0</sub>*. So ideally we only need a single
+measurement of the relative voltage drop *V<sub>0</sub>/U* and a
+corresponding reading &kappa;<sub>0</sub> of a calibrated conductivity
+meter or from a standard solution. Then we calculate *&alpha;*
+according to
+
+![alpha](images/conductivity-alpha.svg)
+
+*&alpha;* has the same units as the conductivity.
 
 
 ## Resources
