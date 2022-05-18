@@ -22,10 +22,10 @@ already included in
 [Teensyduino](https://www.pjrc.com/teensy/teensyduino.html). When
 installing Teensyduino make sure you selected it.
 
-_Note_: you need Arduino 1.8.19 and Teensyduoino 1.56 or higher! When
-installing Teensyduoino simply select all libraries for installation.
+_Note_: you need Arduino 1.8.19 and Teensyduino 1.56 or higher! When
+installing Teensyduino simply select all libraries for installation.
 Remove `SdFat` from your `Arduino/libraries` folder, it is now
-supplied by Teensyduoino.
+supplied by Teensyduino.
 
 For installing the libraries for the environmental sensors, open in
 the Arduino IDE: Tools - Manage libraries. Search for the libraries
