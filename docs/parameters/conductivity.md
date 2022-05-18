@@ -106,7 +106,7 @@ Using the equation for *R<sub>0</sub>* we then get for
 *V/U*:
 
 | *V/U*  | *U/V-1* | *R<sub>0</sub>* |
-| ------ | ------- | --------------- |
+| -----: | ------: | --------------: |
 |   0.98 |    0.02 |       2k&#8486; |
 |   0.95 |    0.05 |       5k&#8486; |
 |   0.90 |    0.11 |      11k&#8486; |
@@ -114,14 +114,14 @@ Using the equation for *R<sub>0</sub>* we then get for
 and for *R<sub>min</sub>* and some minimum voltage ratios:
 
 | *V/U*  | *U/V-1* | *R<sub>0</sub>* |
-| ------ | ------- | --------------- |
+| -----: | ------: | --------------: |
 |   0.02 |      49 |       1k&#8486; |
 |   0.05 |      19 |      380&#8486; |
 |   0.10 |       9 |      180&#8486; |
 
-If we want to be precise for small conductivities, then we should not set
-*R<sub>0</sub>* above 1k&#8486;. A resistance of *R<sub>0</sub>* =
-500&#8486; might be a good compromise.
+If we want to be precise for small conductivities, then we should set
+*R<sub>0</sub>* to more than 1k&#8486;. A resistance of *R<sub>0</sub>* =
+5k&#8486; might be a good choice.
 
 
 ### Calibration
