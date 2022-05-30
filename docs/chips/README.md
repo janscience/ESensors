@@ -12,6 +12,7 @@
 ## Light intensity
 
 - [AMS TSL2591 light-to-digital converter](tsl2591.md)
+- [BH1750 ambient light sensor](bh1750.md)
 
 
 ## How to find and select libraries for specific chips
