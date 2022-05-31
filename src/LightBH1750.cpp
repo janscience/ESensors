@@ -4,7 +4,6 @@
 LightBH1750::LightBH1750(ESensors *sensors)
   : ESensor(sensors, "illuminance", "E", "lx", "%6.5g", 1.0),
     hp_BH1750() {
-  DelayTime = 500;
   Illuminance = NoValue;
 }
 
@@ -42,7 +41,7 @@ void LightBH1750::requestData() {
 
 unsigned long LightBH1750::delayTime() const
 {
-  return DelayTime;
+  return hp_BH1750::getMtregTime() + hp_BH1750::getTimeOffset();
 }
 
 

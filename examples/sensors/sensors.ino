@@ -51,7 +51,7 @@ void setup() {
   setSyncProvider(getTeensyTime);  // enable real time clock
   // sensors.setPrintTime(ESensors::ISO_TIME);
   sensors.setPrintTime(ESensors::NO_TIME);  // no time column for the serial plotter
-  sensors.setInterval(2.0);
+  sensors.setInterval(0.2);
   Wire.begin();
 #ifdef SENSEBME280
   bme.beginI2C(Wire, 0x77);

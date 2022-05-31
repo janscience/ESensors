@@ -55,7 +55,6 @@ class LightBH1750 : public ESensor, protected hp_BH1750 {
   // Retrieve a sensor reading from the device.
   virtual void getData();
 
-  unsigned long DelayTime;
   float Illuminance;
   
 };
