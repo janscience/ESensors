@@ -2,7 +2,7 @@
 
 
 LightBH1750::LightBH1750(ESensors *sensors)
-  : ESensor(sensors, "illuminance", "E", "lx", "%6.5g", 1.0),
+  : ESensor(sensors, "illuminance", "E", "lx", "%6.5g", 0.113),
     hp_BH1750() {
   Illuminance = NoValue;
   RawData = 0;
@@ -61,7 +61,7 @@ void LightBH1750::requestData() {
 
 unsigned long LightBH1750::delayTime() const
 {
-  return hp_BH1750::getMtregTime() + hp_BH1750::getTimeOffset();
+  return hp_BH1750::getMtregTime() + hp_BH1750::getTimeOffset() + 10;
 }
 
 
@@ -72,7 +72,7 @@ void LightBH1750::getData() {
     Quality = hp_BH1750::getQuality();
     MTReg = hp_BH1750::getMtreg();;
     if (AutoRange)
-      hp_BH1750::adjustSettings(50);
+      hp_BH1750::adjustSettings(1);
   }
 }
 
@@ -95,7 +95,7 @@ QualityBH1750::QualityBH1750(LightBH1750 *bh, ESensors *sensors)
 
 
 float QualityBH1750::reading() const {
-  return SDC->quality();
+  return SDC->quality() - 0x20;
 }
 
 

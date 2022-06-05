@@ -4,6 +4,7 @@
 
 ESensors::ESensors() :
   NSensors(0),
+  DelayTime(0),
   Interval(0),
   Time(0),
   TimeStamp(0),
@@ -65,10 +66,25 @@ void ESensors::report() {
 }
 
 
-void ESensors::start() {
+void ESensors::setDelayTime() {
+  // find maximum delay:
+  DelayTime = 0;
+  for (uint8_t k=0; k<NSensors; k++) {
+    if (Snsrs[k]->available()) {
+      unsigned long delay_time = Snsrs[k]->delayTime();
+      if (delay_time > DelayTime)
+	DelayTime = delay_time;
+    }
+  }
+  // adjust interval between readings:
   UseInterval = Interval;
-  if (UseInterval < delayTime() + 10)
-    UseInterval = delayTime() + 10;
+  if (UseInterval < DelayTime + 10)
+    UseInterval = DelayTime + 10;
+}
+
+
+void ESensors::start() {
+  setDelayTime();
   Time = UseInterval - delayTime();
   TimeStamp = 0;
   State = 0;
@@ -80,16 +96,6 @@ void ESensors::request() {
   for (uint8_t k=0; k<NSensors; k++)
     Snsrs[k]->request();
   State = 1;
-}
-
-
-unsigned long ESensors::delayTime() const {
-  unsigned long max_delay = 0;
-  for (uint8_t k=0; k<NSensors; k++) {
-    if (Snsrs[k]->available() && Snsrs[k]->delayTime() > max_delay)
-      max_delay = Snsrs[k]->delayTime();
-  }
-  return max_delay;
 }
 
 
@@ -105,11 +111,12 @@ void ESensors::get() {
 
 bool ESensors::update() {
   switch (State) {
-  case 0: if (Time > UseInterval - delayTime())
+  case 0: if (Time + delayTime() > UseInterval)
       request();
     break;
   case 1: if (Time > UseInterval) {
       get();
+      setDelayTime();
       return true;
     }
     break;

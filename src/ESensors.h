@@ -50,7 +50,7 @@ class ESensors {
 
   // The delay needed between request() and get().
   // Only available after calling start().
-  unsigned long delayTime() const;
+  unsigned long delayTime() const { return DelayTime; };
 
   // Get sensor readings from all sensors.
   void get();
@@ -119,6 +119,10 @@ class ESensors {
 
   
  private:
+
+  // Compute the maximum delay time from all available sensors.
+  // Adjust interval between readings if necessary.
+  void setDelayTime();
   
   // Create data line for CSV file.
   // Return false on overflow of data buffer.
@@ -127,6 +131,7 @@ class ESensors {
   static const uint8_t MaxSensors = 20; 
   uint8_t NSensors; 
   ESensor *Snsrs[MaxSensors];
+  unsigned long DelayTime;
   unsigned long Interval;
   unsigned long UseInterval;
   elapsedMillis Time;

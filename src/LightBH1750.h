@@ -108,6 +108,7 @@ class QualityBH1750 : public ESensorValue<LightBH1750> {
   QualityBH1750(LightBH1750 *bh, ESensors *sensors=0);
 
   // Quality setting of last sensor reading.
+  // 0: HIGH, 1: HIGH2, 3: LOW 
   virtual float reading() const;
 };
 
