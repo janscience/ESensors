@@ -66,6 +66,8 @@ void setup() {
 #endif
 #ifdef LIGHTBH1750
   bh.begin();
+  bh.setQuality(BH1750_QUALITY_HIGH);
+  bh.setIntegrationTime(69);
 #endif
   Serial.println();
   //sensors.report();  // nice, but confuses the serial plotter

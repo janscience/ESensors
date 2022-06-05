@@ -29,6 +29,16 @@ void LightBH1750::init() {
 }
 
 
+void LightBH1750::setQuality(BH1750Quality quality) {
+  hp_BH1750::setQuality(quality);
+}
+
+
+void LightBH1750::setIntegrationTime(int time) {
+  hp_BH1750::writeMtreg(time);
+}
+
+
 bool LightBH1750::available() {
   return (strlen(chip()) > 0);
 }

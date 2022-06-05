@@ -35,6 +35,14 @@ class LightBH1750 : public ESensor, protected hp_BH1750 {
   // NOTE: you need to initalize I2C by calling `Wire1.begin()` *before*!
   bool begin(TwoWire &wire, uint8_t address=BH1750_TO_GROUND);
 
+  // Set measurement quality. One of
+  // BH1750_QUALITY_HIGH, BH1750_QUALITY_HIGH2, BH1750_QUALITY_LOW
+  void setQuality(BH1750Quality quality);
+
+  // Set integration time. The higher the more sensitive.
+  // Between 31 and 254.
+  void setIntegrationTime(int time);
+
   // Return true if light sensor is available.
   virtual bool available();
 
