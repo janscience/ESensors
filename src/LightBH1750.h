@@ -17,6 +17,7 @@
 #include <Wire.h>
 #include <hp_BH1750.h>
 #include <ESensor.h>
+#include <ESensorValue.h>
 
 
 // Simple wrapper around hp_BH1750 library.
@@ -39,9 +40,14 @@ class LightBH1750 : public ESensor, protected hp_BH1750 {
   // BH1750_QUALITY_HIGH, BH1750_QUALITY_HIGH2, BH1750_QUALITY_LOW
   void setQuality(BH1750Quality quality);
 
-  // Set integration time. The higher the more sensitive.
+  // Set measurement time register. The higher the more sensitive.
   // Between 31 and 254.
-  void setIntegrationTime(int time);
+  void setMTReg(int mtreg);
+
+  // If set true, after each measurement the integration time and
+  // quality are adjusted to ensure the next measurement to not not
+  // exceed the measurement range.
+  void setAutoRanging(bool autorange=true);
 
   // Return true if light sensor is available.
   virtual bool available();
@@ -51,6 +57,18 @@ class LightBH1750 : public ESensor, protected hp_BH1750 {
 
   // Illuminance in Lux.
   virtual float reading() const { return Illuminance; };
+
+  // Illuminance in Lux.
+  float illuminance() const { return Illuminance; };
+  
+  // Raw sensor reading.
+  uint16_t rawData() const { return RawData; };
+  
+  // Quality of the last sensor reading.
+  int quality() const { return Quality; };
+  
+  // Measurement time register value of the last sensor reading.
+  int mtReg() const { return MTReg; };
 
   
  private:
@@ -64,7 +82,44 @@ class LightBH1750 : public ESensor, protected hp_BH1750 {
   virtual void getData();
 
   float Illuminance;
+  uint16_t RawData;
+  BH1750Quality Quality;
+  int MTReg;
+  bool AutoRange;
   
+};
+
+
+class RawBH1750 : public ESensorValue<LightBH1750> {
+
+ public:
+
+  RawBH1750(LightBH1750 *bh, ESensors *sensors=0);
+
+  // Raw sensor reading.
+  virtual float reading() const;
+};
+
+
+class QualityBH1750 : public ESensorValue<LightBH1750> {
+
+ public:
+
+  QualityBH1750(LightBH1750 *bh, ESensors *sensors=0);
+
+  // Quality setting of last sensor reading.
+  virtual float reading() const;
+};
+
+
+class TimeBH1750 : public ESensorValue<LightBH1750> {
+
+ public:
+
+  TimeBH1750(LightBH1750 *bh, ESensors *sensors=0);
+
+  // Time setting of last sensor reading.
+  virtual float reading() const;
 };
 
 

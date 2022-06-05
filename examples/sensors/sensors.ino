@@ -1,4 +1,3 @@
-#include <TimeLib.h>
 #include <ESensors.h>
 #include <TemperatureDS18x20.h>
 #include <SenseBME280.h>
@@ -39,17 +38,14 @@ IlluminanceTSL2591 illum(&tsl, &sensors);
 #endif
 #ifdef LIGHTBH1750
 LightBH1750 bh(&sensors);
+RawBH1750 bhraw(&bh, &sensors);
+QualityBH1750 bhqual(&bh, &sensors);
+TimeBH1750 bhtime(&bh, &sensors);
 #endif
-
-time_t getTeensyTime() {
-  return Teensy3Clock.get();
-}
 
 void setup() {
   Serial.begin(9600);
   while (!Serial && millis() < 2000) {};
-  setSyncProvider(getTeensyTime);  // enable real time clock
-  // sensors.setPrintTime(ESensors::ISO_TIME);
   sensors.setPrintTime(ESensors::NO_TIME);  // no time column for the serial plotter
   sensors.setInterval(0.2);
   Wire.begin();
@@ -66,8 +62,7 @@ void setup() {
 #endif
 #ifdef LIGHTBH1750
   bh.begin();
-  bh.setQuality(BH1750_QUALITY_HIGH);
-  bh.setIntegrationTime(69);
+  bh.setAutoRanging();
 #endif
   Serial.println();
   //sensors.report();  // nice, but confuses the serial plotter
