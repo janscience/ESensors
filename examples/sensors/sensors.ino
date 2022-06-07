@@ -7,15 +7,25 @@
 #include <AbsoluteHumidity.h>
 #include <SeaLevelPressure.h>
 
+// uncomment the sensors you want to use:
 //#define TEMPDS18x20
 //#define SENSEBME280
 //#define LIGHTTSL2591
 #define LIGHTBH1750
 
+
+// settings: -----------------------------------------------------------------
+
+uint8_t tempPin = 10;        // pin for DATA line of DS18x20 themperature sensor
+float sensorsInterval = 0.2; // interval between sensors readings in seconds
+
+// ----------------------------------------------------------------------------
+
+
 ESensors sensors;
 
 #ifdef TEMPDS18x20
-TemperatureDS18x20 temp(&sensors, 10);  // DATA on pin 10
+TemperatureDS18x20 temp(&sensors);
 #endif
 #ifdef SENSEBME280
 SenseBME280 bme;
@@ -47,7 +57,10 @@ void setup() {
   Serial.begin(9600);
   while (!Serial && millis() < 2000) {};
   sensors.setPrintTime(ESensors::NO_TIME);  // no time column for the serial plotter
-  sensors.setInterval(0.2);
+  sensors.setInterval(sensorsInterval);
+#ifdef TEMPDS18x20
+  temp.begin(tempPin);
+#endif
   Wire.begin();
 #ifdef SENSEBME280
   bme.beginI2C(Wire, 0x77);
