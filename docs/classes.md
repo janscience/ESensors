@@ -82,7 +82,8 @@ Member functions for unit conversion of pressures:
 
 Available ESensors:
 
-- `TemperatureDS18x20`
+- [`TemperatureDS18x20`](chips/ds18x20.md)
+- [`LightBH1750`](chips/bh1750.md)
 
 
 ## ESensorValue
