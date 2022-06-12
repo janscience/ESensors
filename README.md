@@ -29,8 +29,8 @@ Arduino with additional background information.
 
 ## Environmental parameters
 
-- [Parameters](docs/parameters/): Infos on how two measure
-  environmental parameters.
+- [Parameters](docs/parameters/): Infos on principles, methods, and
+  available chips for measuring various environmental parameters.
 
 
 ## Power supply
@@ -67,7 +67,8 @@ ESensors is used in:
 
 Further planed applications are:
 
-- Fishfinder: A replacement for the usual and horrible RadioShack/MP3
-  player combination for recording electric fish EODs in their natural
+- [FishFinder](https://github.com/janscience/FishFinder): A
+  replacement for the usual and horrible RadioShack/MP3 player
+  combination for recording electric fish EODs in their natural
   habitats with lot's of additional features (display, online
-  analysis, environmental parameters).
+  analysis, acoustiv feedabck, environmental parameters).

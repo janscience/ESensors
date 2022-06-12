@@ -74,15 +74,11 @@ example](../../examples/conductivity).
 ### Choosing the voltage divider resistance
 
 How to choose *R<sub>0</sub>*? It definitely should be large enough to
-limit the current to the maximum current of *I<sub>max</sub>* = 250mA
-the Teensy supplies at *U =* 3.3V. This is ensured by a minimum
-overall resistance of *U/I<sub>max</sub>* = 3.3V/250mA = 13.2&#8486;,
-which is already close to the minimum water resistance we expect. But
-of course we do not want to drain the battery with 250mA. Better would
-be a tenth, or let's say 10mA. Then we get *R<sub>0</sub> +
-R<sub>min</sub>* > 3.3V/10mA = 330&#8486;. So with *R<sub>0</sub>* =
-200&#8486; or larger we definitely do not harm the Teensy nore to we
-waste too much current.
+limit the current to the maximum current of *I<sub>max</sub>* = 10mA
+the Teensy supplies at ts digital pins with *U =* 3.3V. This is
+ensured by a minimum overall resistance of *U/I<sub>max</sub>* =
+3.3V/10mA = 330&#8486;. So with *R<sub>0</sub>* = 330&#8486; or larger
+we definitely do not harm the Teensy.
 
 However, we would like to choose *R<sub>0</sub>* such that we make use
 of as much of the voltage range we can measure. On the other hand, we
@@ -122,6 +118,11 @@ and for *R<sub>min</sub>* and some minimum voltage ratios:
 If we want to be precise for small conductivities, then we should set
 *R<sub>0</sub>* to more than 1k&#8486;. A resistance of *R<sub>0</sub>* =
 5k&#8486; might be a good choice.
+
+If, on the other hand, we want to be precise for large conductivities,
+then a smaller resistance is to be prefered. But *R<sub>0</sub>*
+should never be smaller than 330&#8486; to ensure that no more than
+10mA are drawn from the Teensy.
 
 
 ### Calibration

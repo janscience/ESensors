@@ -2,19 +2,19 @@
 
 ## Air
 
-- [temperature](temperature/)
+- [temperature](temperature.md)
 - [humidity](humidity.md)
 - [air pressure](airpressure.md)
-- [light](light/)
-- [rain](rain/)
+- [light](light.md)
+- [rain](rain.md)
 
 ## Water
 
 - [water conductivity](conductivity.md)
-- [turbitity](turbitity/)
-- [water velocity](velocity/)
-- [water level](waterlevel/)
-- [oxygen](oxygen/)
+- [turbitity](turbitity.md)
+- [water velocity](velocity,md)
+- [water level](waterlevel.md)
+- [oxygen](oxygen.md)
 
 
 ## General resources
