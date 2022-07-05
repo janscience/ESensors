@@ -15,7 +15,13 @@ Arduino with additional background information.
 - Sensor readings in adaptable units.
 - Output of sensor properties and readings on Serial and into CSV files on SD card.
 - Hardware independent derived measures, like for example, dew point and absolute humidity.
-- Currently supported sensors are: DS18x20, BME280, and TSL2591.
+
+### Currently supported sensors
+
+- [BH1750](docs/chips/bh1750.md): [light intensity](docs/parameters/light/md)
+- [BME280](docs/chips/bme280.md): [air pressure](docs/parameters/airpressure.md), [temperature](docs/parameters/temperature.md), and [humidity](docs/parameters/humidity.md)
+- [DS18x20](docs/chips/ds18x20.md): [temperature](docs/parameters/temperature.md)
+- [TSL2591](docs/chips/tsl2591.md): [light intensity](docs/parameters/light/md)
 
 
 ### Documentation
@@ -59,13 +65,14 @@ In [utils/](utils) you find useful python scripts.
 
 ESensors is used in:
 
+- [EOD-Logger](https://github.com/janscience/EOD-Logger): A 2-electrode
+  logger for recording electric-organ discharges of electric fish.
+
 - [TeeGrid](https://github.com/janscience/TeeGrid): Electrode arrays
   based on 8-16channel recording devices for recording electric fish
   behavior in natural habitats (see [Henninger et
   al. 2018](https://doi.org/10.1523/JNEUROSCI.0350-18.2018) and
   [Henninger et al. 2020](https://doi.org/10.1242/jeb.206342)).
-
-Further planed applications are:
 
 - [FishFinder](https://github.com/janscience/FishFinder): A
   replacement for the usual and horrible RadioShack/MP3 player
