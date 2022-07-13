@@ -61,6 +61,12 @@ In [utils/](utils) you find useful python scripts.
 - [sensors.py](utils/sensors.py): plot the content of the csv file written by the [ESensors](doc/classes.md#esensors) library.
 
 
+## TODO
+
+- Add more sensors.
+- Extend interface to allow for checking whether a sensor reading is available. 
+
+
 ## Applications of the ESensors library
 
 ESensors is used in:
