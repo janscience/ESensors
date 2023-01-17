@@ -18,3 +18,8 @@
 ## Power supply
 
 - [Power supply](power/): Some solutions for power supply.
+
+
+## (Underwater) housings
+
+- [Housing](housing/): How to design housings for loggers.
