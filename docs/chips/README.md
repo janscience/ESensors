@@ -3,6 +3,15 @@
 ## Temperature
 
 - [Dallas DS18x20](ds18x20.md)
+- [Bosch Sensortec BME280](bme280.md)
+- [DHT11 or DHT22](dht.md)
+
+
+## Humidity
+
+- [Bosch Sensortec BME280](bme280.md)
+- [DHT11 or DHT22](dht.md)
+
 
 ## Pressure
 
