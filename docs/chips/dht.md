@@ -1,4 +1,4 @@
-# DHT11, DHT22
+# Aosong DHT11, DHT22
 
 Senses
 
@@ -10,7 +10,7 @@ This chip is controlled via its own type of one wire bus.
 
 ## Resources
 
-- [DHT22 Datasheet](http://www.adafruit.com/datasheets/DHT22.pdf)
+- [Aosong DHT22 Datasheet](http://www.adafruit.com/datasheets/DHT22.pdf)
 - [K&R Smith calibration notes](http://www.kandrsmith.org/RJS/Misc/Hygrometers/calib_many.html)
 - [Adafruit DHT11, DHT22 and AM2302 Sensors](https://learn.adafruit.com/dht)
 

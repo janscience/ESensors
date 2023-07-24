@@ -18,7 +18,7 @@ class ESensorDevice {
 
  public:
 
-  static const float NoValue = -INFINITY;
+  static constexpr float NoValue = -INFINITY;
 
   // Initialize the sensor.
   ESensorDevice();
@@ -73,9 +73,9 @@ protected:
   // Called by get().
   virtual void getData() = 0;
 
-  static const int MaxStr = 50;
-  char Chip[MaxStr];
-  char Identifier[MaxStr];
+  static const int MaxStr = 49;
+  char Chip[MaxStr + 1];
+  char Identifier[MaxStr + 1];
   bool Measuring;
   time_t TimeStamp;
   

@@ -148,7 +148,7 @@ void ESensors::print(bool symbols) {
 		  year(TimeStamp), month(TimeStamp), day(TimeStamp),
 		  hour(TimeStamp), minute(TimeStamp), second(TimeStamp));
   else if (PrintTime == SEC_TIME)
-    Serial.printf("Timestamp = %lds\n", TimeStamp);
+    Serial.printf("Timestamp = %llds\n", TimeStamp);
   char s[20];
   for (uint8_t k=0; k<NSensors; k++) {
     if (Snsrs[k]->available()) {
@@ -202,7 +202,7 @@ void ESensors::printValues(bool compact) {
 		  year(TimeStamp), month(TimeStamp), day(TimeStamp),
 		  hour(TimeStamp), minute(TimeStamp), second(TimeStamp));
   else if (PrintTime == SEC_TIME)
-    Serial.printf("%ld", TimeStamp);
+    Serial.printf("%lld", TimeStamp);
   else
     n = 0;
   char s[20];
@@ -289,7 +289,7 @@ bool ESensors::makeCSVData() {
 		  year(TimeStamp), month(TimeStamp), day(TimeStamp),
 		  hour(TimeStamp), minute(TimeStamp), second(TimeStamp));
   else if (PrintTime == SEC_TIME)
-    sp += sprintf(sp, "%ld", TimeStamp);
+    sp += sprintf(sp, "%lld", TimeStamp);
   else
     n = 0;
   for (uint8_t k=0; k<NSensors; k++) {

@@ -1,6 +1,7 @@
 #include <ESensors.h>
 #include <TemperatureDS18x20.h>
 #include <SenseBME280.h>
+#include <SenseDHT.h>
 #include <LightTSL2591.h>
 #include <LightBH1750.h>
 #include <DewPoint.h>
@@ -10,6 +11,7 @@
 // uncomment the sensors you want to use:
 //#define TEMPDS18x20
 //#define SENSEBME280
+//#define SENSEDHT
 //#define LIGHTTSL2591
 #define LIGHTBH1750
 
@@ -17,7 +19,7 @@
 // settings: -----------------------------------------------------------------
 
 uint8_t tempPin = 10;        // pin for DATA line of DS18x20 themperature sensor
-float sensorsInterval = 0.2; // interval between sensors readings in seconds
+float sensorsInterval = 2.0; // interval between sensors readings in seconds
 
 // ----------------------------------------------------------------------------
 
@@ -35,6 +37,11 @@ HumidityBME280 hum(&bme, &sensors);
 DewPoint dp(&hum, &tempbme, &sensors);
 PressureBME280 pres(&bme, &sensors);
 //SeaLevelPressure slpres(&pres, &tempbme, 460.0, &sensors);
+#endif
+#ifdef SENSEDHT
+SenseDHT dht(dhtpin, DHT_TYPE_22);
+TemperatureDHT tempdht(&dht, &sensors);
+HumidityDHT humdht(&dht, &sensors);
 #endif
 #ifdef LIGHTTSL2591
 LightTSL2591 tsl;
@@ -67,6 +74,9 @@ void setup() {
   hum.setPercent();
   pres.setHecto();
   //slpres.setMilliBar();
+#endif
+#ifdef SENSEDHT
+  humdht.setPercent();
 #endif
 #ifdef LIGHTTSL2591
   tsl.begin(Wire);

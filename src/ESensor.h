@@ -195,8 +195,8 @@ protected:
   char Symbol[20];
   char BasicUnit[20];
   char Unit[20];
-  char Format[10];
-  char CompactFormat[10];
+  char Format[22];
+  char CompactFormat[22];
   float Factor;
   float Offset;
   float Resolution;
