@@ -186,7 +186,7 @@ void loop() {
 ## Managing multiple sensors
 
 The [ESensors class](classes.md#esensors) manages a single or multiple
-[ESensor](classes.md#esensor)s. It provides infrastructure to read them in
+[ESensor](classes.md#esensor). It provides infrastructure to read them in
 parallel, to write readings to the Serial port or into csv files.
 
 For this, an instance of the [ESensors class](classes.md#esensors) needs

@@ -2,7 +2,7 @@
 
 - [`ESensorDevice`](#esensordevice): Virtual base class for an environmental sensor device.
 - [`ESensor`](#esensor): Virtual base class for reading a value from an environmental sensor.
-- [`ESensorValue`](#esensorvalue): Template base class for a [`ESensor`](#esensor) reading of a [`ESensorDevice`(#esensordevice).
+- [`ESensorValue`](#esensorvalue): Template base class for a [`ESensor`](#esensor) reading of a [`ESensorDevice`](#esensordevice).
 - [`DerivedESensor`](#derivedesensor): Base class for [`ESensor`](#esensor)s computing a derived measure from other [`ESensor`](#esensor)s.
 - [`ESensors`](#esensors): Manage mutliple [`ESensor`](#esensor)s.
 
