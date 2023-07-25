@@ -21,8 +21,6 @@ class SenseDHT : public ESensorDevice, protected DHT_Async {
 
  public:
 
-  static constexpr float NoValue = -INFINITY;
-
   SenseDHT(uint8_t pin, uint8_t type);
 
   // Return true if sensor is available.
@@ -42,12 +40,13 @@ class SenseDHT : public ESensorDevice, protected DHT_Async {
   
  private:
 
-  // Request a sensor reading.
-  virtual void requestData();
+  // Retrieve a sensor reading.
+  virtual bool retrieveData(unsigned long time);
 
-  // Retrieve a sensor reading from the device.
+  // Get a sensor reading from the device.
   virtual void getData();
 
+  unsigned long DelayTime;
   float Celsius;
   float Humidity;
   

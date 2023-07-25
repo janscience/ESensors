@@ -28,8 +28,6 @@ class SenseBME280 : public ESensorDevice, protected BME280 {
 
  public:
 
-  static constexpr float NoValue = -INFINITY;
-
   // Do not initialize BME280 device yet.
   SenseBME280();
   

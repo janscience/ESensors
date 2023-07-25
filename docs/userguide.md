@@ -242,16 +242,20 @@ Many sensor devices need quite some time to generate a single reading:
 4. And finally the sensor readings can be obtained
    from the `value()` member function.
 
+Other sensors require communication over an extended period of
+time. For those the retrieve() function can be used. It is called
+repeatedly during the delayTime().
+
 Steps 1 - 3 are combined in the `read()` member function, that blocks
 for the time given by `delayTime()`.
 
 Alternatively, one can repetitively call the `update()` member
-function of the [ESensors class](classes.md#esensorss) in the
-`loop()`. This function calls `request()` and `get()` at appropriate
-times without blocking. Whenever new sensor values are available,
-`update()` returns `true` and the values can be read out as usual via
-`value()`. This way, other things can be controlled, while the sensors
-work on getting their data:
+function of the [ESensors class](classes.md#esensors) in the
+`loop()`. This function calls `request()`, retrieve(), and `get()` at
+appropriate times without blocking. Whenever new sensor values are
+available, `update()` returns `true` and the values can be read out as
+usual via `value()`. This way, other things can be controlled, while
+the sensors work on getting their data:
 
 ```cpp
 void loop() {
@@ -275,7 +279,7 @@ specifying a time in seconds:
 void setup() {
   // ...
   sensors.setInterval(10.0); // read sensors every 10.0s. Call this before start().
-  sensors.report();          // write infos to all avaliable sensors to Serial.
+  sensors.report();          // write infos about all avaliable sensors to Serial.
   sensors.start();
 }
 ```

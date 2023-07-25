@@ -5,6 +5,7 @@ ESensorDevice::ESensorDevice() :
   Chip(""),
   Identifier(""),
   Measuring(false),
+  Retrieving(false),
   TimeStamp(0) {
 }
 
@@ -43,10 +44,26 @@ void ESensorDevice::request() {
     return;
   requestData();
   Measuring = true;
+  Retrieving = true;
 }
 
 
 void ESensorDevice::requestData() {
+}
+
+
+bool ESensorDevice::retrieve(unsigned long time) {
+  if (!Measuring or !Retrieving)
+    return true;
+  bool r = retrieveData(time);
+  if (r)
+    Retrieving = false;
+  return r;
+}
+
+
+bool ESensorDevice::retrieveData(unsigned long time) {
+  return true;
 }
 
 
@@ -56,12 +73,20 @@ void ESensorDevice::get() {
   getData();
   TimeStamp = now();
   Measuring = false;
+  Retrieving = false;
 }
 
 
 void ESensorDevice::read() {
   request();
-  delay(delayTime());
+  elapsedMillis time = 0;
+  while (time < delayTime()) {
+    unsigned long delaytime = time;
+    if (retrieve(delaytime))
+      break;
+  }
+  if (time < delayTime())
+    delay(delayTime() - time);
   get();
 }
 

@@ -24,7 +24,8 @@ Member functions:
 - `report()`: print chip() and identifier() on Serial.
 - `request()`: request a sensor reading.
 - `delayTime()`: minimum time to wait between request() and get().
-- `get()`: retrieve a sensor reading from the device and store it in a variable.
+- `retrieve()`: retrieve sensor data over an extended period of time.
+- `get()`: get a sensor reading from the device and store it in a variable.
 - `read()`: blocking read: initiate measurement (request()), wait for delayTime(), and retrieve the data (get()).
 - `timeStamp()`: time stamp of last sensor reading.
 
@@ -32,6 +33,7 @@ Available ESensorDevices:
 
 - [`LightTSL2591`](chips/tsl2591.md)
 - [`SenseBME280`](chips/bme280.md)
+- [`SenseDHT`](chips/dht.md)
 
 
 ## ESensor
@@ -52,7 +54,7 @@ Member functions in addition to [ESensorDevice](#esensordevice):
 - `reading()`: sensor reading in the basic unit.
 - `value()`: sensor reading in the current unit.
 - `valueStr()`: sensor reading as a string.
-- `read()`: blocking read: request(), delay(), and get(), and return sensor value.
+- `read()`: blocking read: request(), retrieve(), and get(), and return sensor value.
 
 Member functions for unit conversion:
 

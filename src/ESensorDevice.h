@@ -3,7 +3,7 @@
   Created by Jan Benda, April 24th, 2022.
 
   This is the basic interface for reading some data from a sensor device.
-  The ESensor class then retrieves a single sensor reading.
+  The ESensor class then provides a single sensor reading.
 */
 
 #ifndef ESensorDevice_h
@@ -41,13 +41,18 @@ class ESensorDevice {
   // Recommended delay between a request() and get().
   virtual unsigned long delayTime() const { return 0; };
 
-  // Retrieve a sensor reading from the device
+  // Retrieve sensor data over an extended period of time.
+  // Needs to be called repeatedly until true is returned.
+  // time is the elapsed time since request() in milliseconds.
+  bool retrieve(unsigned long time);
+
+  // Get a sensor reading from the device
   // and store it in a variable.
   // You need to call request() at least delayTime() before.
   void get();
 
-  // Initiate measurement (request()), wait for delayTime(), and retrieve
-  // the data (get()).
+  // Initiate measurement (request()), wait for delayTime()
+  // while calling retrieve(), and get the data (get()).
   // This function may block considerably!
   void read();
 
@@ -68,8 +73,15 @@ protected:
   // needs to be prepared for a sensor reading in advance.
   virtual void requestData();
 
-  // Implement this function to retrieve a sensor reading from the
-  // device and store it in a variable.
+  // Retrieve a sensor reading. This function is called repeatedly
+  // between request() and get() until it returns true.
+  // time is the elapsed time since request() in milliseconds.
+  // Reimplement this function, if communication with the
+  // sensor device requires considerable time.
+  virtual bool retrieveData(unsigned long time);
+
+  // Implement this function to get a sensor reading from the
+  // device after delayTime() and store it in a variable.
   // Called by get().
   virtual void getData() = 0;
 
@@ -77,6 +89,7 @@ protected:
   char Chip[MaxStr + 1];
   char Identifier[MaxStr + 1];
   bool Measuring;
+  bool Retrieving;
   time_t TimeStamp;
   
 };

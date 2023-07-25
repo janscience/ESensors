@@ -93,13 +93,37 @@ void ESensors::start() {
 
 
 void ESensors::request() {
-  for (uint8_t k=0; k<NSensors; k++)
+  if (State > 0)
+    return;
+  for (uint8_t k=0; k<NSensors; k++) {
     Snsrs[k]->request();
+    Retrieving[k] = true;
+  }
+  RequestTime = Time;
   State = 1;
 }
 
 
+bool ESensors::retrieve(unsigned long time) {
+  if (State != 1)
+    return false;
+  bool done = true;
+  for (uint8_t k=0; k<NSensors; k++) {
+    if (Retrieving[k]) {
+      bool r = Snsrs[k]->retrieve(time);
+      if (r)
+	Retrieving[k] = false;
+      else
+	done = false;
+    }
+  }
+  return done;
+}
+
+
 void ESensors::get() {
+  if (State != 1)
+    return;
   TimeStamp = now();
   for (uint8_t k=0; k<NSensors; k++)
     Snsrs[k]->get();
@@ -119,6 +143,8 @@ bool ESensors::update() {
       setDelayTime();
       return true;
     }
+    else
+      retrieve(Time - RequestTime);
     break;
   }
   return false;
@@ -127,7 +153,13 @@ bool ESensors::update() {
 
 void ESensors::read() {
   request();
-  delay(delayTime());
+  elapsedMillis time = 0;
+  while (time < delayTime()) {
+    if (retrieve(time))
+      break;
+  }
+  if (time < delayTime())
+    delay(delayTime() - time);
   get();
 }
 
