@@ -11,14 +11,15 @@
 // uncomment the sensors you want to use:
 //#define TEMPDS18x20
 //#define SENSEBME280
-//#define SENSEDHT
+#define SENSEDHT
 //#define LIGHTTSL2591
-#define LIGHTBH1750
+//#define LIGHTBH1750
 
 
 // settings: -----------------------------------------------------------------
 
-uint8_t tempPin = 10;        // pin for DATA line of DS18x20 themperature sensor
+#define DS18x20_PIN 10       // pin for DATA line of DS18x20 themperature sensor
+#define DHT_PIN 12           // pin for DATA line of DHTx themperature and humidity sensor
 float sensorsInterval = 2.0; // interval between sensors readings in seconds
 
 // ----------------------------------------------------------------------------
@@ -39,7 +40,7 @@ PressureBME280 pres(&bme, &sensors);
 //SeaLevelPressure slpres(&pres, &tempbme, 460.0, &sensors);
 #endif
 #ifdef SENSEDHT
-SenseDHT dht(dhtpin, DHT_TYPE_22);
+SenseDHT dht(DHT_PIN, DHT_TYPE_22);
 TemperatureDHT tempdht(&dht, &sensors);
 HumidityDHT humdht(&dht, &sensors);
 #endif
@@ -66,7 +67,7 @@ void setup() {
   sensors.setPrintTime(ESensors::NO_TIME);  // no time column for the serial plotter
   sensors.setInterval(sensorsInterval);
 #ifdef TEMPDS18x20
-  temp.begin(tempPin);
+  temp.begin(DS18x20_PIN);
 #endif
   Wire.begin();
 #ifdef SENSEBME280
