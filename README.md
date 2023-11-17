@@ -85,3 +85,10 @@ ESensors is used in:
   combination for recording electric fish EODs in their natural
   habitats with lot's of additional features (display, online
   analysis, acoustiv feedabck, environmental parameters).
+
+
+## Links
+
+- [SmartRock](https://github.com/OPEnSLab-OSU/SmartRock/wiki) from the
+  [OPenSLab](https://open-sensing.org/) at Oregon-State University.
+
