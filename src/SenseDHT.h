@@ -2,7 +2,7 @@
   SenseDHT - read temperature and humidity from Aosong DHT11 or DHT20.
   Created by Jan Benda, July 24nd, 2023.
 
-  Wrapper for [DHT Sensors Non-Blocking](https://github.com/toannv17/DHT-Sensors-Non-Blocking) library.
+  Wrapper for [DHT Sensors Non-Blocking](https://github.com/toannv17/DHT-Sensors-Non-Blocking) library by Toan Nguyen.
 
   The [DHT22 Datasheet](http://www.adafruit.com/datasheets/DHT22.pdf).
 */
@@ -10,7 +10,7 @@
 #ifndef SenseDHT_h
 #define SenseDHT_h
 
-
+/*
 #include <Arduino.h>
 #include <DHT_Async.h>
 #include <ESensorDevice.h>
@@ -76,5 +76,5 @@ class HumidityDHT : public ESensorValue<SenseDHT> {
   virtual float reading() const;
 };
 
-
+*/
 #endif

@@ -1,3 +1,4 @@
+/*
 #include <SenseDHT.h>
 
 
@@ -72,3 +73,4 @@ float HumidityDHT::reading() const {
   return SDC->humidity();
 }
 
+*/
