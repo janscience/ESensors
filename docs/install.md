@@ -20,13 +20,8 @@ need to change a few things in the library.
 
 The ESensors library is based on the following libraries:
 
-- [SdFat version2](https://github.com/greiman/SdFat)
 - [SparkFun BME280](https://github.com/sparkfun/SparkFun_BME280_Arduino_Library)
 - [TSL2591MI](https://bitbucket.org/christandlg/tsl2591mi/)
-
-The [SdFat version2](https://github.com/greiman/SdFat) library is
-already included in
-[Teensyduino](https://www.pjrc.com/teensy/teensyduino.html).
 
 For installing the libraries for the environmental sensors, open in
 the Arduino IDE: Tools - Manage libraries. Search for the libraries
@@ -34,6 +29,10 @@ and install them.
 
 
 ## Download from github
+
+If you want the latest development version of ESensors, then instad of
+installing the library vie the Arduino IDE, you can clone it directly
+from github.
 
 Clone the [ESensors](https://github.com/janscience/ESensors) repository
 directly into 'Arduino/libraries':
