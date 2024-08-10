@@ -81,7 +81,9 @@ class ESensors {
   void setPrintTime(print_time_t pt);
 
   // Report sensor readings with name (or symbol) and unit on serial monitor.
-  void print(bool symbols=false);
+  // Timestamp and each sensor reading are printed on separate lines
+  // unless oneline is set to true.
+  void print(bool symbols=false, bool oneline=false);
 
   // Report sensor names (or symbol) and units separated by tabs on
   // serial monitor.

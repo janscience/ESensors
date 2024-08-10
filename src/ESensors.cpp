@@ -61,8 +61,9 @@ void ESensors::report() {
       n++;
     }
   }
-  if (n == 0)
-    Serial.println("  no sensors avilable!");
+  if (n == 0 && NSensors > 0)
+    Serial.println("  no sensors available!");
+  Serial.println();
 }
 
 
@@ -174,29 +175,46 @@ void ESensors::setPrintTime(print_time_t pt) {
 }
 
 
-void ESensors::print(bool symbols) {
+void ESensors::print(bool symbols, bool oneline) {
+  char tsep[3] = "\n";
+  if (oneline)
+    strcpy(tsep, ": ");
   if (PrintTime == ISO_TIME)
-    Serial.printf("Timestamp = %04d-%02d-%02dT%02d:%02d:%02d\n",
+    Serial.printf("Timestamp = %04d-%02d-%02dT%02d:%02d:%02d%s",
 		  year(TimeStamp), month(TimeStamp), day(TimeStamp),
-		  hour(TimeStamp), minute(TimeStamp), second(TimeStamp));
+		  hour(TimeStamp), minute(TimeStamp), second(TimeStamp), tsep);
   else if (PrintTime == SEC_TIME)
-    Serial.printf("Timestamp = %llds\n", TimeStamp);
+    Serial.printf("Timestamp = %llds%s", TimeStamp, tsep);
   char s[20];
   for (uint8_t k=0; k<NSensors; k++) {
+    if (oneline && k > 0)
+      Serial.printf(", ");
     if (Snsrs[k]->available()) {
       Snsrs[k]->valueStr(s, true);
       if (symbols)
-	Serial.printf("%s = %s%s\n", Snsrs[k]->symbol(), s, Snsrs[k]->unit());
+	Serial.printf("%s = %s%s", Snsrs[k]->symbol(), s, Snsrs[k]->unit());
       else
-	Serial.printf("%s = %s%s\n", Snsrs[k]->name(), s, Snsrs[k]->unit());
+	Serial.printf("%s = %s%s", Snsrs[k]->name(), s, Snsrs[k]->unit());
     }
     else {
-      if (symbols)
-	Serial.printf("%s not available\n", Snsrs[k]->symbol());
-      else
-	Serial.printf("%s not available\n", Snsrs[k]->name());
+      if (oneline) {
+	if (symbols)
+	  Serial.printf("%s = -", Snsrs[k]->symbol());
+	else
+	  Serial.printf("%s = -", Snsrs[k]->name());
+      }
+      else {
+	if (symbols)
+	  Serial.printf("%s not available\n", Snsrs[k]->symbol());
+	else
+	  Serial.printf("%s not available\n", Snsrs[k]->name());
+      }
     }
+    if (!oneline)
+      Serial.printf("\n");
   }
+  if (oneline)
+    Serial.printf("\n");
 }
 
 
