@@ -179,12 +179,14 @@ void ESensors::print(bool symbols, bool oneline) {
   char tsep[3] = "\n";
   if (oneline)
     strcpy(tsep, ": ");
+  else
+    Serial.print("Timestamp = ");
   if (PrintTime == ISO_TIME)
-    Serial.printf("Timestamp = %04d-%02d-%02dT%02d:%02d:%02d%s",
+    Serial.printf("%04d-%02d-%02dT%02d:%02d:%02d%s",
 		  year(TimeStamp), month(TimeStamp), day(TimeStamp),
 		  hour(TimeStamp), minute(TimeStamp), second(TimeStamp), tsep);
   else if (PrintTime == SEC_TIME)
-    Serial.printf("Timestamp = %llds%s", TimeStamp, tsep);
+    Serial.printf("%llds%s", TimeStamp, tsep);
   char s[20];
   for (uint8_t k=0; k<NSensors; k++) {
     if (oneline && k > 0)
