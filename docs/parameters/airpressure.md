@@ -46,6 +46,7 @@ Other available units are
 
 - [BMP388](https://www.bluedot.space/products/bmp388/)
 
+- [Bosch BMP585](https://www.bosch-sensortec.com/products/environmental-sensors/pressure-sensors/bmp585/)
 
 
 ## Sea level pressure

@@ -27,4 +27,5 @@
   [[github]](https://github.com/WMXZ-EU/microSoundRecorder)
   [[wiki]](https://github.com/WMXZ-EU/microSoundRecorder/wiki/Hardware-setup)
   [[forum]](https://forum.pjrc.com/threads/52175?p=185386&viewfull=1#post185386)
+- [DiveIno](http://www.diveino.hu/)
 

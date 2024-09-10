@@ -245,3 +245,5 @@ unipolar voltage. This needs to be testet!
 - [Build and Test a Conductivity Probe with
   Arduino](https://www.teachengineering.org/activities/view/nyu_probe_activity1):
   very detailed and didactic. Instructions for assembling a probe.
+
+- [DiveIno water activation](http://www.diveino.hu/2017/05/22/Magnetic/) and [Water activated switch](http://www.schrenk.hu/2017/04/09/WaterActivatedSwitch/)

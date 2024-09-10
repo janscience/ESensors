@@ -16,6 +16,12 @@ There is a number of nice chargers that make using LiPo batteries on
 the Teensy very easy.
 
 
+## LiPo Fuel Gauge
+
+[SparkFun LiPo Fuel Gauge](https://www.sparkfun.com/products/20680)
+based on [MAX17043](https://www.analog.com/en/products/max17043.html)
+
+
 ## LiPo charger
 
 - [Adafruit LiIon/LiPoly Backpack](https://www.adafruit.com/product/2124): 100mA or 500mA charge current.
