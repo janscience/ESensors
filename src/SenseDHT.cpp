@@ -25,6 +25,8 @@ SenseDHT::SenseDHT(uint8_t pin, uint8_t type) :
   char is[20];
   sprintf(is, "pin%02d", pin);
   setIdentifier(is);
+  //setBus();
+  //setAddress();
 }
 
 

@@ -15,6 +15,8 @@ LightBH1750::LightBH1750(ESensors *sensors)
 bool LightBH1750::begin(uint8_t address) {
   if (! hp_BH1750::begin(address))
     return false;
+  setBus(BUS::I2C);
+  setAddress(address);
   init();
   return true;
 }
@@ -23,6 +25,8 @@ bool LightBH1750::begin(uint8_t address) {
 bool LightBH1750::begin(TwoWire &wire, uint8_t address) {
   if (! hp_BH1750::begin(address, &wire))
     return false;
+  setBus(BUS::I2C);
+  setAddress(address);
   init();
   return true;
 }

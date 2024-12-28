@@ -14,6 +14,8 @@ bool SenseBME280::beginI2C(uint8_t address) {
   settings.I2CAddress = address;
   if (! BME280::beginI2C())
     return false;
+  setBus(BUS::I2C);
+  setAddress(address);
   init();
   return true;
 }
@@ -23,6 +25,8 @@ bool SenseBME280::beginI2C(TwoWire &wire, uint8_t address) {
   settings.I2CAddress = address;
   if (! BME280::beginI2C(wire))
     return false;
+  setBus(BUS::I2C);
+  setAddress(address);
   init();
   return true;
 }
@@ -31,6 +35,8 @@ bool SenseBME280::beginI2C(TwoWire &wire, uint8_t address) {
 bool SenseBME280::beginSPI(uint8_t cs_pin) {
   if (! BME280::beginSPI(cs_pin))
     return false;
+  setBus(BUS::SPI);
+  setAddress(cs_pin);
   init();
   return true;
 }

@@ -20,8 +20,30 @@ class ESensorDevice {
 
   static constexpr float NoValue = -INFINITY;
 
+  enum BUS {
+    UNKNOWN,
+    INTERN,
+    ONEWIRE,
+    I2C,
+    SPI,
+    SDIO,
+    I2S,
+    TDM
+  };
+  
+  static const char *BusStrings[8];
+
   // Initialize the sensor.
   ESensorDevice();
+
+  // Bus controlling the sensor device.
+  BUS bus() const { return Bus; };
+
+  // Bus controlling the sensor device as a string (max 8 characters).
+  const char *busStr() const { return BusStrings[Bus]; };
+
+  // Address on bus.
+  unsigned int address() const { return Address; };
 
   // Return name of sensor chip model as character array.
   virtual const char* chip() const;
@@ -62,6 +84,12 @@ class ESensorDevice {
   
 protected:
 
+  // Set bus that controls the chip.
+  void setBus(BUS bus) { Bus = bus; };
+
+  // Set address of chip on bus.
+  void setAddress(unsigned int address) { Address = address; };
+
   // Set the name of the chip.
   void setChip(const char *chip);
 
@@ -85,6 +113,8 @@ protected:
   // Called by get().
   virtual void getData() = 0;
 
+  BUS Bus;
+  unsigned int Address;
   static const int MaxStr = 49;
   char Chip[MaxStr + 1];
   char Identifier[MaxStr + 1];

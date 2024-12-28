@@ -29,7 +29,7 @@ void TemperatureDS18x20::begin(uint8_t pin) {
   OW.begin(pin);
 
   OW.reset_search();
-  if ( !OW.search(Addr)) {
+  if (!OW.search(Addr)) {
     Serial.println("No DS18x20 temperature sensor found.");
     Serial.println();
     return;
@@ -40,9 +40,17 @@ void TemperatureDS18x20::begin(uint8_t pin) {
     return;
   }
 
+  setBus(BUS::ONEWIRE);
+  unsigned int addr = 0;
+  for(size_t i=1; i<7; i++) {
+    addr <<= 8;   // may overflow...
+    addr += Addr[i];
+  }
+  setAddress(addr);
+
   // ROM as string:
   char *sp = Identifier;
-  for( byte i=0; i<8; i++)
+  for(byte i=0; i<8; i++)
     sp += sprintf(sp, "%02X ", Addr[i]);
   sp--;
   *sp = '\0';

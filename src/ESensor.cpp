@@ -149,9 +149,10 @@ void ESensor::report(Stream &stream) {
     stream.print(":");
     if (strlen(chip()) > 0)
       stream.printf("\t on %s device", chip());
+    stream.printf(" (address %x on %s bus", address(), busStr());
     if (strlen(identifier()) > 0)
-      stream.printf(" (ID: %s)", identifier());
-    stream.printf(" at a resolution of %s%s.\n", rs, unit());
+      stream.printf(", ID: %s", identifier());
+    stream.printf(") at a resolution of %s%s.\n", rs, unit());
   }
 }
 

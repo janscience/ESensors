@@ -1,7 +1,21 @@
 #include <ESensorDevice.h>
 
 
+const char *ESensorDevice::BusStrings[8] = {
+    "unknown",
+    "intern",
+    "OneWire",
+    "I2C",
+    "SPI",
+    "SDIO",
+    "I2S",
+    "TDM"
+};
+
+
 ESensorDevice::ESensorDevice() :
+  Bus(BUS::UNKNOWN),
+  Address(0),
   Chip(""),
   Identifier(""),
   Measuring(false),
