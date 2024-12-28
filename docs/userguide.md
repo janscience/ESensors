@@ -84,8 +84,8 @@ of functions that you can use to change the SI unit prefix
 (e.g. `setMilli()`, `setKilo()`, etc., to change a fraction to percent
 (`setPercent()`), or to change degree Celsius to Kelvin
 (`setKelvin()`), for example. These functions also modify the format
-string in a smart way. Or adapt the format string directly via
-`setFormat()`.
+string in a smart way. Alternatively, you may adapt the format string
+directly via `setFormat()`.
 
 Change names and units according to your needs in the setup function.
 
@@ -186,8 +186,9 @@ void loop() {
 ## Managing multiple sensors
 
 The [ESensors class](classes.md#esensors) manages a single or multiple
-[ESensor](classes.md#esensor). It provides infrastructure to read them in
-parallel, to write readings to the Serial port or into csv files.
+[ESensor](classes.md#esensor). It provides infrastructure to read them
+in parallel, to write readings to the Serial port or other streams or
+into csv files.
 
 For this, an instance of the [ESensors class](classes.md#esensors) needs
 to be passed to the individual sensors. Alternatively, they can be
@@ -255,7 +256,7 @@ function of the [ESensors class](classes.md#esensors) in the
 appropriate times without blocking. Whenever new sensor values are
 available, `update()` returns `true` and the values can be read out as
 usual via `value()`. This way, other things can be controlled, while
-the sensors work on getting their data:
+the sensor devices work on getting their data:
 
 ```cpp
 void loop() {
@@ -365,11 +366,14 @@ time/s,temperature/ºC,humidity/%,pressure/hPa
 ```
 
 
-## Reporting on Serial
+## Reporting on streams/Serial
 
-The [ESensors class](classes.md#esensors) also provides some convenience
-functions to report sensor properties and values on the Serial
-port. Use the Serial monitr or plotter of the Arduino IDE to see them.
+The [ESensors class](classes.md#esensors) also provides some
+convenience functions to report sensor properties and values on a
+stream like the Serial port. Use the Serial monitor or plotter of the
+Arduino IDE to see them. By default, the functions described in the
+following write their output to Serial. An alternative stream can be
+passed to these functions as the last argument.
 
 
 ### report()

@@ -9,18 +9,18 @@
 #include <SeaLevelPressure.h>
 
 // uncomment the sensors you want to use:
-//#define TEMPDS18x20
-//#define SENSEBME280
-#define SENSEDHT
-//#define LIGHTTSL2591
-//#define LIGHTBH1750
+#define TEMPDS18x20
+#define SENSEBME280
+//#define SENSEDHT
+#define LIGHTTSL2591
+#define LIGHTBH1750
 
 
 // settings: -----------------------------------------------------------------
 
 #define DS18x20_PIN 10       // pin for DATA line of DS18x20 themperature sensor
 #define DHT_PIN 12           // pin for DATA line of DHTx themperature and humidity sensor
-float sensorsInterval = 2.0; // interval between sensors readings in seconds
+float sensorsInterval = 2.0; // interval between sensor readings in seconds
 
 // ----------------------------------------------------------------------------
 

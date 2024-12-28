@@ -20,6 +20,8 @@ Member functions:
 
 - `chip()`: name of the chip/device.
 - `identifier()`: unique ID string.
+- `bus()`, `busStr()`: bus that controls the chip.
+- `address()`: address of the chip on the bus.
 - `available()`: availability of the chip/device.
 - `report()`: print chip() and identifier() on Serial.
 - `request()`: request a sensor reading.
@@ -91,9 +93,9 @@ Available ESensors:
 ## ESensorValue
 
 An [ESensorValue](../src/ESensorValue.h) is an [ESensor](#esensor)
-that owns a [ESensorDevice](#esensordevice) and exposes a single type
-of sensor reading of this device. See the documentation of the
-[ESensorDevice](#esensordevice)s listed above for available
+that owns a pointer to an [ESensorDevice](#esensordevice) and exposes
+a single type of sensor reading of this device. See the documentation
+of the [ESensorDevice](#esensordevice)s listed above for available
 [ESensor](#esensor) classes.
 
 
@@ -131,13 +133,13 @@ Control reading of sensor data:
 - `interval()`, `setInterval()`: time interval for repetitive reads used in `update()`.
 - `update()`: non-blocking control of requests and gets for all [ESensor](#esensor)s.
 
-Output on Serial:
+Output on stream:
 
-- `report()`: report properties (name, unit, chip, etc. ) of managed [ESensor](#esensor)s on Serial.
+- `report()`: report properties (name, unit, chip, etc. ) of managed [ESensor](#esensor)s.
 - `setPrintTime()`: control whether and how time stamps are reported.
-- `print()`: print sensor names, readings, and units on Serial.
-- `printHeader()`: print header with sensor names and units on Serial.
-- `printValues()`: print sensor readings on Serial.
+- `print()`: print sensor names, readings, and units.
+- `printHeader()`: print header with sensor names and units.
+- `printValues()`: print sensor readings.
 
 Log sensor data into CSV file:
 
