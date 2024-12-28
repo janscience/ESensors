@@ -32,8 +32,8 @@ class ESensorDevice {
   // Return true if sensor is available.
   virtual bool available() = 0;
   
-  // Report properties of device on serial monitor.
-  virtual void report();
+  // Report properties of device on stream.
+  virtual void report(Stream &stream=Serial);
 
   // Request a sensor reading.
   void request();

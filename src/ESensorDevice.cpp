@@ -30,11 +30,11 @@ void ESensorDevice::setIdentifier(const char *identifier) {
 }
 
 
-void ESensorDevice::report() {
+void ESensorDevice::report(Stream &stream) {
   if (available()) {
-    Serial.printf("device %s", chip());
+    stream.printf("device %s", chip());
     if (strlen(identifier()) > 0)
-      Serial.printf(" (ID: %s)\n", identifier());
+      stream.printf(" (ID: %s)\n", identifier());
   }
 }
 

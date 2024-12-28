@@ -38,8 +38,8 @@ class ESensors {
   // Set update interval for reading sensor values to interval seconds.
   void setInterval(float interval);
 
-  // Report properties of all sensor devices on serial monitor.
-  void report();
+  // Report properties of all sensor devices on stream.
+  void report(Stream &stream=Serial);
 
   // Start acquisition of sensor values, set delayTime(), and clear
   // data buffers.
@@ -80,19 +80,19 @@ class ESensors {
   // Whether and how print*() and write*() functions should output timestamps.
   void setPrintTime(print_time_t pt);
 
-  // Report sensor readings with name (or symbol) and unit on serial monitor.
+  // Report sensor readings with name (or symbol) and unit on stream.
   // Timestamp and each sensor reading are printed on separate lines
   // unless oneline is set to true.
-  void print(bool symbols=false, bool oneline=false);
+  void print(bool symbols=false, bool oneline=false, Stream &stream=Serial);
 
   // Report sensor names (or symbol) and units separated by tabs on
-  // serial monitor.
-  void printHeader(bool symbols=false);
+  // stream.
+  void printHeader(bool symbols=false, Stream &stream=Serial);
 
-  // Report sensor readings separated by tabs on serial monitor.
+  // Report sensor readings separated by tabs on stream.
   // If compact then use the compact format that has the width removed.
   // Use printHeader() to annotate the printed columns.
-  void printValues(bool compact=false);
+  void printValues(bool compact=false, Stream &stream=Serial);
   
   // Create header line for CSV file.
   // Usually, this is automatically called by openCSV().

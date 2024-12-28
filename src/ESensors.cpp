@@ -20,7 +20,7 @@ ESensors::ESensors() :
 
 void ESensors::addSensor(ESensor &sensor) {
   if (NSensors >= MaxSensors) {
-    Serial.println("Maximum number of supported sensors exceeded!");
+    Serial.println("ERROR: Maximum number of supported sensors exceeded!");
     return;
   }
   Snsrs[NSensors++] = &sensor;
@@ -47,23 +47,23 @@ void ESensors::setInterval(float interval) {
 }
 
 
-void ESensors::report() {
+void ESensors::report(Stream &stream) {
   char ds[2] = {'\0', '\0'};
   if (NSensors > 1)
     ds[0] = 's';
-  Serial.printf("%d of %d environmental sensor%s available, read every %gs:\n",
+  stream.printf("%d of %d environmental sensor%s available, read every %gs:\n",
 		sensors(), NSensors, ds, 0.001*Interval);
   int n = 0;
   for (uint8_t k=0; k<NSensors; k++) {
     if (Snsrs[k]->available()) {
-      Serial.printf("  ");
+      stream.printf("  ");
       Snsrs[k]->report();
       n++;
     }
   }
   if (n == 0 && NSensors > 0)
-    Serial.println("  no sensors available!");
-  Serial.println();
+    stream.println("  no sensors available!");
+  stream.println();
 }
 
 
@@ -175,99 +175,99 @@ void ESensors::setPrintTime(print_time_t pt) {
 }
 
 
-void ESensors::print(bool symbols, bool oneline) {
+void ESensors::print(bool symbols, bool oneline, Stream &stream) {
   char tsep[3] = "\n";
   if (oneline)
     strcpy(tsep, ": ");
   else
-    Serial.print("Timestamp = ");
+    stream.print("Timestamp = ");
   if (PrintTime == ISO_TIME)
-    Serial.printf("%04d-%02d-%02dT%02d:%02d:%02d%s",
+    stream.printf("%04d-%02d-%02dT%02d:%02d:%02d%s",
 		  year(TimeStamp), month(TimeStamp), day(TimeStamp),
 		  hour(TimeStamp), minute(TimeStamp), second(TimeStamp), tsep);
   else if (PrintTime == SEC_TIME)
-    Serial.printf("%llds%s", TimeStamp, tsep);
+    stream.printf("%llds%s", TimeStamp, tsep);
   char s[20];
   for (uint8_t k=0; k<NSensors; k++) {
     if (oneline && k > 0)
-      Serial.printf(", ");
+      stream.printf(", ");
     if (Snsrs[k]->available()) {
       Snsrs[k]->valueStr(s, true);
       if (symbols)
-	Serial.printf("%s = %s%s", Snsrs[k]->symbol(), s, Snsrs[k]->unit());
+	stream.printf("%s = %s%s", Snsrs[k]->symbol(), s, Snsrs[k]->unit());
       else
-	Serial.printf("%s = %s%s", Snsrs[k]->name(), s, Snsrs[k]->unit());
+	stream.printf("%s = %s%s", Snsrs[k]->name(), s, Snsrs[k]->unit());
     }
     else {
       if (oneline) {
 	if (symbols)
-	  Serial.printf("%s = -", Snsrs[k]->symbol());
+	  stream.printf("%s = -", Snsrs[k]->symbol());
 	else
-	  Serial.printf("%s = -", Snsrs[k]->name());
+	  stream.printf("%s = -", Snsrs[k]->name());
       }
       else {
 	if (symbols)
-	  Serial.printf("%s not available\n", Snsrs[k]->symbol());
+	  stream.printf("%s not available\n", Snsrs[k]->symbol());
 	else
-	  Serial.printf("%s not available\n", Snsrs[k]->name());
+	  stream.printf("%s not available\n", Snsrs[k]->name());
       }
     }
     if (!oneline)
-      Serial.printf("\n");
+      stream.printf("\n");
   }
   if (oneline)
-    Serial.printf("\n");
+    stream.printf("\n");
 }
 
 
-void ESensors::printHeader(bool symbols) {
+void ESensors::printHeader(bool symbols, Stream &stream) {
   int n = 0;
   if (PrintTime != NO_TIME) {
     if (symbols)
-      Serial.print("t/s");
+      stream.print("t/s");
     else
-      Serial.print("time/s");
+      stream.print("time/s");
     n++;
   }
   for (uint8_t k=0; k<NSensors; k++) {
     if (Snsrs[k]->available()) {
       if (n > 0)
-	Serial.print('\t');
+	stream.print('\t');
       n++;
       if (symbols)
-	Serial.print(Snsrs[k]->symbol());
+	stream.print(Snsrs[k]->symbol());
       else
-	Serial.print(Snsrs[k]->name());
+	stream.print(Snsrs[k]->name());
       if (strlen(Snsrs[k]->unit()) > 0)
-	Serial.printf("/%s", Snsrs[k]->unit());
+	stream.printf("/%s", Snsrs[k]->unit());
     }
   }
-  Serial.println();
+  stream.println();
 }
 
 
-void ESensors::printValues(bool compact) {
+void ESensors::printValues(bool compact, Stream &stream) {
   int n = 1;
   // print time:
   if (PrintTime == ISO_TIME)
-    Serial.printf("%04d-%02d-%02dT%02d:%02d:%02d",
+    stream.printf("%04d-%02d-%02dT%02d:%02d:%02d",
 		  year(TimeStamp), month(TimeStamp), day(TimeStamp),
 		  hour(TimeStamp), minute(TimeStamp), second(TimeStamp));
   else if (PrintTime == SEC_TIME)
-    Serial.printf("%lld", TimeStamp);
+    stream.printf("%lld", TimeStamp);
   else
     n = 0;
   char s[20];
   for (uint8_t k=0; k<NSensors; k++) {
     if (Snsrs[k]->available()) {
       if (n > 0)
-	Serial.print('\t');
+	stream.print('\t');
       n++;
       Snsrs[k]->valueStr(s, compact);
-      Serial.print(s);
+      stream.print(s);
     }
   }
-  Serial.println();
+  stream.println();
 }
 
 

@@ -36,7 +36,7 @@ void TemperatureDS18x20::begin(uint8_t pin) {
   }
 
   if (OneWire::crc8(Addr, 7) != Addr[7]) {
-    Serial.println("CRC is not valid!");
+    Serial.println("ERROR: OneWire CRC is not valid!");
     return;
   }
 
@@ -78,7 +78,7 @@ void TemperatureDS18x20::requestData() {
     return;
 
   if (!OW.reset()) {
-    Serial.println("No device present\n");
+    Serial.println("ERROR: OneWire device not present\n");
     return;
   }
   OW.select(Addr);
@@ -92,7 +92,7 @@ void TemperatureDS18x20::getData() {
     return;
     
   if (!OW.reset()) {
-    Serial.println("No device present\n");
+    Serial.println("ERROR: OneWire device not present\n");
     return;
   }
   OW.select(Addr);    
@@ -102,7 +102,7 @@ void TemperatureDS18x20::getData() {
   for (byte i=0; i<9; i++)     // we need 9 bytes
     data[i] = OW.read();
   if (OneWire::crc8(data, 8) != data[8]) {
-    Serial.println("CRC is not valid!");
+    Serial.println("ERROR: OneWire CRC is not valid!");
     return;
   }
 

@@ -92,8 +92,8 @@ class ESensor : public ESensorDevice {
   // Return the number of printed characters.
   int resolutionStr(char *s, bool compact=false) const;
   
-  // Report properties of sensor on serial monitor.
-  virtual void report();
+  // Report properties of sensor on stream.
+  virtual void report(Stream &stream=Serial);
 
   // The sensor reading in the basic unit.
   // On error, return -INFINITY.

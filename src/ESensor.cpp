@@ -109,10 +109,10 @@ const char* ESensor::compactFormat() const {
 void ESensor::setFormat(const char *format) {
   strcpy(Format, format);
   // format without width:
-  char fpref[10];
+  char fpref[4];
   int width;
   int decis;
-  char ftype[10];
+  char ftype[4];
   parseFormat(fpref, &width, &decis, ftype);
   if (decis >= 0)
     sprintf(CompactFormat, "%%%s.%d%s", fpref, decis, ftype);
@@ -139,19 +139,19 @@ int ESensor::resolutionStr(char *s, bool compact) const {
 }
 
 
-void ESensor::report() {
+void ESensor::report(Stream &stream) {
   if (available()) {
     char rs[10];
     resolutionStr(rs, true);
-    Serial.printf("%s %s", name(), symbol());
+    stream.printf("%s %s", name(), symbol());
     if (strlen(unit()) > 0)
-      Serial.printf(" (%s)", unit());
-    Serial.print(":");
+      stream.printf(" (%s)", unit());
+    stream.print(":");
     if (strlen(chip()) > 0)
-      Serial.printf("\t on %s device", chip());
+      stream.printf("\t on %s device", chip());
     if (strlen(identifier()) > 0)
-      Serial.printf(" (ID: %s)", identifier());
-    Serial.printf(" at a resolution of %s%s.\n", rs, unit());
+      stream.printf(" (ID: %s)", identifier());
+    stream.printf(" at a resolution of %s%s.\n", rs, unit());
   }
 }
 
@@ -217,10 +217,10 @@ void ESensor::parseFormat(char *prefix, int *width,
 
 void ESensor::adaptFormat(int decimals) {
   // parse format string:
-  char fpref[10];
+  char fpref[4];
   int width;
   int decis;
-  char ftype[10];
+  char ftype[4];
   parseFormat(fpref, &width, &decis, ftype);
   // adapt format:
   if (strcmp(ftype, "f") == 0) {
@@ -238,7 +238,7 @@ void ESensor::adaptFormat(int decimals) {
     }
   }
   // assemble format string:
-  char format[10];
+  char format[22];
   if (width >= 0 && decis >= 0)
     sprintf(format, "%%%s%d.%d%s", fpref, width, decis, ftype);
   else if (width >= 0)
