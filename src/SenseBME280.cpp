@@ -14,8 +14,7 @@ bool SenseBME280::beginI2C(uint8_t address) {
   settings.I2CAddress = address;
   if (! BME280::beginI2C())
     return false;
-  setBus(BUS::I2C);
-  setAddress(address);
+  setI2CBus(Wire, address);
   init();
   return true;
 }
@@ -25,8 +24,7 @@ bool SenseBME280::beginI2C(TwoWire &wire, uint8_t address) {
   settings.I2CAddress = address;
   if (! BME280::beginI2C(wire))
     return false;
-  setBus(BUS::I2C);
-  setAddress(address);
+  setI2CBus(wire, address);
   init();
   return true;
 }
@@ -35,8 +33,7 @@ bool SenseBME280::beginI2C(TwoWire &wire, uint8_t address) {
 bool SenseBME280::beginSPI(uint8_t cs_pin) {
   if (! BME280::beginSPI(cs_pin))
     return false;
-  setBus(BUS::SPI);
-  setAddress(cs_pin);
+  setSPIBus(SPI, cs_pin);
   init();
   return true;
 }
@@ -48,7 +45,6 @@ void SenseBME280::init() {
   case 0x58: setChip("BMP280"); break;
   case 0x60: setChip("BME280"); break;
   }
-  setIdentifier("");
   setFilter(0); // 0 (off) to 4. Filter coefficient. Table 28 in data sheet.
   setStandbyTime(1); // 0 to 7 valid. Time between readings. Table 27 in data sheet.
   setTempOverSample(1); // powers of two from 0 to 16 are valid. 0 disables temp sensing. Table 24 in data sheet.

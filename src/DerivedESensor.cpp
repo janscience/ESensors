@@ -61,6 +61,15 @@ const char* DerivedESensor::chip() const {
   unsigned int n = 0;
   for (size_t k=0; k<NSnsr; k++) {
     if (strlen(Snsr[k]->chip()) > 0) {
+      bool same = false;
+      for (size_t j=0; j<k; j++) {
+	if (strcmp(Snsr[j]->chip(), Snsr[k]->chip()) == 0) {
+	  same = true;
+	  break;
+	}
+      }
+      if (same)
+	continue;
       if (n > 0) {
 	if (n + 1 < NSnsr)
 	  *(sp++) = ',';
@@ -84,6 +93,15 @@ const char* DerivedESensor::identifier() const {
   unsigned int n = 0;
   for (size_t k=0; k<NSnsr; k++) {
     if (strlen(Snsr[k]->identifier()) > 0) {
+      bool same = false;
+      for (size_t j=0; j<k; j++) {
+	if (strcmp(Snsr[j]->identifier(), Snsr[k]->identifier()) == 0) {
+	  same = true;
+	  break;
+	}
+      }
+      if (same)
+	continue;
       if (n > 0) {
 	if (n + 1 < NSnsr)
 	  *(sp++) = ',';

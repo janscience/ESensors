@@ -37,6 +37,12 @@ class ESensorValue : public ESensor {
   // Return true if sensor device is available.
   virtual bool available() { return SDC->available(); };
 
+  // Bus controlling the sensor device.
+  virtual BUS bus() const { return SDC->bus(); };
+
+  // Address on bus.
+  virtual unsigned int address() const { return SDC->address(); };
+
   // Return name of sensor chip model as character array.
   virtual const char* chip() const { return SDC->chip(); };
 

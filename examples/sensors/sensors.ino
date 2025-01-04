@@ -89,8 +89,8 @@ void setup() {
   bh.setAutoRanging();
 #endif
   Serial.println();
-  //sensors.report();  // nice, but confuses the serial plotter
-  //Serial.println();
+  sensors.report();  // nice, but confuses the serial plotter
+  Serial.println();
   delay(500);
   // discard first read:
   sensors.start();

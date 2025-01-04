@@ -4,7 +4,7 @@
 
   Wrapper for [SparkFun BME280 Arduino Library](https://github.com/sparkfun/SparkFun_BME280_Arduino_Library).
 
-  Only supports forced mode and burst reading.
+  Supports forced mode and burst reading only.
 
   [Bosch Sensortec Website](https://www.bosch-sensortec.com/products/environmental-sensors/humidity-sensors-bme280/)
 

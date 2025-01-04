@@ -11,6 +11,8 @@
 
 
 #include <Arduino.h>
+#include <Wire.h>
+#include <SPI.h>
 #include <TimeLib.h>
 
 
@@ -24,26 +26,28 @@ class ESensorDevice {
     UNKNOWN,
     INTERN,
     ONEWIRE,
-    I2C,
-    SPI,
-    SDIO,
-    I2S,
-    TDM
+    I2C0,
+    I2C1,
+    I2C2,
+    I2C3,
+    SPI0,
+    SPI1,
+    SPI2
   };
   
-  static const char *BusStrings[8];
+  static const char *BusStrings[10];
 
   // Initialize the sensor.
   ESensorDevice();
 
   // Bus controlling the sensor device.
-  BUS bus() const { return Bus; };
+  virtual BUS bus() const;
 
   // Bus controlling the sensor device as a string (max 8 characters).
-  const char *busStr() const { return BusStrings[Bus]; };
+  const char *busStr() const { return BusStrings[bus()]; };
 
   // Address on bus.
-  unsigned int address() const { return Address; };
+  virtual unsigned int address() const;
 
   // Return name of sensor chip model as character array.
   virtual const char* chip() const;
@@ -86,6 +90,14 @@ protected:
 
   // Set bus that controls the chip.
   void setBus(BUS bus) { Bus = bus; };
+
+  // Set I2C bus and address that controls the chip.
+  // Also set identifier to bus name plus I2C address.
+  void setI2CBus(const TwoWire &wire, unsigned int address);
+
+  // Set SPI bus and CS pin that controls the chip.
+  // Also set identifier to bus name plus CS pin.
+  void setSPIBus(const SPIClass &spi, unsigned int cspin);
 
   // Set address of chip on bus.
   void setAddress(unsigned int address) { Address = address; };

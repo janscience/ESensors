@@ -1,15 +1,17 @@
 #include <ESensorDevice.h>
 
 
-const char *ESensorDevice::BusStrings[8] = {
+const char *ESensorDevice::BusStrings[10] = {
     "unknown",
     "intern",
     "OneWire",
-    "I2C",
-    "SPI",
-    "SDIO",
-    "I2S",
-    "TDM"
+    "I2C-0",
+    "I2C-1",
+    "I2C-2",
+    "I2C-3",
+    "SPI-0"
+    "SPI-1"
+    "SPI-2"
 };
 
 
@@ -21,6 +23,67 @@ ESensorDevice::ESensorDevice() :
   Measuring(false),
   Retrieving(false),
   TimeStamp(0) {
+}
+
+
+ESensorDevice::BUS ESensorDevice::bus() const {
+  return Bus;
+}
+
+
+void ESensorDevice::setI2CBus(const TwoWire &wire, unsigned int address) {
+  if (&wire == &Wire)
+    Bus = BUS::I2C0;
+#if defined(__IMXRT1052__) || defined(__IMXRT1062__)
+  else if (&wire == &Wire1)
+    Bus = BUS::I2C1;
+  else if (&wire == &Wire2)
+    Bus = BUS::I2C2;
+#if defined(ARDUINO_TEENSY_MICROMOD)
+  else if (&wire == &Wire3)
+    Bus = BUS::I2C3;
+#endif
+#endif
+#if defined(__arm__) && defined(TEENSYDUINO) && (defined(__MKL26Z64__) || defined(__MK20DX128__) || defined(__MK20DX256__) || defined(__MK64FX512__) || defined(__MK66FX1M0__))
+#ifdef WIRE_IMPLEMENT_WIRE1
+  else if (&wire == &Wire1)
+    Bus = BUS::I2C1;
+#endif
+#ifdef WIRE_IMPLEMENT_WIRE2
+  else if (&wire == &Wire2)
+    Bus = BUS::I2C2;
+#endif
+#ifdef WIRE_IMPLEMENT_WIRE3
+  else if (&wire == &Wire3)
+    Bus = BUS::I2C3;
+#endif
+#endif
+  Address = address;
+  strcpy(Identifier, busStr());
+  sprintf(Identifier + strlen(Identifier), " %x", address);
+}
+
+
+void ESensorDevice::setSPIBus(const SPIClass &spi, unsigned int cspin) {
+  if (&spi == &SPI)
+    Bus = BUS::SPI0;
+#if defined(__MKL26Z64__)
+  else if (&spi == &::SPI1)
+    Bus = BUS::SPI1;
+#elif defined(__MK64FX512__) || defined(__MK66FX1M0__) || defined(__IMXRT1062__)
+  else if (&spi == &::SPI1)
+    Bus = BUS::SPI1;
+  else if (&spi == &::SPI2)
+    Bus = BUS::SPI2;
+#endif
+  Address = cspin;
+  strcpy(Identifier, busStr());
+  sprintf(Identifier + strlen(Identifier), " %d", cspin);
+}
+
+
+unsigned int ESensorDevice::address() const {
+  return Address;
 }
 
 

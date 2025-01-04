@@ -143,16 +143,41 @@ void ESensor::report(Stream &stream) {
   if (available()) {
     char rs[10];
     resolutionStr(rs, true);
-    stream.printf("%s %s", name(), symbol());
+    stream.printf("%s\t %s", name(), symbol());
     if (strlen(unit()) > 0)
       stream.printf(" (%s)", unit());
     stream.print(":");
-    if (strlen(chip()) > 0)
-      stream.printf("\t on %s device", chip());
-    stream.printf(" (address %x on %s bus", address(), busStr());
-    if (strlen(identifier()) > 0)
-      stream.printf(", ID: %s", identifier());
-    stream.printf(") at a resolution of %s%s.\n", rs, unit());
+    size_t n_items = 0;
+    if (strlen(chip()) > 0 ||
+	bus() != BUS::UNKNOWN ||
+	strlen(identifier()) > 0) {
+      stream.print("\t ");
+      if (strlen(chip()) > 0) {
+	stream.printf("%s device", chip());
+	n_items++;
+      }
+      if (bus() != BUS::UNKNOWN) {
+	if (n_items > 0)
+	  stream.print(" ");
+	if (address() != 0) {
+	  stream.printf("address %x ", address());
+	  n_items++;
+	}
+	stream.printf("on %s bus", busStr());
+	n_items++;
+      }
+      if (strlen(identifier()) > 0) {
+	if (n_items > 0)
+	  stream.print(", ");
+	stream.printf("ID: %s", identifier());
+	n_items++;
+	if (strlen(identifier()) > 8)
+	  n_items++;
+      }
+    }
+    for (size_t k=n_items; k<4; k++)
+      stream.print("\t");
+    stream.printf("\t at a resolution of %s%s.\n", rs, unit());
   }
 }
 

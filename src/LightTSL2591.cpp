@@ -35,8 +35,7 @@ bool LightTSL2591::begin() {
   if (! TSL2591TwoWire::begin() &&
       ! TSL2591TwoWire::begin(&Wire))
     return false;
-  setBus(BUS::I2C);
-  setAddress(TSL2591TwoWire::TSL2591_I2C_ADDRESS);
+  setI2CBus(Wire, TSL2591TwoWire::TSL2591_I2C_ADDRESS);
   init();
   return true;
 }
@@ -45,8 +44,7 @@ bool LightTSL2591::begin() {
 bool LightTSL2591::begin(TwoWire &wire) {
   if (! TSL2591TwoWire::begin(&wire))
     return false;
-  setBus(BUS::I2C);
-  setAddress(TSL2591TwoWire::TSL2591_I2C_ADDRESS);
+  setI2CBus(wire, TSL2591TwoWire::TSL2591_I2C_ADDRESS);
   init();
   return true;
 }
