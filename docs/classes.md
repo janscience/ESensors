@@ -21,7 +21,8 @@ Member functions:
 - `chip()`: name of the chip/device.
 - `identifier()`: unique ID string.
 - `bus()`, `busStr()`: bus that controls the chip.
-- `address()`: address of the chip on the bus.
+- `address()`: address of the chip on an I2C bus.
+- `pin()`: pin of the chip on an SPI or OneWire bus.
 - `available()`: availability of the chip/device.
 - `report()`: print chip() and identifier() on Serial.
 - `request()`: request a sensor reading.

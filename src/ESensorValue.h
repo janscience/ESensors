@@ -34,7 +34,7 @@ class ESensorValue : public ESensor {
     SDev(s) {};
 
   // Return the sensor device.
-  virtual ESensorDevice *device() { return SDev; };
+  virtual ESensorDevice *device();
 
   // Return true if sensor device is available.
   virtual bool available() { return SDev->available(); };
@@ -42,8 +42,11 @@ class ESensorValue : public ESensor {
   // Bus controlling the sensor device.
   virtual BUS bus() const { return SDev->bus(); };
 
-  // Address on bus.
+  // Address on I2C bus.
   virtual unsigned int address() const { return SDev->address(); };
+
+  // Pin of OneWire bus or chip select pin of device on SPI bus.
+  virtual int pin() const { return SDev->pin(); };
 
   // Return name of sensor chip model as character array.
   virtual const char* chip() const { return SDev->chip(); };
@@ -67,6 +70,12 @@ class ESensorValue : public ESensor {
   S *SDev;
 
 };
+
+
+template <class S>
+ESensorDevice *ESensorValue<S>::device() {
+  return SDev;
+}
 
 
 #endif

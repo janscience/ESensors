@@ -46,8 +46,11 @@ class ESensorDevice {
   // Bus controlling the sensor device as a string (max 8 characters).
   const char *busStr() const { return BusStrings[bus()]; };
 
-  // Address on bus.
+  // Address on I2C bus.
   virtual unsigned int address() const;
+
+  // Pin of OneWire bus or chip select pin of device on SPI bus.
+  virtual int pin() const;
 
   // Return name of sensor chip model as character array.
   virtual const char* chip() const;
@@ -88,8 +91,11 @@ class ESensorDevice {
   
 protected:
 
-  // Set bus that controls the chip.
-  void setBus(BUS bus) { Bus = bus; };
+  // Set internal bus.
+  void setInternBus(BUS bus) { Bus = BUS::INTERN; };
+
+  // Set OneWire bus and its data pin.
+  void setOneWireBus(int pin);
 
   // Set I2C bus and address that controls the chip.
   // Also set identifier to bus name plus I2C address.
@@ -98,9 +104,6 @@ protected:
   // Set SPI bus and CS pin that controls the chip.
   // Also set identifier to bus name plus CS pin.
   void setSPIBus(const SPIClass &spi, unsigned int cspin);
-
-  // Set address of chip on bus.
-  void setAddress(unsigned int address) { Address = address; };
 
   // Set the name of the chip.
   void setChip(const char *chip);
@@ -127,6 +130,7 @@ protected:
 
   BUS Bus;
   unsigned int Address;
+  int Pin;
   static const int MaxStr = 49;
   char Chip[MaxStr + 1];
   char Identifier[MaxStr + 1];

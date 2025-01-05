@@ -32,12 +32,6 @@ class ESensors {
   // The index-th sensor.
   ESensor &operator[](uint8_t index) { return *Snsrs[index]; };
 
-  // Number of available sensor devices.
-  uint8_t devices() const;
-
-  // The index-th sensor device.
-  ESensorDevice &device(uint8_t index) { return *Devices[index]; };
-
   // Update interval for reading sensor values in seconds.
   float interval() const;
 
@@ -146,9 +140,7 @@ class ESensors {
 
   static const uint8_t MaxSensors = 20; 
   uint8_t NSensors; 
-  uint8_t NDevices; 
   ESensor *Snsrs[MaxSensors];
-  ESensorDevice *Devices[MaxSensors];
   unsigned long DelayTime;
   unsigned long Interval;
   unsigned long UseInterval;

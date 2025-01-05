@@ -38,7 +38,7 @@ class ESensor : public ESensorDevice {
 	  const char *unit, const char *format, float resolution=1.0);
 
   // Return this sensor device.
-  virtual ESensorDevice *device() { return this; };
+  virtual ESensorDevice *device();
 
   // Return name of environmental sensor reading as character array.
   const char* name() const;

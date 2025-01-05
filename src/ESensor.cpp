@@ -36,6 +36,11 @@ ESensor::ESensor(ESensors *sensors, const char *name, const char *symbol,
 }
 
 
+ESensorDevice *ESensor::device() {
+  return this;
+}
+
+
 const char* ESensor::name() const {
   return Name;
 }
@@ -139,45 +144,43 @@ int ESensor::resolutionStr(char *s, bool compact) const {
 }
 
 
+int utf8_strlen(const char *str) {
+  // http://www.zedwood.com/article/cpp-utf8-strlen-function
+  unsigned int i, n;
+  for (n=0, i=0; i<strlen(str); i++, n++) {
+    char c = str[i];
+    if      (c >= 0   && c <= 127) i += 0;
+    else if ((c & 0xE0) == 0xC0) i += 1;
+    else if ((c & 0xF0) == 0xE0) i += 2;
+    else if ((c & 0xF8) == 0xF0) i += 3;
+    else return 0; //invalid utf8
+  }
+  return n;
+}
+
+
 void ESensor::report(Stream &stream) {
   if (available()) {
     char rs[10];
     resolutionStr(rs, true);
-    stream.printf("%s\t %s", name(), symbol());
+    stream.printf("%-20s %-8s", name(), symbol());
+    int nunit = 6 - utf8_strlen(unit());
     if (strlen(unit()) > 0)
       stream.printf(" (%s)", unit());
-    stream.print(":");
-    size_t n_items = 0;
-    if (strlen(chip()) > 0 ||
-	bus() != BUS::UNKNOWN ||
-	strlen(identifier()) > 0) {
-      stream.print("\t ");
-      if (strlen(chip()) > 0) {
-	stream.printf("%s device", chip());
-	n_items++;
-      }
-      if (bus() != BUS::UNKNOWN) {
-	if (n_items > 0)
-	  stream.print(" ");
-	if (address() != 0) {
-	  stream.printf("address %x ", address());
-	  n_items++;
-	}
-	stream.printf("on %s bus", busStr());
-	n_items++;
-      }
-      if (strlen(identifier()) > 0) {
-	if (n_items > 0)
-	  stream.print(", ");
-	stream.printf("ID: %s", identifier());
-	n_items++;
-	if (strlen(identifier()) > 8)
-	  n_items++;
-      }
-    }
-    for (size_t k=n_items; k<4; k++)
-      stream.print("\t");
-    stream.printf("\t at a resolution of %s%s.\n", rs, unit());
+    else
+      stream.print("   ");
+    if (nunit > 0)
+      stream.printf("%-*s", nunit, "");
+    stream.printf(": at a resolution of %5s%s", rs, unit());
+    if (nunit > 0)
+      stream.printf("%-*s", nunit, "");
+    if (strlen(chip()) > 0)
+      stream.printf(" on %-12s device", chip());
+    else
+      stream.printf("%23s", "");
+    if (strlen(identifier()) > 0)
+      stream.printf(" with ID %s", identifier());
+    stream.print("\n");
   }
 }
 

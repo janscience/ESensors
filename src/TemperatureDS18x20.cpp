@@ -40,7 +40,7 @@ void TemperatureDS18x20::begin(uint8_t pin) {
     return;
   }
 
-  setBus(BUS::ONEWIRE);
+  setOneWireBus(pin);
 
   // ROM as string:
   char *sp = Identifier;

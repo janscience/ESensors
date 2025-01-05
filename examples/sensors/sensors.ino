@@ -18,7 +18,7 @@
 
 // settings: -----------------------------------------------------------------
 
-#define DS18x20_PIN 10       // pin for DATA line of DS18x20 themperature sensor
+#define DS18x20_PIN 35       // pin for DATA line of DS18x20 themperature sensor
 #define DHT_PIN 12           // pin for DATA line of DHTx themperature and humidity sensor
 float sensorsInterval = 2.0; // interval between sensor readings in seconds
 
@@ -89,8 +89,8 @@ void setup() {
   bh.setAutoRanging();
 #endif
   Serial.println();
-  sensors.report();  // nice, but confuses the serial plotter
-  Serial.println();
+  sensors.reportDevices();  // nice, but confuses the serial plotter
+  sensors.report();         // nice, but confuses the serial plotter
   delay(500);
   // discard first read:
   sensors.start();

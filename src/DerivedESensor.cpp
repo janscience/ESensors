@@ -56,6 +56,11 @@ DerivedESensor::DerivedESensor(ESensor *sensor1, ESensor *sensor2, ESensor *sens
 }
 
 
+ESensorDevice *DerivedESensor::device() {
+  return 0;
+}
+
+
 const char* DerivedESensor::chip() const {
   char *sp = DChip;
   unsigned int n = 0;

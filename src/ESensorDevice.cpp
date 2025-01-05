@@ -18,6 +18,7 @@ const char *ESensorDevice::BusStrings[10] = {
 ESensorDevice::ESensorDevice() :
   Bus(BUS::UNKNOWN),
   Address(0),
+  Pin(-1),
   Chip(""),
   Identifier(""),
   Measuring(false),
@@ -28,6 +29,13 @@ ESensorDevice::ESensorDevice() :
 
 ESensorDevice::BUS ESensorDevice::bus() const {
   return Bus;
+}
+
+
+void ESensorDevice::setOneWireBus(int pin) {
+  Bus = BUS::ONEWIRE;
+  Address = 0;
+  Pin = pin;
 }
 
 
@@ -59,6 +67,7 @@ void ESensorDevice::setI2CBus(const TwoWire &wire, unsigned int address) {
 #endif
 #endif
   Address = address;
+  Pin = -1;
   strcpy(Identifier, busStr());
   sprintf(Identifier + strlen(Identifier), " %x", address);
 }
@@ -76,7 +85,8 @@ void ESensorDevice::setSPIBus(const SPIClass &spi, unsigned int cspin) {
   else if (&spi == &::SPI2)
     Bus = BUS::SPI2;
 #endif
-  Address = cspin;
+  Address = 0;
+  Pin = cspin;
   strcpy(Identifier, busStr());
   sprintf(Identifier + strlen(Identifier), " %d", cspin);
 }
@@ -84,6 +94,11 @@ void ESensorDevice::setSPIBus(const SPIClass &spi, unsigned int cspin) {
 
 unsigned int ESensorDevice::address() const {
   return Address;
+}
+
+
+int ESensorDevice::pin() const {
+  return Pin;
 }
 
 
@@ -109,25 +124,20 @@ void ESensorDevice::setIdentifier(const char *identifier) {
 
 void ESensorDevice::report(Stream &stream) {
   if (available()) {
-    size_t n_items = 0;
-    stream.printf("device %s", chip());
-    n_items++;
+    stream.printf("device %-12s", chip());
     if (bus() != BUS::UNKNOWN) {
-      if (n_items > 0)
-	stream.print(" ");
-      stream.printf("on %s bus", busStr());
-      n_items++;
-      if (address() != 0) {
-	stream.printf(" at address %x ", address());
-	n_items++;
-      }
+      stream.printf(" on %-8s bus", busStr());
+      if (address() != 0)
+	stream.printf(" at address %04x", address());
+      else if (pin() >= 0)
+	stream.printf(" at pin     %4d", pin());
+      else
+	stream.printf("%16s", "");
     }
-    if (strlen(identifier()) > 0) {
-      if (n_items > 0)
-	stream.print(", ");
+    else
+      stream.printf("%32s", "");
+    if (strlen(identifier()) > 0)
       stream.printf(" with ID %s\n", identifier());
-      n_items++;
-    }
   }
 }
 

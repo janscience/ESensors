@@ -4,7 +4,6 @@
 
 ESensors::ESensors() :
   NSensors(0),
-  NDevices(0),
   DelayTime(0),
   Interval(0),
   Time(0),
@@ -25,17 +24,6 @@ void ESensors::addSensor(ESensor &sensor) {
     return;
   }
   Snsrs[NSensors++] = &sensor;
-  if (sensor.device() != 0) {
-    bool found = false;
-    for (uint8_t k=0; k<NDevices; k++) {
-      if (Devices[k] == sensor.device()) {
-	found = true;
-	break;
-      }
-    }
-    if (!found)
-      Devices[NDevices++] = sensor.device();
-  }
 }
 
 
@@ -43,16 +31,6 @@ uint8_t ESensors::sensors() const {
   uint8_t n = 0;
   for (uint8_t k=0; k<NSensors; k++) {
     if (Snsrs[k]->available())
-      n++;
-  }
-  return n;
-}
-
-
-uint8_t ESensors::devices() const {
-  uint8_t n = 0;
-  for (uint8_t k=0; k<NDevices; k++) {
-    if (Devices[k]->available())
       n++;
   }
   return n;
@@ -79,7 +57,7 @@ void ESensors::report(Stream &stream) {
   for (uint8_t k=0; k<NSensors; k++) {
     if (Snsrs[k]->available()) {
       stream.printf("  ");
-      Snsrs[k]->report();
+      Snsrs[k]->report(stream);
       n++;
     }
   }
@@ -90,20 +68,41 @@ void ESensors::report(Stream &stream) {
 
 
 void ESensors::reportDevices(Stream &stream) {
+  // compile list of uniques devices:
+  ESensorDevice *devices[NSensors];
+  uint8_t ndevices = 0;
+  uint8_t adevices = 0;
+  for (uint8_t k=0; k<NSensors; k++) {
+    if (Snsrs[k]->device()) {
+      bool found = false;
+      for (uint8_t j=0; j<ndevices; j++) {
+	if (devices[j] == Snsrs[k]->device()) {
+	  found = true;
+	  break;
+	}
+      }
+      if (!found) {
+	devices[ndevices++] = Snsrs[k]->device();
+	if (Snsrs[k]->device()->available())
+	  adevices++;
+      }
+    }
+  }
+  // report:
   char ds[2] = {'\0', '\0'};
-  if (NDevices > 1)
+  if (ndevices > 1)
     ds[0] = 's';
-  stream.printf("%d of %d environmental sensor devices%s available:\n",
-		devices(), NDevices, ds);
+  stream.printf("%d of %d environmental sensor device%s available:\n",
+		adevices, ndevices, ds);
   int n = 0;
-  for (uint8_t k=0; k<NDevices; k++) {
-    if (Devices[k]->available()) {
+  for (uint8_t k=0; k<ndevices; k++) {
+    if (devices[k]->available()) {
       stream.printf("  ");
-      Devices[k]->ESensorDevice::report();
+      devices[k]->ESensorDevice::report(stream);
       n++;
     }
   }
-  if (n == 0 && NDevices > 0)
+  if (n == 0 && ndevices > 0)
     stream.println("  no sensor device available!");
   stream.println();
 }
@@ -289,6 +288,8 @@ void ESensors::printHeader(bool symbols, Stream &stream) {
 
 
 void ESensors::printValues(bool compact, Stream &stream) {
+  if (sensors() == 0)
+    return;
   int n = 1;
   // print time:
   if (PrintTime == ISO_TIME)
