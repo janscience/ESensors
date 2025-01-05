@@ -12,8 +12,7 @@
 
 
 // Subclass ESensorValue and implement its reading() function to return
-// a specific type of sensor reading from S.
-
+// a specific type of sensor reading from ESensorDevice class S.
 // S is a ESensor or ESensorDevice that provides multiple types of
 // sensor readings.
 template <class S>
@@ -25,44 +24,47 @@ class ESensorValue : public ESensor {
 	       const char *unit, const char *format,
 	       float resolution) :
     ESensor(0, name, symbol, unit, format, resolution),
-    SDC(s) {};
+    SDev(s) {};
 
   ESensorValue(S *s, ESensors *sensors,
 	       const char *name, const char *symbol,
 	       const char *unit, const char *format,
 	       float resolution) :
     ESensor(sensors, name, symbol, unit, format, resolution),
-    SDC(s) {};
+    SDev(s) {};
+
+  // Return the sensor device.
+  virtual ESensorDevice *device() { return SDev; };
 
   // Return true if sensor device is available.
-  virtual bool available() { return SDC->available(); };
+  virtual bool available() { return SDev->available(); };
 
   // Bus controlling the sensor device.
-  virtual BUS bus() const { return SDC->bus(); };
+  virtual BUS bus() const { return SDev->bus(); };
 
   // Address on bus.
-  virtual unsigned int address() const { return SDC->address(); };
+  virtual unsigned int address() const { return SDev->address(); };
 
   // Return name of sensor chip model as character array.
-  virtual const char* chip() const { return SDC->chip(); };
+  virtual const char* chip() const { return SDev->chip(); };
 
   // Return unique identifier of sensor chip as character array.
-  virtual const char* identifier() const { return SDC->identifier(); };
+  virtual const char* identifier() const { return SDev->identifier(); };
 
   // Recommended delay between a request() and get() in milliseconds.
-  virtual unsigned long delayTime() const { return SDC->delayTime(); };
+  virtual unsigned long delayTime() const { return SDev->delayTime(); };
 
   
  protected:
 
   // Request a sensor conversion.
-  virtual void requestData() { return SDC->request(); };
+  virtual void requestData() { return SDev->request(); };
 
   // Retrieve a sensor reading from the device.
-  virtual void getData() { return SDC->get(); };
+  virtual void getData() { return SDev->get(); };
 
   // The ESensor or ESensorDevice.
-  S *SDC;
+  S *SDev;
 
 };
 

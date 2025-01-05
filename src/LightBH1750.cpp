@@ -86,7 +86,7 @@ RawBH1750::RawBH1750(LightBH1750 *bh, ESensors *sensors)
 
 
 float RawBH1750::reading() const {
-  return SDC->rawData();
+  return SDev->rawData();
 }
 
 
@@ -97,7 +97,7 @@ QualityBH1750::QualityBH1750(LightBH1750 *bh, ESensors *sensors)
 
 
 float QualityBH1750::reading() const {
-  return SDC->quality() - 0x20;
+  return SDev->quality() - 0x20;
 }
 
 
@@ -108,6 +108,6 @@ TimeBH1750::TimeBH1750(LightBH1750 *bh, ESensors *sensors)
 
 
 float TimeBH1750::reading() const {
-  return SDC->mtReg();
+  return SDev->mtReg();
 }
 

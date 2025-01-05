@@ -20,7 +20,7 @@ class ESensors {
 
   ESensors();
 
-  // Add a sensor if available.
+  // Add a sensor.
   void addSensor(ESensor &sensor);
 
   // Number of currently managed sensors.
@@ -32,14 +32,23 @@ class ESensors {
   // The index-th sensor.
   ESensor &operator[](uint8_t index) { return *Snsrs[index]; };
 
+  // Number of available sensor devices.
+  uint8_t devices() const;
+
+  // The index-th sensor device.
+  ESensorDevice &device(uint8_t index) { return *Devices[index]; };
+
   // Update interval for reading sensor values in seconds.
   float interval() const;
 
   // Set update interval for reading sensor values to interval seconds.
   void setInterval(float interval);
 
-  // Report properties of all sensor devices on stream.
+  // Report properties of all sensors on stream.
   void report(Stream &stream=Serial);
+
+  // Report properties of all sensor devices on stream.
+  void reportDevices(Stream &stream=Serial);
 
   // Start acquisition of sensor values, set delayTime(), and clear
   // data buffers.
@@ -137,7 +146,9 @@ class ESensors {
 
   static const uint8_t MaxSensors = 20; 
   uint8_t NSensors; 
+  uint8_t NDevices; 
   ESensor *Snsrs[MaxSensors];
+  ESensorDevice *Devices[MaxSensors];
   unsigned long DelayTime;
   unsigned long Interval;
   unsigned long UseInterval;

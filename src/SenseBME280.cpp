@@ -86,7 +86,7 @@ TemperatureBME280::TemperatureBME280(SenseBME280 *bme, ESensors *sensors)
 
 
 float TemperatureBME280::reading() const {
-  return SDC->temperature();
+  return SDev->temperature();
 }
 
 
@@ -97,7 +97,7 @@ HumidityBME280::HumidityBME280(SenseBME280 *bme, ESensors *sensors)
 
 
 float HumidityBME280::reading() const {
-  return SDC->humidity();
+  return SDev->humidity();
 }
 
 
@@ -108,6 +108,6 @@ PressureBME280::PressureBME280(SenseBME280 *bme, ESensors *sensors)
 
 
 float PressureBME280::reading() const {
-  return SDC->pressure();
+  return SDev->pressure();
 }
 

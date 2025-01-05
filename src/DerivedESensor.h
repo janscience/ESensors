@@ -47,6 +47,9 @@ class DerivedESensor : public ESensor {
 		 ESensors *sensors, const char *name, const char *symbol,
 		 const char *unit, const char *format, float resolution=1.0);
 
+  // Return 0, since no specific ESensorDevice is associated with this sensor.
+  virtual ESensorDevice *device() { return 0; };
+  
   // Return name of sensor chip models as character array.
   virtual const char* chip() const;
 

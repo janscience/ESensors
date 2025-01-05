@@ -109,9 +109,25 @@ void ESensorDevice::setIdentifier(const char *identifier) {
 
 void ESensorDevice::report(Stream &stream) {
   if (available()) {
+    size_t n_items = 0;
     stream.printf("device %s", chip());
-    if (strlen(identifier()) > 0)
-      stream.printf(" (ID: %s)\n", identifier());
+    n_items++;
+    if (bus() != BUS::UNKNOWN) {
+      if (n_items > 0)
+	stream.print(" ");
+      stream.printf("on %s bus", busStr());
+      n_items++;
+      if (address() != 0) {
+	stream.printf(" at address %x ", address());
+	n_items++;
+      }
+    }
+    if (strlen(identifier()) > 0) {
+      if (n_items > 0)
+	stream.print(", ");
+      stream.printf(" with ID %s\n", identifier());
+      n_items++;
+    }
   }
 }
 

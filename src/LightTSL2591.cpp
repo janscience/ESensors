@@ -140,7 +140,7 @@ Channel0TSL2591::Channel0TSL2591(LightTSL2591 *tsl, ESensors *sensors)
 
 
 float Channel0TSL2591::reading() const {
-  return SDC->channel0();
+  return SDev->channel0();
 }
 
 
@@ -151,7 +151,7 @@ Channel1TSL2591::Channel1TSL2591(LightTSL2591 *tsl, ESensors *sensors)
 
 
 float Channel1TSL2591::reading() const {
-  return SDC->channel1();
+  return SDev->channel1();
 }
 
 
@@ -162,7 +162,7 @@ GainTSL2591::GainTSL2591(LightTSL2591 *tsl, ESensors *sensors)
 
 
 float GainTSL2591::reading() const {
-  return SDC->gain();
+  return SDev->gain();
 }
 
 
@@ -173,7 +173,7 @@ IRRatioTSL2591::IRRatioTSL2591(LightTSL2591 *tsl, ESensors *sensors)
 
 
 float IRRatioTSL2591::reading() const {
-  return SDC->IRRatio();
+  return SDev->IRRatio();
 }
 
 
@@ -185,7 +185,7 @@ IrradianceFullTSL2591::IrradianceFullTSL2591(LightTSL2591 *tsl, ESensors *sensor
 
 
 float IrradianceFullTSL2591::reading() const {
-  return SDC->irradianceFull();
+  return SDev->irradianceFull();
 }
 
 
@@ -197,7 +197,7 @@ IrradianceIRTSL2591::IrradianceIRTSL2591(LightTSL2591 *tsl, ESensors *sensors)
 
 
 float IrradianceIRTSL2591::reading() const {
-  return SDC->irradianceIR();
+  return SDev->irradianceIR();
 }
 
 
@@ -209,7 +209,7 @@ IrradianceVisibleTSL2591::IrradianceVisibleTSL2591(LightTSL2591 *tsl, ESensors *
 
 
 float IrradianceVisibleTSL2591::reading() const {
-  return SDC->irradianceVisible();
+  return SDev->irradianceVisible();
 }
 
 
@@ -220,6 +220,6 @@ IlluminanceTSL2591::IlluminanceTSL2591(LightTSL2591 *tsl, ESensors *sensors)
 
 
 float IlluminanceTSL2591::reading() const {
-  return SDC->illuminance();
+  return SDev->illuminance();
 }
 
