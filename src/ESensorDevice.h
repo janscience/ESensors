@@ -92,7 +92,7 @@ class ESensorDevice {
 protected:
 
   // Set internal bus.
-  void setInternBus(BUS bus) { Bus = BUS::INTERN; };
+  void setInternBus() { Bus = BUS::INTERN; };
 
   // Set OneWire bus and its data pin.
   void setOneWireBus(int pin);

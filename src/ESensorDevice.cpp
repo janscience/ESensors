@@ -42,29 +42,17 @@ void ESensorDevice::setOneWireBus(int pin) {
 void ESensorDevice::setI2CBus(const TwoWire &wire, unsigned int address) {
   if (&wire == &Wire)
     Bus = BUS::I2C0;
-#if defined(__IMXRT1052__) || defined(__IMXRT1062__)
-  else if (&wire == &Wire1)
-    Bus = BUS::I2C1;
-  else if (&wire == &Wire2)
-    Bus = BUS::I2C2;
-#if defined(ARDUINO_TEENSY_MICROMOD)
-  else if (&wire == &Wire3)
-    Bus = BUS::I2C3;
-#endif
-#endif
-#if defined(__arm__) && defined(TEENSYDUINO) && (defined(__MKL26Z64__) || defined(__MK20DX128__) || defined(__MK20DX256__) || defined(__MK64FX512__) || defined(__MK66FX1M0__))
-#ifdef WIRE_IMPLEMENT_WIRE1
+#if WIRE_INTERFACES_COUNT >= 2
   else if (&wire == &Wire1)
     Bus = BUS::I2C1;
 #endif
-#ifdef WIRE_IMPLEMENT_WIRE2
+#if WIRE_INTERFACES_COUNT >= 3
   else if (&wire == &Wire2)
     Bus = BUS::I2C2;
 #endif
-#ifdef WIRE_IMPLEMENT_WIRE3
+#if WIRE_INTERFACES_COUNT >= 4
   else if (&wire == &Wire3)
     Bus = BUS::I2C3;
-#endif
 #endif
   Address = address;
   Pin = -1;
