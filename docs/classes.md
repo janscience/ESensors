@@ -24,7 +24,7 @@ Member functions:
 - `address()`: address of the chip on an I2C bus.
 - `pin()`: pin of the chip on an SPI or OneWire bus.
 - `available()`: availability of the chip/device.
-- `report()`: print chip() and identifier() on Serial.
+- `report()`: print chip(), bus(), address() or pin() and identifier() on stream.
 - `request()`: request a sensor reading.
 - `delayTime()`: minimum time to wait between request() and get().
 - `retrieve()`: retrieve sensor data over an extended period of time.
@@ -53,7 +53,7 @@ Member functions in addition to [ESensorDevice](#esensordevice):
 - `format()`, `compactFormat()`, `setFormat()`: format strings for printing out the sensor value.
 - `basicUnit()`: unit of the basic sensor reading.
 - `resolution()`, `resolutionStr()`: resolution of the sensor readings in the current unit.
-- `report()`: report name, symbol, unit, chip and identity of sensor on Serial.
+- `report()`: report name, symbol, unit, resolution, chip and identity of sensor on stream.
 - `reading()`: sensor reading in the basic unit.
 - `value()`: sensor reading in the current unit.
 - `valueStr()`: sensor reading as a string.

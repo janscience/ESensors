@@ -180,7 +180,7 @@ void ESensor::report(Stream &stream) {
       stream.printf("%23s", "");
     if (strlen(identifier()) > 0)
       stream.printf(" with ID %s", identifier());
-    stream.print("\n");
+    stream.println();
   }
 }
 
