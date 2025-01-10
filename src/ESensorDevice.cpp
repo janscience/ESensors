@@ -112,11 +112,11 @@ void ESensorDevice::setIdentifier(const char *identifier) {
 
 void ESensorDevice::report(Stream &stream) {
   if (available()) {
-    stream.printf("device %-12s", chip());
+    stream.printf("sensor device %-12s", chip());
     if (bus() != BUS::UNKNOWN) {
       stream.printf(" on %-8s bus", busStr());
       if (address() != 0)
-	stream.printf(" at address %04x", address());
+	stream.printf(" at address %4x", address());
       else if (pin() >= 0)
 	stream.printf(" at pin     %4d", pin());
       else
@@ -125,7 +125,8 @@ void ESensorDevice::report(Stream &stream) {
     else
       stream.printf("%32s", "");
     if (strlen(identifier()) > 0)
-      stream.printf(" with ID %s\n", identifier());
+      stream.printf(" with ID %s", identifier());
+    stream.println();
   }
 }
 
