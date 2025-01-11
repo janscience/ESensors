@@ -217,17 +217,20 @@ void ESensors::setPrintTime(print_time_t pt) {
 
 
 void ESensors::print(bool symbols, bool oneline, Stream &stream) {
-  char tsep[3] = "\n";
-  if (oneline)
-    strcpy(tsep, ": ");
-  else
-    stream.print("Timestamp = ");
-  if (PrintTime == ISO_TIME)
-    stream.printf("%04d-%02d-%02dT%02d:%02d:%02d%s",
-		  year(TimeStamp), month(TimeStamp), day(TimeStamp),
-		  hour(TimeStamp), minute(TimeStamp), second(TimeStamp), tsep);
-  else if (PrintTime == SEC_TIME)
-    stream.printf("%llds%s", TimeStamp, tsep);
+  if (PrintTime != NO_TIME) {
+    char tsep[3] = "\n";
+    if (oneline)
+      strcpy(tsep, ": ");
+    else
+      stream.print("Timestamp = ");
+    if (PrintTime == ISO_TIME)
+      stream.printf("%04d-%02d-%02dT%02d:%02d:%02d%s",
+		    year(TimeStamp), month(TimeStamp), day(TimeStamp),
+		    hour(TimeStamp), minute(TimeStamp), second(TimeStamp),
+		    tsep);
+    else if (PrintTime == SEC_TIME)
+      stream.printf("%llds%s", TimeStamp, tsep);
+  }
   char s[20];
   for (uint8_t k=0; k<NSensors; k++) {
     if (oneline && k > 0)
