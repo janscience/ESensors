@@ -241,26 +241,11 @@ void ESensors::print(bool symbols, bool oneline, Stream &stream) {
 	stream.printf("%s = %s%s", Snsrs[k]->symbol(), s, Snsrs[k]->unit());
       else
 	stream.printf("%s = %s%s", Snsrs[k]->name(), s, Snsrs[k]->unit());
+      if (!oneline)
+	stream.println();
     }
-    else {
-      if (oneline) {
-	if (symbols)
-	  stream.printf("%s = -", Snsrs[k]->symbol());
-	else
-	  stream.printf("%s = -", Snsrs[k]->name());
-      }
-      else {
-	if (symbols)
-	  stream.printf("%s not available", Snsrs[k]->symbol());
-	else
-	  stream.printf("%s not available", Snsrs[k]->name());
-      }
-    }
-    if (!oneline)
-      stream.println();
   }
-  if (oneline)
-    stream.println();
+  stream.println();
 }
 
 
