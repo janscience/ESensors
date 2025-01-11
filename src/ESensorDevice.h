@@ -67,7 +67,7 @@ class ESensorDevice {
   // Request a sensor reading.
   void request();
 
-  // Recommended delay between a request() and get().
+  // Recommended delay between a request() and get() in miiliseconds.
   virtual unsigned long delayTime() const { return 0; };
 
   // Retrieve sensor data over an extended period of time.

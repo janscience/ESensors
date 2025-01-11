@@ -51,7 +51,7 @@ class ESensors {
   // Request sensor readings from all sensors.
   void request();
 
-  // The delay needed between request() and get().
+  // The delay needed between request() and get() in miiliseconds.
   // Only available after calling start().
   unsigned long delayTime() const { return DelayTime; };
 
