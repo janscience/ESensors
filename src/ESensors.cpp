@@ -232,17 +232,19 @@ void ESensors::print(bool symbols, bool oneline, Stream &stream) {
       stream.printf("%llds%s", TimeStamp, tsep);
   }
   char s[20];
+  uint8_t n = 0;
   for (uint8_t k=0; k<NSensors; k++) {
-    if (oneline && k > 0)
-      stream.printf(", ");
     if (Snsrs[k]->available()) {
       Snsrs[k]->valueStr(s, true);
+      if (oneline && n > 0)
+	stream.printf(", ");
       if (symbols)
 	stream.printf("%s = %s%s", Snsrs[k]->symbol(), s, Snsrs[k]->unit());
       else
 	stream.printf("%s = %s%s", Snsrs[k]->name(), s, Snsrs[k]->unit());
       if (!oneline)
 	stream.println();
+      n++;
     }
   }
   stream.println();
