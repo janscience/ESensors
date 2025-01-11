@@ -251,16 +251,16 @@ void ESensors::print(bool symbols, bool oneline, Stream &stream) {
       }
       else {
 	if (symbols)
-	  stream.printf("%s not available\n", Snsrs[k]->symbol());
+	  stream.printf("%s not available", Snsrs[k]->symbol());
 	else
-	  stream.printf("%s not available\n", Snsrs[k]->name());
+	  stream.printf("%s not available", Snsrs[k]->name());
       }
     }
     if (!oneline)
-      stream.printf("\n");
+      stream.println();
   }
   if (oneline)
-    stream.printf("\n");
+    stream.println();
 }
 
 
