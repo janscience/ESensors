@@ -65,18 +65,18 @@ HumidityDHT hum(&dht);
 Connect the chip to [Teensy](https://www.pjrc.com/teensy/pinout.html)
 as follows:
 
-| DHTxx   | color  | Teensy      |
-| ------- | ------ | ----------- |
-| VCC     | red    | 3.3V        |
-| Data out | yellow/white  | some pin |
-| not connected  |   |          |
-| GND     | black  | GND         |
+| DHTxx         | color         | Teensy   |
+| ------------- | ------------- | -------- |
+| VCC           | red           | 3.3V     |
+| Data out      | yellow/white  | some pin |
+| not connected |               |          |
+| GND           | black         | GND      |
 
 
 ## Library survey
 
 For our purposes (acquisition of weather data at low rates and low
-power, flexible bus interfaces), the following two libraries seem to
-be most appropriate:
+power, flexible bus interfaces), the following library is most
+appropriate:
 
 - [DHT-Sensors-Non-Blocking](https://github.com/toannv17/DHT-Sensors-Non-Blocking).

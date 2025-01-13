@@ -30,9 +30,10 @@ level interface to various sensor chips. It
 Any class derived from the [ESensor class](classes.md#esensor) can read
 a specific environmental parameter from a sensor chip/device.
 
-For example, the DS18x20 only reads temperature. Include the header
-file, [TemperatureDS18x20.h](../src/TemperatureDS18x20.h), initialize
-the temperature sensor, and retrieve the sensor readings:
+For example, the [DS18x20](chips/ds18x20) only reads
+temperature. Include the header file,
+[TemperatureDS18x20.h](../src/TemperatureDS18x20.h), initialize the
+temperature sensor, and retrieve the sensor readings:
 
 ```cpp
 #include <TemperatureDS18x20.h>
@@ -210,7 +211,8 @@ PressureBME280 pres(&bme, &sensors);
 void setup() {
   Wire.begin();             // init the I2C bus.
   bme.beginI2C(Wire, 0x77); // init the sensor chip.
-  sensors.report();         // write infos to all avaliable sensors to Serial.
+  sensors.reportDevices();  // print infos for all avaliable sensor devices.
+  sensors.report();         // print infos for all avaliable sensor values.
   sensors.start();          // get ready
 }
 
@@ -376,6 +378,24 @@ following write their output to Serial. An alternative stream can be
 passed to these functions as the last argument.
 
 
+### reportDevices()
+
+`reportDevices()` prints out the name of each sensor chip, the bus controlling the chip with address or pin and a unique identifier:
+
+```cpp
+#include <ESensors.h>
+
+ESensors sensors;
+// ...
+
+void setup() {
+  Serial.begin(9600);
+  while (!Serial && millis() < 2000) {};  // establish Serial connection
+  // ...
+  sensors.reportDevices();  // print infos for all avaliable sensor devices.
+}
+```
+
 ### report()
 
 `report()` prints out some properties of the sensors, their names and
@@ -391,7 +411,7 @@ void setup() {
   Serial.begin(9600);
   while (!Serial && millis() < 2000) {};  // establish Serial connection
   // ...
-  sensors.report();          // write infos to all avaliable sensors to Serial.
+  sensors.report();         // print infos for all avaliable sensor values.
 }
 ```
 

@@ -25,6 +25,7 @@ class ESensorDevice {
   enum BUS {
     UNKNOWN,
     INTERN,
+    SINGLEWIRE,
     ONEWIRE,
     I2C0,
     I2C1,
@@ -35,7 +36,7 @@ class ESensorDevice {
     SPI2
   };
   
-  static const char *BusStrings[10];
+  static const char *BusStrings[11];
 
   // Initialize the sensor.
   ESensorDevice();
@@ -93,6 +94,10 @@ protected:
 
   // Set internal bus.
   void setInternBus() { Bus = BUS::INTERN; };
+
+  // Set SingleWire bus and its data pin.
+  // Also set identifier to bus name plus data pin.
+  void setSingleWireBus(int pin);
 
   // Set OneWire bus and its data pin.
   void setOneWireBus(int pin);

@@ -1,10 +1,11 @@
 #include <ESensorDevice.h>
 
 
-const char *ESensorDevice::BusStrings[10] = {
+const char *ESensorDevice::BusStrings[11] = {
     "unknown",
     "intern",
-    "OneWire",
+    "SingleWire",   // e.g. DHT22 from Aosong Electronics
+    "OneWire",      // e.g. DS18x20
     "I2C-0",
     "I2C-1",
     "I2C-2",
@@ -36,6 +37,15 @@ void ESensorDevice::setOneWireBus(int pin) {
   Bus = BUS::ONEWIRE;
   Address = 0;
   Pin = pin;
+}
+
+
+void ESensorDevice::setSingleWireBus(int pin) {
+  Bus = BUS::SINGLEWIRE;
+  Address = 0;
+  Pin = pin;
+  strcpy(Identifier, busStr());
+  sprintf(Identifier + strlen(Identifier), " %d", pin);
 }
 
 

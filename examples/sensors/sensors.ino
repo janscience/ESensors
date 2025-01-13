@@ -1,7 +1,7 @@
 #include <ESensors.h>
 #include <TemperatureDS18x20.h>
-#include <SenseBME280.h>
 #include <SenseDHT.h>
+#include <SenseBME280.h>
 #include <LightTSL2591.h>
 #include <LightBH1750.h>
 #include <DewPoint.h>
@@ -10,17 +10,17 @@
 
 // uncomment the sensors you want to use:
 #define TEMPDS18x20
+#define SENSEDHT
 #define SENSEBME280
-//#define SENSEDHT
 #define LIGHTTSL2591
 #define LIGHTBH1750
 
 
 // settings: -----------------------------------------------------------------
 
-#define DS18x20_PIN 35       // pin for DATA line of DS18x20 themperature sensor
-#define DHT_PIN 12           // pin for DATA line of DHTx themperature and humidity sensor
-float sensorsInterval = 2.0; // interval between sensor readings in seconds
+#define DS18x20_PIN 35        // pin for DATA line of DS18x20 themperature sensor
+#define DHT_PIN 10            // pin for DATA line of DHTx themperature and humidity sensor
+float sensorsInterval = 5.0; // interval between sensor readings in seconds
 
 // ----------------------------------------------------------------------------
 
@@ -30,6 +30,11 @@ ESensors sensors;
 #ifdef TEMPDS18x20
 TemperatureDS18x20 temp(&sensors);
 #endif
+#ifdef SENSEDHT
+SenseDHT dht(DHT_PIN, DHT_TYPE_22);
+TemperatureDHT tempdht(&dht, &sensors);
+HumidityDHT humdht(&dht, &sensors);
+#endif
 #ifdef SENSEBME280
 SenseBME280 bme;
 TemperatureBME280 tempbme(&bme, &sensors);
@@ -38,11 +43,6 @@ HumidityBME280 hum(&bme, &sensors);
 DewPoint dp(&hum, &tempbme, &sensors);
 PressureBME280 pres(&bme, &sensors);
 //SeaLevelPressure slpres(&pres, &tempbme, 460.0, &sensors);
-#endif
-#ifdef SENSEDHT
-SenseDHT dht(DHT_PIN, DHT_TYPE_22);
-TemperatureDHT tempdht(&dht, &sensors);
-HumidityDHT humdht(&dht, &sensors);
 #endif
 #ifdef LIGHTTSL2591
 LightTSL2591 tsl;
@@ -69,15 +69,15 @@ void setup() {
 #ifdef TEMPDS18x20
   temp.begin(DS18x20_PIN);
 #endif
+#ifdef SENSEDHT
+  humdht.setPercent();
+#endif
   Wire.begin();
 #ifdef SENSEBME280
   bme.beginI2C(Wire, 0x77);
   hum.setPercent();
   pres.setHecto();
   //slpres.setMilliBar();
-#endif
-#ifdef SENSEDHT
-  humdht.setPercent();
 #endif
 #ifdef LIGHTTSL2591
   tsl.begin(Wire);
@@ -91,13 +91,15 @@ void setup() {
   Serial.println();
   sensors.reportDevices();  // nice, but confuses the serial plotter
   sensors.report();         // nice, but confuses the serial plotter
-  delay(500);
   // discard first read:
   sensors.start();
   sensors.read();
   // go:
   sensors.start();
   sensors.printHeader(true);
+  #ifdef SENSEDHT
+  delay(2100);  // cool down
+  #endif
 }
 
 void loop(void) {

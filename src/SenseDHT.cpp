@@ -1,13 +1,11 @@
-/*
 #include <SenseDHT.h>
 
 
 SenseDHT::SenseDHT(uint8_t pin, uint8_t type) :
   ESensorDevice(),
-  DHT_Async(pin, type) {
-  DelayTime = 500;
-  Celsius = NoValue;
-  Humidity = NoValue;
+  DHT_Async(pin, type),
+  Celsius(NoValue),
+  Humidity(NoValue) {
   switch (type) {
   case DHT_TYPE_11:
     setChip("DHT11");
@@ -22,11 +20,7 @@ SenseDHT::SenseDHT(uint8_t pin, uint8_t type) :
     setChip("DHT22");
     break;
   };
-  char is[20];
-  sprintf(is, "pin%02d", pin);
-  setIdentifier(is);
-  //setBus();
-  //setAddress();
+  setSingleWireBus(pin);
 }
 
 
@@ -35,22 +29,26 @@ bool SenseDHT::available() {
 }
 
 
-bool SenseDHT::retrieveData(unsigned long time) {
-  bool r = measure(&Celsius, &Humidity);
-  if (r)
-    DelayTime = time;
-  return r;
+void SenseDHT::requestData() {
+  // cooldown, idle, and begin measurement:
+  for (uint8_t k=0; k<3; k++)
+    measure(&Celsius, &Humidity, false);
 }
 
 
 unsigned long SenseDHT::delayTime() const
 {
-  return DelayTime;
+  return 300;
 }
 
 
 void SenseDHT::getData() {
-  measure(&Celsius, &Humidity);
+  elapsedMillis time = 0;
+  bool r = false;
+  while (!r && time < 30)
+    r = measure(&Celsius, &Humidity, false);
+  if (r)
+    Humidity *= 0.01;
 }
 
 
@@ -61,18 +59,16 @@ TemperatureDHT::TemperatureDHT(SenseDHT *dht, ESensors *sensors)
 
 
 float TemperatureDHT::reading() const {
-  return SDC->temperature();
+  return SDev->temperature();
 }
 
 
 HumidityDHT::HumidityDHT(SenseDHT *dht, ESensors *sensors)
   : ESensorValue<SenseDHT>(dht, sensors,
-			   "humidity", "RH", "", "%.0f", 2.0) {
+			   "humidity", "RH", "", "%.3f", 0.02) {
 }
 
 
 float HumidityDHT::reading() const {
-  return SDC->humidity();
+  return SDev->humidity();
 }
-
-*/

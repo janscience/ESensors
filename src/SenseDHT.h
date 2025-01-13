@@ -10,7 +10,6 @@
 #ifndef SenseDHT_h
 #define SenseDHT_h
 
-/*
 #include <Arduino.h>
 #include <DHT_Async.h>
 #include <ESensorDevice.h>
@@ -40,13 +39,12 @@ class SenseDHT : public ESensorDevice, protected DHT_Async {
   
  private:
 
-  // Retrieve a sensor reading.
-  virtual bool retrieveData(unsigned long time);
+  // Request a sensor reading.
+  virtual void requestData();
 
   // Get a sensor reading from the device.
   virtual void getData();
 
-  unsigned long DelayTime;
   float Celsius;
   float Humidity;
   
@@ -76,5 +74,4 @@ class HumidityDHT : public ESensorValue<SenseDHT> {
   virtual float reading() const;
 };
 
-*/
 #endif
