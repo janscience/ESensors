@@ -10,7 +10,7 @@
 
 // uncomment the sensors you want to use:
 #define TEMPDS18x20
-#define SENSEDHT
+//#define SENSEDHT
 #define SENSEBME280
 #define LIGHTTSL2591
 #define LIGHTBH1750

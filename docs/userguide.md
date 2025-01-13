@@ -376,7 +376,8 @@ passed to these functions as the last argument.
 
 ### reportDevices()
 
-`reportDevices()` prints out the name of each sensor chip, the bus controlling the chip with address or pin and a unique identifier:
+`reportDevices()` prints out the name of each sensor chip, the bus
+controlling the chip with address or pin and a unique identifier:
 
 ```cpp
 #include <ESensors.h>
@@ -390,6 +391,14 @@ void setup() {
   // ...
   sensors.reportDevices();  // print infos for all avaliable sensor devices.
 }
+```
+
+Output:
+
+```txt
+2 of 4 environmental sensor devices available:
+  sensor device BME280       on I2C-0      bus at address   77 with ID I2C-0 77
+  sensor device TSL2591      on I2C-0      bus at address   29 with ID 50
 ```
 
 ### report()
@@ -415,11 +424,11 @@ Output:
 
 ```txt
 5 of 6 environmental sensors available, read every 2s:
-  temperature T (ºC):	 on BME280 device at a resolution of 0.01ºC.
-  humidity RH (%):	 on BME280 device at a resolution of 3.0%.
-  dew point Tdp (ºC):	 on BME280 & BME280 device at a resolution of 0.3ºC.
-  pressure P (hPa):	 on BME280 device at a resolution of 0.03hPa.
-  illuminance E (lx):	 on TSL2591 device (ID: 50) at a resolution of 1lx.
+  temperature          T        (ºC)    : at a resolution of  0.01ºC     on BME280       device with ID I2C-0 77
+  humidity             RH       (%)     : at a resolution of   3.0%      on BME280       device with ID I2C-0 77
+  dew point            Tdp      (ºC)    : at a resolution of   0.3ºC     on BME280       device with ID I2C-0 77
+  pressure             P        (hPa)   : at a resolution of  0.03hPa    on BME280       device with ID I2C-0 77
+  illuminance          E        (lx)    : at a resolution of     1lx     on TSL2591      device with ID 50
 ```
 
 ### print()
@@ -460,6 +469,22 @@ P = 970.11hPa
 E = 4.83lx
 ```
 
+Passing `true` as the second argument to `print()` results in a one line output:
+
+```cpp
+void loop() {
+  sensors.read();
+  sensors.print(true, true);
+}
+```
+
+Output:
+
+```txt
+T = 21.50ºC, RH = 40.3%, Tdp = 7.4ºC, P = 981.97hPa, E = 6.4935lx
+T = 21.48ºC, RH = 40.3%, Tdp = 7.4ºC, P = 982.08hPa, E = 6.4864lx
+T = 21.48ºC, RH = 40.3%, Tdp = 7.4ºC, P = 982.07hPa, E = 6.4794lx
+```
 
 ### printHeader() and printValues()
 

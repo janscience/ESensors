@@ -132,11 +132,13 @@ Control reading of sensor data:
 - `read()`: blocking read: `request()`, `delay()`, and `get()`.
 - `timeStamp()`: time stamp of last sensor reading.
 - `interval()`, `setInterval()`: time interval for repetitive reads used in `update()`.
-- `update()`: non-blocking control of requests and gets for all [ESensor](#esensor)s.
+- `update()`: non-blocking control of request() and get() for all [ESensor](#esensor)s.
 
 Output on stream:
 
-- `report()`: report properties (name, unit, chip, etc. ) of managed [ESensor](#esensor)s.
+- `reportDevices()`: report properties (chip, bus, address/pin, identifier)
+  of managed [ESensor](#esensor)s chips.
+- `report()`: report properties (name, unit, resolution, chip, etc.) of managed [ESensor](#esensor)s.
 - `setPrintTime()`: control whether and how time stamps are reported.
 - `print()`: print sensor names, readings, and units.
 - `printHeader()`: print header with sensor names and units.

@@ -123,7 +123,7 @@ void ESensorDevice::report(Stream &stream) {
   if (available()) {
     stream.printf("sensor device %-12s", chip());
     if (bus() != BUS::UNKNOWN) {
-      stream.printf(" on %-8s bus", busStr());
+      stream.printf(" on %-10s bus", busStr());
       if (address() != 0)
 	stream.printf(" at address %4x", address());
       else if (pin() >= 0)
