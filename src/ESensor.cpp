@@ -171,7 +171,7 @@ void ESensor::report(Stream &stream) {
       stream.print("   ");
     if (nunit > 0)
       stream.printf("%-*s", nunit, "");
-    stream.printf(": at a resolution of %5s%s", rs, unit());
+    stream.printf(" at a resolution of %5s%s", rs, unit());
     if (nunit > 0)
       stream.printf("%-*s", nunit, "");
     if (strlen(chip()) > 0)

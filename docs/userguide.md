@@ -403,8 +403,8 @@ Output:
 
 ### report()
 
-`report()` prints out some properties of the sensors, their names and
-units:
+`report()` prints out some properties of the sensors, their names,
+units, resolution and the name of the chip:
 
 ```cpp
 #include <ESensors.h>
@@ -424,11 +424,11 @@ Output:
 
 ```txt
 5 of 6 environmental sensors available, read every 2s:
-  temperature          T        (ºC)    : at a resolution of  0.01ºC     on BME280       device with ID I2C-0 77
-  humidity             RH       (%)     : at a resolution of   3.0%      on BME280       device with ID I2C-0 77
-  dew point            Tdp      (ºC)    : at a resolution of   0.3ºC     on BME280       device with ID I2C-0 77
-  pressure             P        (hPa)   : at a resolution of  0.03hPa    on BME280       device with ID I2C-0 77
-  illuminance          E        (lx)    : at a resolution of     1lx     on TSL2591      device with ID 50
+  temperature          T        (ºC)    at a resolution of  0.01ºC     on BME280       device with ID I2C-0 77
+  humidity             RH       (%)     at a resolution of   3.0%      on BME280       device with ID I2C-0 77
+  dew point            Tdp      (ºC)    at a resolution of   0.3ºC     on BME280       device with ID I2C-0 77
+  pressure             P        (hPa)   at a resolution of  0.03hPa    on BME280       device with ID I2C-0 77
+  illuminance          E        (lx)    at a resolution of     1lx     on TSL2591      device with ID 50
 ```
 
 ### print()
