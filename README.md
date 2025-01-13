@@ -22,6 +22,7 @@ Arduino with additional background information.
 - [BME280](docs/chips/bme280.md): [air pressure](docs/parameters/airpressure.md), [temperature](docs/parameters/temperature.md), and [humidity](docs/parameters/humidity.md)
 - [DS18x20](docs/chips/ds18x20.md): [temperature](docs/parameters/temperature.md)
 - [TSL2591](docs/chips/tsl2591.md): [light intensity](docs/parameters/light/md)
+- [DHT](docs/chips/dht.md): [temperature](docs/parameters/temperature.md)
 
 
 ### Documentation
@@ -64,7 +65,6 @@ In [utils/](utils) you find useful python scripts.
 ## TODO
 
 - Add more sensors.
-- Extend interface to allow for checking whether a sensor reading is available. 
 
 
 ## Applications of the ESensors library
@@ -84,7 +84,7 @@ ESensors is used in:
   replacement for the usual and horrible RadioShack/MP3 player
   combination for recording electric fish EODs in their natural
   habitats with lot's of additional features (display, online
-  analysis, acoustiv feedabck, environmental parameters).
+  analysis, acoustic feedabck, environmental parameters).
 
 
 ## Links

@@ -55,11 +55,6 @@ class ESensors {
   // Only available after calling start().
   unsigned long delayTime() const { return DelayTime; };
 
-  // Retrieve sensor data over an extended period of time.
-  // Needs to be called repeatedly until true is returned.
-  // time is the elapsed time since request() in milliseconds.
-  bool retrieve(unsigned long time);
-
   // Get sensor readings from all sensors.
   void get();
 
@@ -148,7 +143,6 @@ class ESensors {
   unsigned long RequestTime;
   time_t TimeStamp;
   int State;
-  bool Retrieving[MaxSensors];
   print_time_t PrintTime;
   FsFile DF;
   static const size_t NHeader = 256; // size of Header string

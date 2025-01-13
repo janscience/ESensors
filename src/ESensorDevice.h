@@ -71,18 +71,13 @@ class ESensorDevice {
   // Recommended delay between a request() and get() in miiliseconds.
   virtual unsigned long delayTime() const { return 0; };
 
-  // Retrieve sensor data over an extended period of time.
-  // Needs to be called repeatedly until true is returned.
-  // time is the elapsed time since request() in milliseconds.
-  bool retrieve(unsigned long time);
-
   // Get a sensor reading from the device
   // and store it in a variable.
   // You need to call request() at least delayTime() before.
   void get();
 
-  // Initiate measurement (request()), wait for delayTime()
-  // while calling retrieve(), and get the data (get()).
+  // Initiate measurement (request()), wait for delayTime(), and get
+  // the data (get()).
   // This function may block considerably!
   void read();
 
@@ -121,13 +116,6 @@ protected:
   // needs to be prepared for a sensor reading in advance.
   virtual void requestData();
 
-  // Retrieve a sensor reading. This function is called repeatedly
-  // between request() and get() until it returns true.
-  // time is the elapsed time since request() in milliseconds.
-  // Reimplement this function, if communication with the
-  // sensor device requires considerable time.
-  virtual bool retrieveData(unsigned long time);
-
   // Implement this function to get a sensor reading from the
   // device after delayTime() and store it in a variable.
   // Called by get().
@@ -140,7 +128,6 @@ protected:
   char Chip[MaxStr + 1];
   char Identifier[MaxStr + 1];
   bool Measuring;
-  bool Retrieving;
   time_t TimeStamp;
   
 };
