@@ -1,5 +1,6 @@
 #include <ESensors.h>
 #include <TemperatureDS18x20.h>
+#include <TemperatureDS3231.h>
 #include <SenseDHT.h>
 #include <SenseBME280.h>
 #include <LightTSL2591.h>
@@ -9,7 +10,8 @@
 #include <SeaLevelPressure.h>
 
 // uncomment the sensors you want to use:
-#define TEMPDS18x20
+//#define TEMPDS18x20
+#define TEMPDS3231
 //#define SENSEDHT
 #define SENSEBME280
 #define LIGHTTSL2591
@@ -29,6 +31,9 @@ ESensors sensors;
 
 #ifdef TEMPDS18x20
 TemperatureDS18x20 temp(&sensors);
+#endif
+#ifdef TEMPDS3231
+TemperatureDS3231 temprtc(&sensors);
 #endif
 #ifdef SENSEDHT
 SenseDHT dht(DHT_PIN, DHT_TYPE_22);
@@ -73,6 +78,9 @@ void setup() {
   humdht.setPercent();
 #endif
   Wire.begin();
+#ifdef TEMPDS3231
+  temprtc.begin(Wire);
+#endif
 #ifdef SENSEBME280
   bme.beginI2C(Wire, 0x77);
   hum.setPercent();

@@ -4,6 +4,8 @@
 
 - [DS18x20](../chips/ds18x20.md)
 
+- [DS3231](../chips/ds3231.md)
+
 - [DHT22](../chips/dht.md)
 
 - [TMP117](https://www.bluedot.space/products/tmp117/): 0.1C accuracy.
