@@ -1,6 +1,5 @@
 """Fix sensor time stamps.
 
-
 ## Command line script
 
 The module can be run as a script from the command line:
@@ -15,31 +14,61 @@ fixsensortimestamps --help
 ```
 prints
 ```text
+usage: fixsensortimestamps.py [-h] [--version] -s STARTTIME [-n] file
+
+Fix time stamps in sensors file.
+
+positional arguments:
+  file          sensors file
+
+options:
+  -h, --help    show this help message and exit
+  --version     show program's version number and exit
+  -s STARTTIME  new start time of the first sensor reading
+  -n            do not modify the files, just report what would be done.
+
+version 1.0 by Benda-Lab (2025-2025)
 ```
 
 ## Functions
 
+- `write_sensors()`: write sensors data to file and modify time stamps.
 
 """
 
 
-import re
 import os
 import sys
 import argparse
 import datetime as dt
-import pandas as pd
 from pathlib import Path
-from audioio import parse_datetime, replace_datetime
+from audioio import replace_datetime
 
 
-def load_sensors(path):
-    data = pd.read_csv(path, sep=',')
-    tc = data.columns[0]
-    data[tc] = pd.to_datetime(data[tc])
-    data[tc] = pd.Series(data[tc].dt.to_pydatetime(), dtype=object)
-    header = list(data)[1:]
-    return data, header
+def write_sensors(path, lines, start_time):
+    """ Write sensors data to file and modify time stamps.
+    
+    Parameters
+    ----------
+    path: str
+        Path where to write modified sensors data.
+    lines: list of str
+        Content of the original file.
+    start_time: datatime
+        Time of the first sensor reading.
+    """
+    if len(lines) < 2:
+        return
+    with open(path, 'w') as df:
+        df.write(lines.pop(0))
+        file_time = dt.datetime.fromisoformat(lines[0].split(',')[0])
+        delta_t = start_time - file_time
+        for line in lines:
+            parts = line.split(',')
+            time = dt.datetime.fromisoformat(parts[0])
+            time += delta_t
+            parts[0] = time.isoformat()
+            df.write(','.join(parts))
 
 
 def demo(start_time, path, no_mod=False):
@@ -54,21 +83,15 @@ def demo(start_time, path, no_mod=False):
     no_mod: bool
         Do not modify the file, just report what would be done.    
     """
-    #start_time = dt.datetime.fromisoformat(start_time)
-    name_time = parse_datetime(Path(path).stem)
-    data, header = load_sensors(path)
-    print(data)
-    #print(data[0])
-    """
-    if name_time is not None:
-        p = Path(path)
-        np = p.with_stem(replace_datetime(p.stem, start_time))
-        if not no_mod:
-            os.rename(fp, np)
-        print(f'{fp} -> {np}')
-    else:
-        print(f'{fp}: {orig_time} -> {start_time}')
-    """
+    start_time = dt.datetime.fromisoformat(start_time)
+    lines = []
+    with open(path, 'r') as sf:
+        lines = sf.readlines()
+    write_sensors(path, lines, start_time)
+    p = Path(path)
+    new_path = p.with_stem(replace_datetime(p.stem, start_time))
+    os.rename(path, new_path)
+    print(f'{path} -> {new_path}')
     
             
 def main(*cargs):
@@ -87,7 +110,7 @@ def main(*cargs):
         epilog=f'version {__version__} by Benda-Lab (2025-{__year__})')
     parser.add_argument('--version', action='version', version=__version__)
     parser.add_argument('-s', dest='starttime', default=None, type=str, required=True,
-                        help='new start time of the first file')
+                        help='new start time of the first sensor reading')
     parser.add_argument('-n', dest='nomod', action='store_true',
                         help='do not modify the files, just report what would be done.')
     parser.add_argument('file', type=str, nargs=1,

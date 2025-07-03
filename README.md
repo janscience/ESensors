@@ -61,6 +61,7 @@ the ESensors library.
 In [utils/](utils) you find useful python scripts.
 
 - [sensors.py](utils/sensors.py): plot the content of the csv file written by the [ESensors](doc/classes.md#esensors) library.
+- [fixsensortimestamps.py](utils/fixsensortimestamps.py): Fix sensor time stamps.
 
 
 ## TODO
