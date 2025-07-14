@@ -18,11 +18,11 @@ Arduino with additional background information.
 
 ### Currently supported sensors
 
-- [BH1750](docs/chips/bh1750.md): [light intensity](docs/parameters/light/md)
+- [BH1750](docs/chips/bh1750.md): [light intensity](docs/parameters/light.md)
 - [BME280](docs/chips/bme280.md): [air pressure](docs/parameters/airpressure.md), [temperature](docs/parameters/temperature.md), and [humidity](docs/parameters/humidity.md)
 - [DS18x20](docs/chips/ds18x20.md): [temperature](docs/parameters/temperature.md)
 - [DS3231](docs/chips/ds3231.md): [temperature](docs/parameters/temperature.md)
-- [TSL2591](docs/chips/tsl2591.md): [light intensity](docs/parameters/light/md)
+- [TSL2591](docs/chips/tsl2591.md): [light intensity](docs/parameters/light.md)
 - [DHT](docs/chips/dht.md): [temperature](docs/parameters/temperature.md)
 
 
