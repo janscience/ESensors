@@ -21,7 +21,7 @@
 Modern, small temperature ICs:
 
 - [TI TMP119](https://www.ti.com/product/TMP119) with
-0.08C accuracy in DSBGA package.
+0.08C accuracy in DSBGA package. [datasheet](../chips/datasheets/tmp119.pdf)
 
 ![TMP119](https://www.ti.com/ods/images/SNIS236/GUID-49797EB3-7BB6-48B9-8614-2688A39788BD-low.svg)
 
