@@ -13,11 +13,11 @@
 // uncomment the sensors you want to use:
 //#define TEMPDS18x20
 //#define TEMPDS3231
-#define TEMPSTS4x
+//#define TEMPSTS4x
 //#define SENSEDHT
 //#define SENSEBME280
 //#define LIGHTTSL2591
-//#define LIGHTBH1750
+#define LIGHTBH1750
 
 
 // settings: -----------------------------------------------------------------
@@ -85,11 +85,11 @@ void setup() {
   humdht.setPercent();
 #endif
   Wire.begin();
+  Wire2.begin();
 #ifdef TEMPDS3231
   temprtc.begin(Wire);
 #endif
 #ifdef TEMPSTS4x
-  Wire2.begin();
   sts.begin(Wire2, STS4x_ADDR);
   sts.setPrecision(STS4x_HIGH);
 #endif
@@ -105,7 +105,7 @@ void setup() {
   irratio.setPercent();
 #endif
 #ifdef LIGHTBH1750
-  bh.begin();
+  bh.begin(Wire2, BH1750_TO_GROUND);
   bh.setAutoRanging();
 #endif
   Serial.println();
