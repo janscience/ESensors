@@ -29,11 +29,12 @@ It provides the following classes:
 - `TemperatureSTS4x`: temperature in degree celsius.
 
 ```cpp
-TemperatureSTS4x tmp();
+TemperatureSTS4x tmp;
 
 void setup() {
   Wire.begin();
-  tmp.begin(Wire);
+  tmp.begin(Wire, STS4x_ADDR1);
+  tmp.setPrecision(STS4x_HIGH);
 }
 ```
 
