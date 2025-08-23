@@ -6,6 +6,7 @@ ESensors::ESensors() :
   NSensors(0),
   DelayTime(0),
   BufferTime(0),
+  OffsetTime(0),
   Interval(0),
   Time(0),
   TimeStamp(0),
@@ -161,19 +162,20 @@ void ESensors::get() {
 }
 
 
-bool ESensors::update() {
+bool ESensors::update(bool allow_reading) {
   if (State == 0) {
     if (Time + BufferTime + delayTime() > UseInterval)
       State = 1;
   }
   else if (State == 1) {
-    if (Time + delayTime() > UseInterval) {
+    if (allow_reading && (Time + delayTime() > UseInterval)) {
+      OffsetTime = Time + delayTime() - UseInterval;
       request();
       State = 2;
     }
   }
   else if (State == 2) {
-    if (Time > UseInterval) {
+    if (Time > UseInterval + OffsetTime) {
       get();
       setDelayTime();
       State = 3;

@@ -66,12 +66,12 @@ class ESensors {
   void get();
 
   // Update sensor readings by calling request() and get() according to
-  // interval() and the sensors' delayTime().
+  // interval() and the sensors' delayTime(), but only if allow_reading.
   // Call as often as possible in loop().
   // This function does not block.
   // You need to start the acquisition before by calling start().
   // Returns true if the sensor readings have been updated.
-  bool update();
+  bool update(bool allow_reading=true);
 
   // True if retrieving sensor readings. That is, if update() is in a state
   // between bufferTime() before reuqest() and bufferTime() after get().
@@ -149,6 +149,7 @@ class ESensors {
   ESensor *Snsrs[MaxSensors];
   unsigned long DelayTime;
   unsigned long BufferTime;
+  unsigned long OffsetTime;
   unsigned long Interval;
   unsigned long UseInterval;
   elapsedMillis Time;
