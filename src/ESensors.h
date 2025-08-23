@@ -38,6 +38,13 @@ class ESensors {
   // Set update interval for reading sensor values to interval seconds.
   void setInterval(float interval);
 
+  // Buffer interval before and after retrieving sensor readings in seconds.
+  float bufferTime() const;
+
+  // Set buffer time before and after retrieving sensor readings
+  // to time seconds.
+  void setBufferTime(float time);
+
   // Report properties of all sensors on stream.
   void report(Stream &stream=Serial);
 
@@ -65,6 +72,10 @@ class ESensors {
   // You need to start the acquisition before by calling start().
   // Returns true if the sensor readings have been updated.
   bool update();
+
+  // True if retrieving sensor readings. That is, if update() is in a state
+  // between bufferTime() before reuqest() and bufferTime() after get().
+  bool isBusy() const;
 
   // Initiate measurement (request()) of all sensors, wait for
   // delayTime(), and get the data (get()).
@@ -137,6 +148,7 @@ class ESensors {
   uint8_t NSensors; 
   ESensor *Snsrs[MaxSensors];
   unsigned long DelayTime;
+  unsigned long BufferTime;
   unsigned long Interval;
   unsigned long UseInterval;
   elapsedMillis Time;

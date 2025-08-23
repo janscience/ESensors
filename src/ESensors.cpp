@@ -5,6 +5,7 @@
 ESensors::ESensors() :
   NSensors(0),
   DelayTime(0),
+  BufferTime(0),
   Interval(0),
   Time(0),
   TimeStamp(0),
@@ -44,6 +45,16 @@ float ESensors::interval() const {
 
 void ESensors::setInterval(float interval) {
   Interval = (unsigned long)(1000.0*interval);
+}
+
+
+float ESensors::bufferTime() const {
+  return 0.001*BufferTime;
+}
+
+
+void ESensors::setBufferTime(float time) {
+  BufferTime = (unsigned long)(1000.0*time);
 }
 
 
@@ -135,40 +146,50 @@ void ESensors::start() {
 
 
 void ESensors::request() {
-  if (State > 0)
-    return;
   for (uint8_t k=0; k<NSensors; k++)
     Snsrs[k]->request();
   RequestTime = Time;
-  State = 1;
 }
 
 
 void ESensors::get() {
-  if (State != 1)
-    return;
   TimeStamp = now();
   for (uint8_t k=0; k<NSensors; k++)
     Snsrs[k]->get();
   makeCSVData();
-  State = 0;
   Time -= UseInterval;
 }
 
 
 bool ESensors::update() {
   if (State == 0) {
-    if (Time + delayTime() > UseInterval)
-      request();
+    if (Time + BufferTime + delayTime() > UseInterval)
+      State = 1;
   }
   else if (State == 1) {
+    if (Time + delayTime() > UseInterval) {
+      request();
+      State = 2;
+    }
+  }
+  else if (State == 2) {
     if (Time > UseInterval) {
       get();
       setDelayTime();
+      State = 3;
       return true;
     }
   }
+  else if (State == 3) {
+    if (Time > BufferTime)
+      State = 0;
+  }
   return false;
+}
+
+
+bool ESensors::isBusy() const {
+  return (State != 0);
 }
 
 
