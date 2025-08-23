@@ -29,10 +29,12 @@ class LightBH1750 : public ESensor, protected hp_BH1750 {
   LightBH1750(ESensors *sensors=0);
  
   // Initialize BH1750 device on default I2C bus.
+  // Address is either BH1750_TO_GROUND or BH1750_TO_VCC.
   // NOTE: you need to initalize I2C by calling `Wire.begin()` *before*!
   bool begin(uint8_t address=BH1750_TO_GROUND);
 
   // Initialize BH1750 device on an I2C bus.
+  // Address is either BH1750_TO_GROUND or BH1750_TO_VCC.
   // NOTE: you need to initalize I2C by calling `Wire1.begin()` *before*!
   bool begin(TwoWire &wire, uint8_t address=BH1750_TO_GROUND);
 
@@ -45,7 +47,7 @@ class LightBH1750 : public ESensor, protected hp_BH1750 {
   void setMTReg(int mtreg);
 
   // If set true, after each measurement the integration time and
-  // quality are adjusted to ensure the next measurement to not not
+  // quality are adjusted to ensure the next measurement to not
   // exceed the measurement range.
   void setAutoRanging(bool autorange=true);
 

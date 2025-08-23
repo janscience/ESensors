@@ -6,7 +6,7 @@
   The temperature sensor needs to be connected to the Teensy in the
   following way:
   - black: GND to Teensy GND
-  - black: power to Teensy 3.3V
+  - red: power to Teensy 3.3V
   - yellow: DATA to a Teensy digital output pin (e.g. pin 10).
     DATA also needs to be connected to Teensy 3.3V via a 4.7K resistor.
 
