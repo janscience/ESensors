@@ -1,22 +1,30 @@
 #include <TimeLib.h>
-#include <SdFat.h>
+#include <SD.h>
 #include <ESensors.h>
 #include <TemperatureDS18x20.h>
+#include <TemperatureDS3231.h>
+#include <TemperatureSTS4x.h>
 #include <SenseBME280.h>
 #include <LightTSL2591.h>
 #include <LightBH1750.h>
 #include <DewPoint.h>
 
 // uncomment the sensors you want to use:
-//#define TEMPDS18x20
+#define TEMPDS18x20
+//#define TEMPDS3231
+//#define TEMPSTS4x
+//#define SENSEDHT
 //#define SENSEBME280
 //#define LIGHTTSL2591
-#define LIGHTBH1750
+//#define LIGHTBH1750
 
 
 // settings: -----------------------------------------------------------------
 
-uint8_t tempPin = 10;        // pin for DATA line of DS18x20 themperature sensor
+#define DS18x20_PIN  9   // pin for DATA line of DS18x20 themperature sensor
+#define DHT_PIN     10   // pin for DATA line of DHTx themperature and humidity sensor
+#define STS4x_ADDR  STS4x_ADDR2  // I2C address of STS4x temperature sensor
+
 float sensorsInterval = 2.0; // interval between sensors readings in seconds
 
 // ----------------------------------------------------------------------------
@@ -26,6 +34,12 @@ ESensors sensors;
 
 #ifdef TEMPDS18x20
 TemperatureDS18x20 temp(&sensors);
+#endif
+#ifdef TEMPDS3231
+TemperatureDS3231 temprtc(&sensors);
+#endif
+#ifdef TEMPSTS4x
+TemperatureSTS4x sts(&sensors);
 #endif
 #ifdef SENSEBME280
 SenseBME280 bme;
@@ -51,7 +65,6 @@ QualityBH1750 bhqual(&bh, &sensors);
 TimeBH1750 bhtime(&bh, &sensors);
 #endif
 
-SdFat sdcard;
 int led_pin = LED_BUILTIN;
 bool symbols = false;
 
@@ -65,11 +78,19 @@ void setup() {
   Serial.begin(9600);
   while (!Serial && millis() < 2000) {};
   setSyncProvider(getTeensyTime);
-  sdcard.begin(BUILTIN_SDCARD);
+  SD.begin(BUILTIN_SDCARD);
 #ifdef TEMPDS18x20
-  temp.begin(tempPin);
+  temp.begin(DS18x20_PIN);
 #endif
   Wire.begin();
+#ifdef TEMPDS3231
+  temprtc.begin(Wire);
+#endif
+#ifdef TEMPSTS4x
+  Wire2.begin();
+  sts.begin(Wire2, STS4x_ADDR);
+  sts.setPrecision(STS4x_HIGH);
+#endif
 #ifdef SENSEBME280
   bme.beginI2C(Wire, 0x77);
   hum.setPercent();
@@ -87,7 +108,7 @@ void setup() {
   sensors.setInterval(sensorsInterval);
   sensors.setPrintTime(ESensors::ISO_TIME);
   sensors.report();
-  bool success = sensors.openCSV(sdcard, "sensors", symbols);
+  bool success = sensors.openCSV(SD, "sensors", symbols);
   digitalWrite(led_pin, LOW);
   if (success) {
     // init sensors:

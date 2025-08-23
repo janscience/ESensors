@@ -1,6 +1,7 @@
 #include <ESensors.h>
 #include <TemperatureDS18x20.h>
 #include <TemperatureDS3231.h>
+#include <TemperatureSTS4x.h>
 #include <SenseDHT.h>
 #include <SenseBME280.h>
 #include <LightTSL2591.h>
@@ -10,8 +11,9 @@
 #include <SeaLevelPressure.h>
 
 // uncomment the sensors you want to use:
-#define TEMPDS18x20
+//#define TEMPDS18x20
 //#define TEMPDS3231
+#define TEMPSTS4x
 //#define SENSEDHT
 //#define SENSEBME280
 //#define LIGHTTSL2591
@@ -20,8 +22,10 @@
 
 // settings: -----------------------------------------------------------------
 
-#define DS18x20_PIN 9        // pin for DATA line of DS18x20 themperature sensor
-#define DHT_PIN 10            // pin for DATA line of DHTx themperature and humidity sensor
+#define DS18x20_PIN  9    // pin for DATA line of DS18x20 themperature sensor
+#define DHT_PIN     10    // pin for DATA line of DHTx themperature and humidity sensor
+#define STS4x_ADDR  STS4x_ADDR2  // I2C address of STS4x temperature sensor
+
 float sensorsInterval = 5.0; // interval between sensor readings in seconds
 
 // ----------------------------------------------------------------------------
@@ -34,6 +38,9 @@ TemperatureDS18x20 temp(&sensors);
 #endif
 #ifdef TEMPDS3231
 TemperatureDS3231 temprtc(&sensors);
+#endif
+#ifdef TEMPSTS4x
+TemperatureSTS4x sts(&sensors);
 #endif
 #ifdef SENSEDHT
 SenseDHT dht(DHT_PIN, DHT_TYPE_22);
@@ -80,6 +87,11 @@ void setup() {
   Wire.begin();
 #ifdef TEMPDS3231
   temprtc.begin(Wire);
+#endif
+#ifdef TEMPSTS4x
+  Wire2.begin();
+  sts.begin(Wire2, STS4x_ADDR);
+  sts.setPrecision(STS4x_HIGH);
 #endif
 #ifdef SENSEBME280
   bme.beginI2C(Wire, 0x77);
