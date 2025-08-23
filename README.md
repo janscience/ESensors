@@ -24,6 +24,7 @@ Arduino with additional background information.
 - [DS3231](docs/chips/ds3231.md): [temperature](docs/parameters/temperature.md)
 - [TSL2591](docs/chips/tsl2591.md): [light intensity](docs/parameters/light.md)
 - [DHT](docs/chips/dht.md): [temperature](docs/parameters/temperature.md)
+- [STS4x](docs/chips/sts4x.md): [temperature](docs/parameters/temperature.md)
 
 
 ### Documentation

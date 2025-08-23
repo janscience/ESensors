@@ -5,6 +5,7 @@
 - [Dallas DS18x20](ds18x20.md)
 - [Bosch Sensortec BME280](bme280.md)
 - [DHT11 or DHT22](dht.md)
+- [Sensirion STS4x](sts4x.md)
 
 
 ## Humidity
