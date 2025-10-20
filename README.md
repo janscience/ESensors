@@ -42,11 +42,6 @@ Arduino with additional background information.
   available chips for measuring various environmental parameters.
 
 
-## Power supply
-
-- [Power supply](docs/power/): Some solutions for power supply.
-
-
 ## Examples
 
 In [examples/](examples) you find sketches demonstrating the use of
@@ -63,6 +58,19 @@ In [utils/](utils) you find useful python scripts.
 
 - [sensors.py](utils/sensors.py): plot the content of the csv file written by the [ESensors](doc/classes.md#esensors) library.
 - [fixsensortimestamps.py](utils/fixsensortimestamps.py): Fix sensor time stamps.
+
+
+## Circuit boards
+
+Inside the `pcbs/` folder you find circuit boards using various
+environmental sensors.
+
+- [Sensors-V1](pcbs/sensorsv1/): temperature and light sensor with status LEDs.
+
+
+## Power supply
+
+- [Power supply](docs/power/): some solutions for power supply.
 
 
 ## TODO
