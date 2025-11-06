@@ -21,7 +21,7 @@ level interface to various sensor chips. It
 - [Managing multiple sensors](#managing-multiple-sensors)
 - [Non-blocking reads](#non-blocking-reads)
 - [Writing CSV files](#writing-csv-files)
-- [Reporting on Serial](#reporting-on-serial)
+- [Reporting on streams/Serial](#reporting-on-serial)
 - [Time stamps](#time-stamps)
 
 

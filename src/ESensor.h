@@ -120,6 +120,15 @@ class ESensor : public ESensorDevice {
   // This function may block considerably!
   float read();
 
+  // The number of key-value pairs available in the device's metadata.
+  virtual size_t metadata() const { return ESensorDevice::metadata(); };
+
+  // Return key of the index-th metadata entry.
+  virtual const char *key(size_t index) const { return ESensorDevice::key(index); };
+
+  // Return value of the index-th metadata entry.
+  virtual const char *value(size_t index) const { return ESensorDevice::value(index); };
+
   // Special unit conversions for SI prefixes:
 
   // Set SI prefix for unit that scales the unit by `factor` and

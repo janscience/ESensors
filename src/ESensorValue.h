@@ -44,9 +44,15 @@ class ESensorValue : public ESensor {
 
   // Address on I2C bus.
   virtual unsigned int address() const { return SDev->address(); };
+  
+  // Address on I2C bus as a string.
+  virtual const char *addressStr() const { return SDev->addressStr(); };
 
   // Pin of OneWire bus or chip select pin of device on SPI bus.
   virtual int pin() const { return SDev->pin(); };
+  
+  // Pin as a string.
+  virtual const char *pinStr() const { return SDev->pinStr(); };
 
   // Return name of sensor chip model as character array.
   virtual const char* chip() const { return SDev->chip(); };
@@ -54,8 +60,20 @@ class ESensorValue : public ESensor {
   // Return unique identifier of sensor chip as character array.
   virtual const char* identifier() const { return SDev->identifier(); };
 
+  // The sensor reading in the current unit.
+  virtual float value() const { return ESensor::value(); };
+
   // Recommended delay between a request() and get() in milliseconds.
   virtual unsigned long delayTime() const { return SDev->delayTime(); };
+
+  // The number of key-value pairs available in the device's metadata.
+  virtual size_t metadata() const { return SDev->metadata(); };
+
+  // Return key of the index-th metadata entry.
+  virtual const char *key(size_t index) const { return SDev->key(index); };
+
+  // Return value of the index-th metadata entry.
+  virtual const char *value(size_t index) const { return SDev->value(index); };
 
   
  protected:

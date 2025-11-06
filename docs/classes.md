@@ -11,7 +11,7 @@
 
 The virtual [ESensorDevice class](../src/ESensorDevice.h) interfaces a
 sensor chip/device. It provides basic infrastructure for requesting
-and retrieving sensor readings.
+and retrieving sensor readings and for handling a device's metadata.
 
 The actual sensor readings need to be accessed via a [ESensor
 class](#esensor) - see [ESensorValue](#esensorvalue) below.
@@ -31,6 +31,9 @@ Member functions:
 - `get()`: get a sensor reading from the device and store it in a variable.
 - `read()`: blocking read: initiate measurement (request()), wait for delayTime(), and retrieve the data (get()).
 - `timeStamp()`: time stamp of last sensor reading.
+- `metadata()`: the number of key-value pairs available in the device's metadata.
+- `key()`: return key of the index-th metadata entry.
+- `value()`: return value of the index-th metadata entry.
 
 Available ESensorDevices:
 

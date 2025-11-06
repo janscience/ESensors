@@ -13,8 +13,10 @@ Arduino with additional background information.
 
 - Blocking and non-blocking reads from many sensors in parallel.
 - Sensor readings in adaptable units.
-- Output of sensor properties and readings on Serial and into CSV files on SD card.
+- Output of sensor properties and readings on streams and into CSV files on SD card.
 - Hardware independent derived measures, like for example, dew point and absolute humidity.
+- Device properties and settings available as metadata.
+
 
 ### Currently supported sensors
 

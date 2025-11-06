@@ -20,10 +20,13 @@ ESensorDevice::ESensorDevice() :
   Bus(BUS::UNKNOWN),
   Address(0),
   Pin(-1),
+  AddressStr(""),
+  PinStr(""),
   Chip(""),
   Identifier(""),
   Measuring(false),
-  TimeStamp(0) {
+  TimeStamp(0),
+  NKeyVals(0) {
 }
 
 
@@ -32,10 +35,9 @@ ESensorDevice::BUS ESensorDevice::bus() const {
 }
 
 
-void ESensorDevice::setOneWireBus(int pin) {
-  Bus = BUS::ONEWIRE;
-  Address = 0;
-  Pin = pin;
+void ESensorDevice::setInternBus() {
+  Bus = BUS::INTERN;
+  add("Bus", BusStrings[bus()]);
 }
 
 
@@ -43,8 +45,24 @@ void ESensorDevice::setSingleWireBus(int pin) {
   Bus = BUS::SINGLEWIRE;
   Address = 0;
   Pin = pin;
+  snprintf(PinStr, MaxPin, "%d", Pin);
+  PinStr[MaxPin] = '\0';
   strcpy(Identifier, busStr());
   sprintf(Identifier + strlen(Identifier), " %d", pin);
+  add("Bus", BusStrings[bus()]);
+  add("Pin", PinStr);
+  add("Identifier", Identifier);
+}
+
+
+void ESensorDevice::setOneWireBus(int pin) {
+  Bus = BUS::ONEWIRE;
+  Address = 0;
+  Pin = pin;
+  snprintf(PinStr, MaxPin, "%d", Pin);
+  PinStr[MaxPin] = '\0';
+  add("Bus", BusStrings[bus()]);
+  add("Pin", PinStr);
 }
 
 
@@ -65,8 +83,13 @@ void ESensorDevice::setI2CBus(const TwoWire &wire, unsigned int address) {
 #endif
   Address = address;
   Pin = -1;
+  snprintf(AddressStr, MaxPin, "%x", Address);
+  AddressStr[MaxPin] = '\0';
   strcpy(Identifier, busStr());
   sprintf(Identifier + strlen(Identifier), " %x", address);
+  add("Bus", BusStrings[bus()]);
+  add("Address", AddressStr);
+  add("Identifier", Identifier);
 }
 
 
@@ -84,8 +107,13 @@ void ESensorDevice::setSPIBus(const SPIClass &spi, unsigned int cspin) {
 #endif
   Address = 0;
   Pin = cspin;
+  snprintf(PinStr, MaxPin, "%d", Pin);
+  PinStr[MaxPin] = '\0';
   strcpy(Identifier, busStr());
   sprintf(Identifier + strlen(Identifier), " %d", cspin);
+  add("Bus", BusStrings[bus()]);
+  add("Pin", PinStr);
+  add("Identifier", Identifier);
 }
 
 
@@ -106,6 +134,7 @@ const char* ESensorDevice::chip() const {
 
 void ESensorDevice::setChip(const char *chip) {
   strncpy(Chip, chip, MaxStr);
+  add("Chip", Chip);
 }
 
 
@@ -116,6 +145,7 @@ const char* ESensorDevice::identifier() const {
 
 void ESensorDevice::setIdentifier(const char *identifier) {
   strncpy(Identifier, identifier, MaxStr);
+  add("Identifier", Identifier);
 }
 
 
@@ -171,3 +201,41 @@ void ESensorDevice::read() {
 time_t ESensorDevice::timeStamp() const {
   return TimeStamp;
 }
+
+
+int ESensorDevice::add(const char *key, const char *value) {
+  if ((key == 0) || (value == 0))
+    return -1;
+  int i = setValue(key, value);
+  if (i >= 0)
+    return i;
+  if (NKeyVals >= MaxKeyVals)
+    return -1;
+  Keys[NKeyVals] = key;
+  Values[NKeyVals] = value;
+  return ++NKeyVals;
+}
+
+
+bool ESensorDevice::setValue(size_t index, const char *value) {
+  if (index >= NKeyVals)
+    return false;
+  if (value == 0)
+    return false;
+  Values[index] = value;
+  return true;
+}
+
+
+int ESensorDevice::setValue(const char *key, const char *value) {
+  for (size_t k=0; k<NKeyVals; k++) {
+    if (strcmp(Keys[k], key) == 0) {
+      if (setValue(k, value))
+	return k;
+      else
+	return -1;
+    }
+  }
+  return false;
+}
+
