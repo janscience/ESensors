@@ -1,6 +1,9 @@
 #include <TemperatureSTS4x.h>
 
 
+const char *TemperatureSTS4x::PrecisionStrings[3] = {"HIGH", "MEDIUM", "LOW"};
+
+
 TemperatureSTS4x::TemperatureSTS4x(ESensors *sensors)
   : ESensor(sensors, "temperature", "T", "ºC", "%.1f", 0.2) {
   setChip("STS4x");
@@ -40,6 +43,7 @@ void TemperatureSTS4x::begin(TwoWire &wire, STS4xAddress addr) {
     sprintf(serial, "%02X-%02X-%02X-%02X", s0, s1, s2, s3);
     setIdentifier(serial);
   };
+  setPrecision(Precision);
 }
 
 
@@ -75,5 +79,13 @@ float TemperatureSTS4x::reading() const {
 
 void TemperatureSTS4x::setPrecision(STS4xPrecision precision) {
   Precision = precision;
+  const char *pstr = 0;
+  if (Precision == STS4x_HIGH)
+    pstr = PrecisionStrings[0];
+  else if (Precision == STS4x_MEDIUM)
+    pstr = PrecisionStrings[1];
+  else if (Precision == STS4x_LOW)
+    pstr = PrecisionStrings[2];
+  add("Precision", pstr);
 }
 

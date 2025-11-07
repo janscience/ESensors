@@ -1,6 +1,10 @@
 #include <LightBH1750.h>
 
 
+const char *LightBH1750::QualityStrings[3] = {"HIGH", "HIGH2", "LOW"};
+const char *LightBH1750::AutoRangeStrings[2] = {"off", "on"};
+
+
 LightBH1750::LightBH1750(ESensors *sensors)
   : ESensor(sensors, "illuminance", "E", "lx", "%6.5g", 0.113),
     hp_BH1750() {
@@ -9,6 +13,7 @@ LightBH1750::LightBH1750(ESensors *sensors)
   Quality = BH1750_QUALITY_HIGH;
   MTReg = 0;
   AutoRange = false;
+  MTRegStr[0] = '\0';
 }
 
   
@@ -33,21 +38,36 @@ bool LightBH1750::begin(TwoWire &wire, uint8_t address) {
 void LightBH1750::init() {
   setChip("BH1750");
   setQuality(BH1750_QUALITY_HIGH);
+  setMTReg(hp_BH1750::getMtreg());
+  setAutoRanging(AutoRange);
 }
 
 
 void LightBH1750::setQuality(BH1750Quality quality) {
   hp_BH1750::setQuality(quality);
+  quality = hp_BH1750::getQuality();
+  const char *qstr = 0;
+  if (quality == BH1750_QUALITY_HIGH)
+    qstr = QualityStrings[0];
+  else if (quality == BH1750_QUALITY_HIGH2)
+    qstr = QualityStrings[1];
+  else if (quality == BH1750_QUALITY_LOW)
+    qstr = QualityStrings[2];
+  add("Quality", qstr);
 }
 
 
 void LightBH1750::setMTReg(int mtreg) {
   hp_BH1750::writeMtreg(mtreg);
+  snprintf(MTRegStr, 4, "%d", hp_BH1750::getMtreg());
+  MTRegStr[3] = '\0';
+  add("MTreg", MTRegStr);
 }
 
 
 void LightBH1750::setAutoRanging(bool autorange) {
-  AutoRange = true;
+  AutoRange = autorange;
+  add("Autorange", AutoRangeStrings[AutoRange]);
 }
 
 
@@ -72,7 +92,7 @@ void LightBH1750::getData() {
     Illuminance = hp_BH1750::getLux();
     RawData = hp_BH1750::getRaw();
     Quality = hp_BH1750::getQuality();
-    MTReg = hp_BH1750::getMtreg();;
+    MTReg = hp_BH1750::getMtreg();
     if (AutoRange)
       hp_BH1750::adjustSettings(1);
   }

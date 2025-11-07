@@ -6,7 +6,7 @@
 
   [Infos, Datasheet, libraries](https://github.com/janscience/ESensors/blob/main/docs/chips/bh1750.md)
 
-  [Background light measurements](https://github.com/janscience/ESensors/tree/main/docs/parameters/light)
+  [Background on light measurements](https://github.com/janscience/ESensors/tree/main/docs/parameters/light)
 */
 
 #ifndef LightBH1750_h
@@ -88,6 +88,10 @@ class LightBH1750 : public ESensor, protected hp_BH1750 {
   BH1750Quality Quality;
   int MTReg;
   bool AutoRange;
+  
+  static const char *QualityStrings[3];
+  static const char *AutoRangeStrings[2];
+  char MTRegStr[4];
   
 };
 

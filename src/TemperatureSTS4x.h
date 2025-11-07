@@ -73,6 +73,8 @@ class TemperatureSTS4x : public ESensor {
   STS4xAddress I2CAddr;
   STS4xPrecision Precision;
   float Celsius;
+  
+  static const char *PrecisionStrings[3];
 };
 
 

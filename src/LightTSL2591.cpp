@@ -1,6 +1,10 @@
 #include <LightTSL2591.h>
 
 
+const char *LightTSL2591::GainStrings[4] = {"LOW", "MED", "HIGH", "MAX"};
+const char *LightTSL2591::AutoGainStrings[2] = {"off", "on"};
+
+
 LightTSL2591::LightTSL2591() :
   ESensorDevice(),
   TSL2591TwoWire() {
@@ -13,6 +17,7 @@ LightTSL2591::LightTSL2591() :
   MaxData = 0xFFFF;
   AutoGain = false;
   Gain = 0;
+  IntegrationStr[0] = '\0';
 }
 
 
@@ -28,6 +33,7 @@ LightTSL2591::LightTSL2591(TwoWire *wire) :
   MaxData = 0xFFFF;
   AutoGain = false;
   Gain = 0;
+  IntegrationStr[0] = '\0';
 }
 
   
@@ -69,19 +75,27 @@ bool LightTSL2591::available() {
 bool LightTSL2591::setIntegrationTime(uint8_t time) {
   bool success = TSL2591MI::setIntegrationTime(time);
   time = TSL2591MI::getIntegrationTime();
-  DelayTime = (time+1)*100 + 30;
+  DelayTime = (time + 1)*100;
+  snprintf(IntegrationStr, 8, "%ldms", DelayTime);
+  IntegrationStr[7] = '\0';
+  add("IntegrationTime", IntegrationStr);
+  DelayTime += 30;
   MaxData = time == TSL2591MI::TSL2591_INTEGRATION_TIME_100ms ? 0x8FFF : 0xFFFF;
   return success;
 }
 
 
 bool LightTSL2591::setGain(uint8_t gain) {
-  if (gain == AUTO_GAIN) {
-    AutoGain = true;
-    return true;
+  bool success = false;
+  AutoGain = (gain == AUTO_GAIN);
+  add("Autogain", AutoGainStrings[AutoGain]);
+  if (AutoGain)
+    success = true;
+  else {
+    success = TSL2591MI::setGain(gain);
+    add("Gain", GainStrings[TSL2591MI::getGain()]);
   }
-  AutoGain = false;
-  return TSL2591MI::setGain(gain);
+  return success;
 }
 
 
@@ -115,11 +129,10 @@ void LightTSL2591::getData() {
     if (AutoGain) {
       if ((C0DATA < 64 || C1DATA < 64) &&
 	  Gain < TSL2591MI::TSL2591_GAIN_MAX)
-	setGain(Gain+1);
+	TSL2591MI::setGain(Gain + 1);
       else if ((C0DATA > (MaxData >> 2) || C1DATA > (MaxData >> 2)) &&
 	  Gain > 0)
-	setGain(Gain-1);
-      AutoGain = true;
+	TSL2591MI::setGain(Gain - 1);
     }
   }
   // back to sleep:

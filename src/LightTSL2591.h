@@ -129,7 +129,11 @@ class LightTSL2591 : public ESensorDevice, protected TSL2591TwoWire {
   uint16_t MaxData;
   uint8_t Gain;
   bool AutoGain;
-  
+
+  char IntegrationStr[8];
+  static const char *GainStrings[4];
+  static const char *AutoGainStrings[2];
+
 };
 
 
