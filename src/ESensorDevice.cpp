@@ -46,7 +46,7 @@ void ESensorDevice::setSingleWireBus(int pin) {
   Address = 0;
   Pin = pin;
   snprintf(PinStr, MaxPin, "%d", Pin);
-  PinStr[MaxPin] = '\0';
+  PinStr[MaxPin - 1] = '\0';
   strcpy(Identifier, busStr());
   sprintf(Identifier + strlen(Identifier), " %d", pin);
   add("Bus", BusStrings[bus()]);
@@ -60,7 +60,7 @@ void ESensorDevice::setOneWireBus(int pin) {
   Address = 0;
   Pin = pin;
   snprintf(PinStr, MaxPin, "%d", Pin);
-  PinStr[MaxPin] = '\0';
+  PinStr[MaxPin - 1] = '\0';
   add("Bus", BusStrings[bus()]);
   add("Pin", PinStr);
 }
@@ -84,9 +84,11 @@ void ESensorDevice::setI2CBus(const TwoWire &wire, unsigned int address) {
   Address = address;
   Pin = -1;
   snprintf(AddressStr, MaxPin, "%x", Address);
-  AddressStr[MaxPin] = '\0';
+  AddressStr[MaxPin - 1] = '\0';
   strcpy(Identifier, busStr());
-  sprintf(Identifier + strlen(Identifier), " %x", address);
+  snprintf(Identifier + strlen(Identifier), MaxStr - strlen(Identifier) - 1,
+	   " %x", address);
+  Identifier[MaxStr - 1] = '\0';
   add("Bus", BusStrings[bus()]);
   add("Address", AddressStr);
   add("Identifier", Identifier);
@@ -108,9 +110,11 @@ void ESensorDevice::setSPIBus(const SPIClass &spi, unsigned int cspin) {
   Address = 0;
   Pin = cspin;
   snprintf(PinStr, MaxPin, "%d", Pin);
-  PinStr[MaxPin] = '\0';
+  PinStr[MaxPin - 1] = '\0';
   strcpy(Identifier, busStr());
-  sprintf(Identifier + strlen(Identifier), " %d", cspin);
+  snprintf(Identifier + strlen(Identifier), MaxStr - strlen(Identifier) - 1,
+	   " %d", cspin);
+  Identifier[MaxStr - 1] = '\0';
   add("Bus", BusStrings[bus()]);
   add("Pin", PinStr);
   add("Identifier", Identifier);
@@ -134,6 +138,7 @@ const char* ESensorDevice::chip() const {
 
 void ESensorDevice::setChip(const char *chip) {
   strncpy(Chip, chip, MaxStr);
+  Chip[MaxStr - 1] = '\0';
   add("Chip", Chip);
 }
 
@@ -145,6 +150,7 @@ const char* ESensorDevice::identifier() const {
 
 void ESensorDevice::setIdentifier(const char *identifier) {
   strncpy(Identifier, identifier, MaxStr);
+  Identifier[MaxStr - 1] = '\0';
   add("Identifier", Identifier);
 }
 
