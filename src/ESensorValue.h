@@ -37,7 +37,7 @@ class ESensorValue : public ESensor {
   virtual ESensorDevice *device();
 
   // Return true if sensor device is available.
-  virtual bool available() { return SDev->available(); };
+  virtual bool available() const { return SDev->available(); };
 
   // Bus controlling the sensor device.
   virtual BUS bus() const { return SDev->bus(); };
@@ -74,6 +74,10 @@ class ESensorValue : public ESensor {
 
   // Return value of the index-th metadata entry.
   virtual const char *value(size_t index) const { return SDev->value(index); };
+
+  /* Write the device's chip and all the key-value pairs to stream (if available()). */
+  virtual void write(Stream &stream=Serial, size_t indent=0, size_t indent_incr=4) const {
+    return SDev->write(stream, indent, indent_incr); };
 
   
  protected:

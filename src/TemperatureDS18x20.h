@@ -47,7 +47,7 @@ class TemperatureDS18x20 : public ESensor {
   void begin(uint8_t pin);
 
   // Return true if temperature sensor is available.
-  virtual bool available();
+  virtual bool available() const;
 
   // Recommended delay between a request() and read() in milliseconds.
   virtual unsigned long delayTime() const { return 1000; };

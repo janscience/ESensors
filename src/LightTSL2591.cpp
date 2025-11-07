@@ -67,7 +67,7 @@ void LightTSL2591::init() {
 }
 
 
-bool LightTSL2591::available() {
+bool LightTSL2591::available() const {
   return (strlen(chip()) > 0);
 }
 

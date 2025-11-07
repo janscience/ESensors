@@ -75,10 +75,13 @@ class ESensorDevice {
   virtual const char *value(size_t index) const { return Values[index]; };
   
   // Return true if sensor is available.
-  virtual bool available() = 0;
+  virtual bool available() const = 0;
   
-  // Report properties of device on stream.
+  // Report properties of device in one line on stream.
   virtual void report(Stream &stream=Serial);
+
+  /* Write the device's chip and all the key-value pairs to stream (if available()). */
+  virtual void write(Stream &stream=Serial, size_t indent=0, size_t indent_incr=4) const;
 
   // Request a sensor reading.
   void request();

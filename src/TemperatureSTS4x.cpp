@@ -47,7 +47,7 @@ void TemperatureSTS4x::begin(TwoWire &wire, STS4xAddress addr) {
 }
 
 
-bool TemperatureSTS4x::available() {
+bool TemperatureSTS4x::available() const {
   I2CBus->beginTransmission(I2CAddr);
   return (I2CBus->endTransmission() == 0);
 }

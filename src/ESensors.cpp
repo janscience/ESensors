@@ -120,6 +120,29 @@ void ESensors::reportDevices(Stream &stream) {
 }
 
 
+void ESensors::writeDevices(Stream &stream, size_t indent, size_t indent_incr) {
+  // compile list of uniques devices:
+  ESensorDevice *devices[NSensors];
+  uint8_t ndevices = 0;
+  for (uint8_t k=0; k<NSensors; k++) {
+    if (Snsrs[k]->device()) {
+      bool found = false;
+      for (uint8_t j=0; j<ndevices; j++) {
+	if (devices[j] == Snsrs[k]->device()) {
+	  found = true;
+	  break;
+	}
+      }
+      if (!found)
+	devices[ndevices++] = Snsrs[k]->device();
+    }
+  }
+  // write:
+  for (uint8_t k=0; k<ndevices; k++)
+    devices[k]->write(stream, indent, indent_incr);
+}
+
+
 void ESensors::setDelayTime() {
   // find maximum delay:
   DelayTime = 0;

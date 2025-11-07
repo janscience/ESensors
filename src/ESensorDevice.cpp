@@ -236,6 +236,23 @@ int ESensorDevice::setValue(const char *key, const char *value) {
 	return -1;
     }
   }
-  return false;
+  return -1;
+}
+
+
+void ESensorDevice::write(Stream &stream, size_t indent, size_t indent_incr) const {
+  if (available()) {
+    stream.printf("%*s%s (%s):\n", indent, "", chip(), identifier());
+    indent += indent_incr;
+    size_t w = 0;
+    for (size_t k=0; k<NKeyVals; k++) {
+      if (w < strlen(Keys[k]))
+	w = strlen(Keys[k]);
+    }
+    for (size_t k=0; k<NKeyVals; k++) {
+      size_t kw = w >= strlen(Keys[k]) ? w - strlen(Keys[k]) : 0;
+      stream.printf("%*s%s:%*s %s\n", indent, "", Keys[k], kw, "", Values[k]);
+    }
+  }
 }
 

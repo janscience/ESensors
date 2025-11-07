@@ -24,7 +24,8 @@ Member functions:
 - `address()`: address of the chip on an I2C bus.
 - `pin()`: pin of the chip on an SPI or OneWire bus.
 - `available()`: availability of the chip/device.
-- `report()`: print chip(), bus(), address() or pin() and identifier() on stream.
+- `report()`: print chip(), bus(), address() or pin() and identifier() in one line on stream.
+- `write()`: write the device's chip and all the key-value pairs to stream.
 - `request()`: request a sensor reading.
 - `delayTime()`: minimum time to wait between request() and get().
 - `retrieve()`: retrieve sensor data over an extended period of time.
@@ -91,6 +92,7 @@ Member functions for unit conversion of pressures:
 Available ESensors:
 
 - [`TemperatureDS18x20`](chips/ds18x20.md)
+- [`TemperatureSTS4x`](chips/sts4x.md)
 - [`LightBH1750`](chips/bh1750.md)
 
 
@@ -141,6 +143,7 @@ Output on stream:
 
 - `reportDevices()`: report properties (chip, bus, address/pin, identifier)
   of managed [ESensor](#esensor)s chips.
+- `writeDevices()`: write properties and metadata of all sensor devices on stream.
 - `report()`: report properties (name, unit, resolution, chip, etc.) of managed [ESensor](#esensor)s.
 - `setPrintTime()`: control whether and how time stamps are reported.
 - `print()`: print sensor names, readings, and units.

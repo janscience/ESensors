@@ -23,7 +23,7 @@ class SenseDHT : public ESensorDevice, protected DHT_Async {
   SenseDHT(uint8_t pin, uint8_t type);
 
   // Return true if sensor is available.
-  virtual bool available();
+  virtual bool available() const;
 
   // Recommended delay between a request() and get() in milliseconds.
   virtual unsigned long delayTime() const;

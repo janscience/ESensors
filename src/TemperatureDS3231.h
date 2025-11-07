@@ -34,7 +34,7 @@ class TemperatureDS3231 : public ESensor {
   void begin(TwoWire &wire=Wire);
 
   // Return true if device is available.
-  virtual bool available();
+  virtual bool available() const;
 
   // Recommended delay between a request() and read() in milliseconds.
   virtual unsigned long delayTime() const { return 1; };

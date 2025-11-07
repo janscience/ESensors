@@ -43,7 +43,7 @@ class SenseBME280 : public ESensorDevice, protected BME280 {
   bool beginSPI(uint8_t cs_pin);
 
   // Return true if sensor is available.
-  virtual bool available();
+  virtual bool available() const;
 
   // Recommended delay between a request() and get() in milliseconds.
   virtual unsigned long delayTime() const;

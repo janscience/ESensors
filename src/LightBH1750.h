@@ -52,7 +52,7 @@ class LightBH1750 : public ESensor, protected hp_BH1750 {
   void setAutoRanging(bool autorange=true);
 
   // Return true if light sensor is available.
-  virtual bool available();
+  virtual bool available() const;
 
   // Recommended delay between a request() and get() in milliseconds.
   virtual unsigned long delayTime() const;

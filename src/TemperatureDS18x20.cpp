@@ -70,7 +70,7 @@ void TemperatureDS18x20::begin(uint8_t pin) {
 }
 
 
-bool TemperatureDS18x20::available() {
+bool TemperatureDS18x20::available() const {
   return (Type_s >= 0);
 }
 

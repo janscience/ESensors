@@ -54,7 +54,7 @@ void SenseBME280::init() {
 }
 
 
-bool SenseBME280::available() {
+bool SenseBME280::available() const {
   return (strlen(chip()) > 0);
 }
 

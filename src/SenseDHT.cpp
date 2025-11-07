@@ -24,7 +24,7 @@ SenseDHT::SenseDHT(uint8_t pin, uint8_t type) :
 }
 
 
-bool SenseDHT::available() {
+bool SenseDHT::available() const {
   return true;
 }
 

@@ -125,7 +125,7 @@ const char* DerivedESensor::identifier() const {
 }
 
   
-bool DerivedESensor::available() {
+bool DerivedESensor::available() const {
   for (size_t k=0; k<NSnsr; k++) {
     if (! Snsr[k]->available())
       return false;

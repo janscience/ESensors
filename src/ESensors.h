@@ -51,6 +51,9 @@ class ESensors {
   // Report properties of all sensor devices on stream.
   void reportDevices(Stream &stream=Serial);
 
+  // Write properties and metadata of all sensor devices on stream.
+  void writeDevices(Stream &stream=Serial, size_t indent=0, size_t indent_incr=4);
+
   // Start acquisition of sensor values, set delayTime(), and clear
   // data buffers.
   void start();

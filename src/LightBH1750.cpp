@@ -71,7 +71,7 @@ void LightBH1750::setAutoRanging(bool autorange) {
 }
 
 
-bool LightBH1750::available() {
+bool LightBH1750::available() const {
   return (strlen(chip()) > 0);
 }
 

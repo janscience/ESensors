@@ -23,7 +23,7 @@ void TemperatureDS3231::begin(TwoWire &wire) {
 }
 
 
-bool TemperatureDS3231::available() {
+bool TemperatureDS3231::available() const {
   I2CBus->beginTransmission(DS1307_CTRL_ID);
   return (I2CBus->endTransmission() == 0);
 }

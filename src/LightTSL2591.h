@@ -44,7 +44,7 @@ class LightTSL2591 : public ESensorDevice, protected TSL2591TwoWire {
   bool begin(TwoWire &wire);
 
   // Return true if light sensor is available.
-  virtual bool available();
+  virtual bool available() const;
 
   // Recommended delay between a request() and get() in milliseconds.
   virtual unsigned long delayTime() const;

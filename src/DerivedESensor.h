@@ -57,7 +57,7 @@ class DerivedESensor : public ESensor {
   virtual const char* identifier() const;
   
   // Return true if sensors are available.
-  virtual bool available();
+  virtual bool available() const;
 
   // Recommended delay between a request() and get().
   virtual unsigned long delayTime() const;
