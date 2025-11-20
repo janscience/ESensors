@@ -2,9 +2,13 @@
 
 Apparently, measuring water level by means of a laser or ultrasound is difficult (why exactly?).
 
-Better to measure hydrostatic pressure *pw* against atmospheric pressure *p0* right above the water: *pw - p0 = rho g h*. Then the water level is *h= (pw-p0)/(rho g)* above the pressure sensor.
+Better to measure hydrostatic pressure $p_w$ against atmospheric pressure $p_0$ right above the water:
+$$p_w - p_0 = \rho g h$$
+Then the water level is
+$$h= \frac{p_w-p_0}{\rho g}$$
+above the pressure sensor.
 
-Note, that *pw* is measured in non-flowing water!
+Note, that $p_$* is measured in non-flowing water!
 
 Note, that the temperature dependence of the water density matters!
 
