@@ -117,7 +117,7 @@ void setup() {
   sensors.setInterval(sensorsInterval);
   sensors.setPrintTime(ESensors::ISO_TIME);
   sensors.report();
-  bool success = sensors.openCSV(SD, "sensors", symbols);
+  bool success = sensors.openCSV(SD, "sensors.csv", symbols);
   digitalWrite(led_pin, LOW);
   if (success) {
     // init sensors:
@@ -147,7 +147,6 @@ void loop() {
     tsl.setTemperature(bme.temperature());
 #endif
     sensors.print(symbols);
-    Serial.println();
     delay(50);
     digitalWrite(led_pin, LOW);
   }

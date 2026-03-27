@@ -16,7 +16,7 @@ void VoltageADC::begin(uint8_t pin, float maxvolt) {
   if (Pin >= 0) {
     pinMode(Pin, INPUT);
     analogReadResolution(Bits);
-    analogReadAveraging(1);  // 4, 8, 16, 32
+    analogReadAveraging(4);  // 1, 4, 8, 16, 32
     MaxInt = 1 << Bits;
     setResolution(MaxVoltage/MaxInt);
     MaxInt--;

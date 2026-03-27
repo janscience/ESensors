@@ -419,9 +419,10 @@ bool ESensors::openCSV(SdFat &sd, const char *path,
   if (Header[0] == '\0') // no sensors
     return false;
   // create file and write header:
-  char fpath[strlen(path)+10];
+  char fpath[strlen(path) + 10];
   strcpy(fpath, path);
-  strcat(fpath, ".csv");
+  if ((strlen(fpath) >= 4) && (fpath[strlen(fpath) - 4] != '.'))
+    strcat(fpath, ".csv");
   if (append && sd.exists(fpath))
     DF = sd.open(fpath, O_RDWR | O_APPEND);
   else
