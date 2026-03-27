@@ -20,6 +20,7 @@ Arduino with additional background information.
 
 ### Currently supported sensors
 
+- VoltageADC: voltage
 - [BH1750](docs/chips/bh1750.md): [light intensity](docs/parameters/light.md)
 - [BME280](docs/chips/bme280.md): [air pressure](docs/parameters/airpressure.md), [temperature](docs/parameters/temperature.md), and [humidity](docs/parameters/humidity.md)
 - [DS18x20](docs/chips/ds18x20.md): [temperature](docs/parameters/temperature.md)

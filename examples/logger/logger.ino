@@ -1,6 +1,7 @@
 #include <TimeLib.h>
 #include <SD.h>
 #include <ESensors.h>
+#include <VoltageADC.h>
 #include <TemperatureDS18x20.h>
 #include <TemperatureDS3231.h>
 #include <TemperatureSTS4x.h>
@@ -10,7 +11,8 @@
 #include <DewPoint.h>
 
 // uncomment the sensors you want to use:
-#define TEMPDS18x20
+#define VOLTADC
+//#define TEMPDS18x20
 //#define TEMPDS3231
 //#define TEMPSTS4x
 //#define SENSEDHT
@@ -21,6 +23,7 @@
 
 // settings: -----------------------------------------------------------------
 
+#define ADC_PIN     A8   // pin for voltage recordings
 #define DS18x20_PIN  9   // pin for DATA line of DS18x20 themperature sensor
 #define DHT_PIN     10   // pin for DATA line of DHTx themperature and humidity sensor
 #define STS4x_ADDR  STS4x_ADDR2  // I2C address of STS4x temperature sensor
@@ -32,6 +35,9 @@ float sensorsInterval = 2.0; // interval between sensors readings in seconds
 
 ESensors sensors;
 
+#ifdef VOLTADC
+VoltageADC volt(&sensors);
+#endif
 #ifdef TEMPDS18x20
 TemperatureDS18x20 temp(&sensors);
 #endif
@@ -79,6 +85,9 @@ void setup() {
   while (!Serial && millis() < 2000) {};
   setSyncProvider(getTeensyTime);
   SD.begin(BUILTIN_SDCARD);
+#ifdef VOLTADC
+  volt.begin(ADC_PIN);
+#endif
 #ifdef TEMPDS18x20
   temp.begin(DS18x20_PIN);
 #endif
