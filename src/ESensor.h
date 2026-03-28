@@ -62,10 +62,14 @@ class ESensor : public ESensorDevice {
   // Return unit of derived sensor values as character array.
   const char* unit() const;
 
+  // Set unit of environmental sensor reading to unit and format string.
+  void setUnit(const char *unit, const char *format=0);
+
   // Set unit of environmental sensor reading to unit.
-  // Optionally, the sensor reading can be mutliplied by factor and
+  // In addition, the sensor reading() (and the resolution())
+  // can be mutliplied by factor and
   // offsetted by offset to result in the desired unit.
-  void setUnit(const char *unit, float factor=1.0, float offset=0.0);
+  void setUnit(const char *unit, float factor, float offset=0.0);
 
   // Set unit, conversion factor, offset, and format string of environmental
   // sensor reading.
@@ -75,6 +79,21 @@ class ESensor : public ESensorDevice {
   // Set unit, conversion factor, and format string of environmental
   // sensor reading. The offset is set to zero.
   void setUnit(const char *unit, float factor, const char *format);
+  
+  // Set conversion factor of environmental sensor reading.
+  // The sensor reading() (and the resolution()) is mutliplied by factor and
+  // offsetted by offset to result in value().
+  void setFactor(float factor);
+  
+  // Set conversion factor and offset of environmental sensor reading.
+  // The sensor reading() (and the resolution()) is mutliplied by factor and
+  // offsetted by offset to result in value().
+  void setFactor(float factor, float offset);
+  
+  // Set conversion offset of environmental sensor reading.
+  // The sensor reading() (and the resolution()) is mutliplied by factor and
+  // offsetted by offset to result in value().
+  void setOffset(float offset);
 
   // Return format string for sensor readings as character array.
   const char* format() const;

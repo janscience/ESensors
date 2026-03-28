@@ -77,27 +77,46 @@ const char* ESensor::unit() const {
 }
 
 
+void ESensor::setUnit(const char *unit, const char *format) {
+  strcpy(Unit, unit);
+  setFormat(format);
+}
+
+
 void ESensor::setUnit(const char *unit, float factor, float offset) {
   strcpy(Unit, unit);
-  Factor = factor;
-  Offset = offset;
+  setFactor(factor, offset);
 }
 
 
 void ESensor::setUnit(const char *unit, float factor, float offset,
 		      const char *format) {
   strcpy(Unit, unit);
-  Factor = factor;
-  Offset = offset;
+  setFactor(factor, offset);
   setFormat(format);
 }
 
 
 void ESensor::setUnit(const char *unit, float factor, const char *format) {
   strcpy(Unit, unit);
-  Factor = factor;
-  Offset = 0.0;
+  setFactor(factor, 0.0);
   setFormat(format);
+}
+
+
+void ESensor::setFactor(float factor, float offset) {
+  Factor = factor;
+  Offset = offset;
+}
+
+
+void ESensor::setFactor(float factor) {
+  Factor = factor;
+}
+
+
+void ESensor::setOffset(float offset) {
+  Offset = offset;
 }
 
 
@@ -112,6 +131,8 @@ const char* ESensor::compactFormat() const {
 
 
 void ESensor::setFormat(const char *format) {
+  if (format == 0)
+    return;
   strcpy(Format, format);
   // format without width:
   char fpref[4];

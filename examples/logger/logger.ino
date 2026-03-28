@@ -87,6 +87,8 @@ void setup() {
   SD.begin(BUILTIN_SDCARD);
 #ifdef VOLTADC
   volt.begin(ADC_PIN);
+  volt.setFactor(2.0);  // multiply voltage reading by two
+  volt.setName("battery voltage", "Vbat");
 #endif
 #ifdef TEMPDS18x20
   temp.begin(DS18x20_PIN);
