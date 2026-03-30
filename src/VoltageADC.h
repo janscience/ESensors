@@ -29,6 +29,13 @@ class VoltageADC : public ESensor {
 
   // The voltage in Volt.
   virtual float reading() const;
+
+  // Number of averages used when reading the voltage.
+  uint8_t averaging() const { return Averaging; };
+
+  // Set the number of averages used when reading the voltage.
+  // Valid values are 1, 4, 8, 16, or 32.
+  void setAveraging(uint8_t avrg);
   
   
  private:
@@ -39,8 +46,13 @@ class VoltageADC : public ESensor {
   int8_t Pin;
   uint8_t Bits;
   unsigned int MaxInt;
+  uint8_t Averaging;
   float MaxVoltage;
   float Voltage;
+
+  char PinStr[4];
+  char BitStr[4];
+  char AvrgStr[4];
 };
 
 

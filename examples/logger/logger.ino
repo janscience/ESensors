@@ -86,6 +86,7 @@ void setup() {
   setSyncProvider(getTeensyTime);
   SD.begin(BUILTIN_SDCARD);
 #ifdef VOLTADC
+  volt.setAveraging(32);
   volt.begin(ADC_PIN);
   volt.setFactor(2.0);  // multiply voltage reading by two
   volt.setName("battery voltage", "Vbat");
@@ -118,6 +119,9 @@ void setup() {
 #endif
   sensors.setInterval(sensorsInterval);
   sensors.setPrintTime(ESensors::ISO_TIME);
+  sensors.writeDevices();
+  Serial.println();
+  sensors.reportDevices();
   sensors.report();
   bool success = sensors.openCSV(SD, "sensors.csv", symbols);
   digitalWrite(led_pin, LOW);
