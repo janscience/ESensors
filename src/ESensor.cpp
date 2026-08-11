@@ -133,7 +133,8 @@ const char* ESensor::compactFormat() const {
 void ESensor::setFormat(const char *format) {
   if (format == 0)
     return;
-  strcpy(Format, format);
+  strncpy(Format, format, 22);
+  Format[21] = '\0';
   // format without width:
   char fpref[4];
   int width;
@@ -288,7 +289,7 @@ void ESensor::adaptFormat(int decimals) {
     }
   }
   // assemble format string:
-  char format[22];
+  char format[32];
   if (width >= 0 && decis >= 0)
     sprintf(format, "%%%s%d.%d%s", fpref, width, decis, ftype);
   else if (width >= 0)
