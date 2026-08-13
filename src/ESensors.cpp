@@ -39,6 +39,15 @@ uint8_t ESensors::sensors() const {
 }
 
 
+ESensor *ESensors::sensor(const char *name) {
+  for (uint8_t k=0; k<NSensors; k++) {
+    if (Snsrs[k]->available() && strcmp(Snsrs[k]->name(), name) == 0)
+      return Snsrs[k];
+  }
+  return NULL;
+}
+
+
 float ESensors::interval() const {
   return 0.001*Interval;
 }

@@ -32,6 +32,9 @@ class ESensors {
   // The index-th sensor.
   ESensor &operator[](uint8_t index) { return *Snsrs[index]; };
 
+  // The sensor with name.
+  ESensor *sensor(const char *name);
+
   // Update interval for reading sensor values in seconds.
   float interval() const;
 
