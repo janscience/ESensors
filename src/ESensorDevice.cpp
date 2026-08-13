@@ -35,9 +35,15 @@ ESensorDevice::BUS ESensorDevice::bus() const {
 }
 
 
-void ESensorDevice::setInternBus() {
+void ESensorDevice::setInternBus(int pin) {
   Bus = BUS::INTERN;
   add("Bus", BusStrings[bus()]);
+  if (pin >= 0) {
+    Pin = pin;
+    snprintf(PinStr, MaxPin, "%d", Pin);
+    PinStr[MaxPin - 1] = '\0';
+    add("Pin", PinStr);
+  }
 }
 
 

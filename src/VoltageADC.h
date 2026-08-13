@@ -16,10 +16,10 @@ class VoltageADC : public ESensor {
  public:
   
   // Read voltages from pin.
-  VoltageADC(ESensors *sensors=0, uint8_t pin=-1, float maxvolt=3.3);
+  VoltageADC(ESensors *sensors=0, int pin=-1, float maxvolt=3.3);
   
   // Read voltages from pin.
-  void begin(uint8_t pin, float maxvolt=3.3);
+  void begin(int pin, float maxvolt=3.3);
 
   // Return true if device is available.
   virtual bool available() const;
@@ -38,19 +38,17 @@ class VoltageADC : public ESensor {
   void setAveraging(uint8_t avrg);
   
   
- private:
+ protected:
 
   // Retrieve a voltage reading.
   virtual void getData();
 
-  int8_t Pin;
   uint8_t Bits;
   unsigned int MaxInt;
   uint8_t Averaging;
   float MaxVoltage;
   float Voltage;
 
-  char PinStr[4];
   char BitStr[4];
   char AvrgStr[4];
 };

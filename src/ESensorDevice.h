@@ -106,7 +106,7 @@ class ESensorDevice {
 protected:
 
   // Set internal bus.
-  void setInternBus();
+  void setInternBus(int pin=-1);
 
   // Set SingleWire bus and its data pin.
   // Also set identifier to bus name plus data pin.
@@ -158,7 +158,7 @@ protected:
   BUS Bus;
   unsigned int Address;
   int Pin;
-  static const int MaxPin = 5;
+  static const int MaxPin = 15;
   char AddressStr[MaxPin + 1];
   char PinStr[MaxPin + 1];
   static const int MaxStr = 49;

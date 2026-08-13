@@ -1,33 +1,30 @@
 #include <VoltageADC.h>
 
 
-VoltageADC::VoltageADC(ESensors *sensors, uint8_t pin, float maxvolt) :
+VoltageADC::VoltageADC(ESensors *sensors, int pin, float maxvolt) :
   ESensor(sensors, "voltage", "V", "V", "%.4f"),
   Bits(10),
   Averaging(4),
-  PinStr("0"),
   BitStr("10"),
   AvrgStr("4") {
   setInternBus();
   setChip("ADC");
-  add("Pin", PinStr);
   add("Bits", BitStr);
   add("Averaging", AvrgStr);
   begin(pin, maxvolt);
 }
 
 
-void VoltageADC::begin(uint8_t pin, float maxvolt) {
-  Pin = pin;
+void VoltageADC::begin(int pin, float maxvolt) {
   MaxVoltage = maxvolt;
   Voltage = NoValue;
-  if (Pin >= 0) {
-    pinMode(Pin, INPUT);
+  if (pin >= 0) {
+    setInternBus(pin);
+    pinMode(pin, INPUT);
     analogReadResolution(Bits);
     char ident[8];
-    sprintf(ident, "ADC-%u", Pin);
+    sprintf(ident, "ADC-%u", pin);
     setIdentifier(ident);
-    sprintf(PinStr, "%u", pin);
     sprintf(BitStr, "%u", Bits);
     setAveraging(Averaging);
     MaxInt = 1 << Bits;
