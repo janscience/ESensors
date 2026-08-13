@@ -24,6 +24,12 @@ class VoltageADC : public ESensor {
   // Return true if device is available.
   virtual bool available() const;
 
+  // The maximum voltage that can be measured.
+  float maxVoltage() const { return MaxVoltage; };
+
+  // Set the maximum voltage that can be measured to maxvolt.
+  void setMaxVoltage(float maxvolt);
+
   // Recommended delay between a request() and read() in milliseconds.
   virtual unsigned long delayTime() const { return 0; };
 
@@ -36,7 +42,10 @@ class VoltageADC : public ESensor {
   // Set the number of averages used when reading the voltage.
   // Valid values are 1, 4, 8, 16, or 32.
   void setAveraging(uint8_t avrg);
-  
+
+  // Calibrate such that the last reading that was not zero was exactly voltage.
+  void calibrate(float voltage);
+
   
  protected:
 
@@ -47,6 +56,7 @@ class VoltageADC : public ESensor {
   unsigned int MaxInt;
   uint8_t Averaging;
   float MaxVoltage;
+  int RawInteger;
   float Voltage;
 
   char BitStr[4];
