@@ -4,9 +4,9 @@ Temperature and light sensor with status LEDs.
 
 Based on
 
-- [BH1750](../../docs/chips/bh1750.md)  ambient light sensor
+- [BH1750 or BH1730](../../docs/chips/bh1750.md) ambient light sensor
 - [Sensirion STS40](../../docs/chips/sts4x.md) temperature sensor
-- [PCA9536](pca9536.pdf) 4-bit I2C-bus I/O port
+- [PCA9536](pca9536.pdf) 4-bit I2C-bus I/O port for driving status LEDs
 
 by [jlm Innovation](https://www.jlm-innovation.de/) and [Jan
 Benda](https://github.com/janscience).
@@ -16,13 +16,28 @@ Benda](https://github.com/janscience).
 
 ## Circuit
 
+### Version 1.1
+
+(smaller pads and 0.5mm less wide)
+
+- [EAGLE schematics file](Sensors-V1.1.sch)
+- [EAGLE circuit board](Sensors-V1.1.brd)
+
+### Version 1
+
 - [EAGLE schematics file](Sensors-V1.sch)
 - [EAGLE circuit board](Sensors-V1.brd)
+
+### Version 2
+
+Since the BH1750 is not produced anymore, we need to select another
+light sensor which supports at least two I2C addresses.
+For example, the TI OPT3001 ambient light sensor.
 
 
 ## LEDs
 
-- [LITE-ON 639nm](LTST_C190KRKT-1141828.pdf): SMD, orange
+- [LITE-ON 639nm](LTST_C190KRKT-1141828.pdf): SMD, red
 - [LITE-ON 468nm](LTST_C193TBKT_5A-1175300.pdf): SMD, blue
 - [OSRAM 850nm](sfh4555.pdf): through-hole, infrared
 
@@ -102,4 +117,5 @@ void loop() {
 
 ## Applications
 
+- [R5-logger](https://github.com/janscience/TeeGrid/tree/main/examples/R5-logger) 
 - [R4-sensors-logger](https://github.com/janscience/TeeGrid/tree/main/examples/R4-sensors-logger) 
